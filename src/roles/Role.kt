@@ -3,6 +3,7 @@ package roles
 import thavalon.Game
 import thavalon.Player
 import thavalon.Updater
+import thavalon.UpdaterPriority
 
 /**
  * Thavalon Alignments
@@ -68,16 +69,17 @@ sealed class ThavalonInformation() {
 }
 
 /**
- * Interface that all roles must implement
+ * Abstract class that all roles must extend. Was originally an interface but wanted default initialization of
+ * 'player' and 'information' fields
  */
-interface Role {
+abstract class Role {
     // the type and alignment of the role
-    val role : RoleType
+    abstract val role : RoleType
     // player assigned to this role
-    var player : Player
+    var player : Player = Player("Empty")
 
     // the information this role has about the gamestate
-    val information : MutableList<ThavalonInformation>
+    val information : MutableList<ThavalonInformation> = ArrayList()
 
     // whether the given role is ok with the other roles in the game
     fun gameOk(g : Game) : Boolean {
@@ -85,12 +87,22 @@ interface Role {
     }
 
     // gets a list of updaters to fill in this role's necessary information in the game
-    fun getUpdaters(g : Game) : List<Updater>
+    abstract fun getUpdaters(g : Game) : List<Updater>
 }
 
 /**
- * Interface for "default" evil roles, adds convenience method for the updater that
+ * abstract class for "default" evil roles, adds convenience method for the updater that
+ * adds the evil team (minus yourself) as "seen" information
  */
-interface DefaultEvilRole : Role {
+abstract class DefaultEvilRole : Role() {
+    fun getSeesEvilTeamUpdater() : Updater {
+        // default evil team, sees all other evil roles that aren't you
+        return Pair({g : Game -> val status = information.addAll(g.getEvilRoles().filter {
+            it.role.role != role.role }.map { ThavalonInformation.SingleSeenInformation(it) })}
+            , UpdaterPriority.Ten)
+    }
 
+    override fun getUpdaters(g: Game): List<Updater> {
+        return listOf(getSeesEvilTeamUpdater())
+    }
 }

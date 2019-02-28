@@ -6,7 +6,7 @@ import thavalon.Updater
 import thavalon.UpdaterPriority
 import java.util.ArrayList
 
-class Merlin() : Role {
+class Merlin() : Role() {
 
     override fun getUpdaters(g: Game): List<Updater> {
         return listOf(this.getUpdater())
@@ -39,8 +39,4 @@ class Merlin() : Role {
     }
 
     override val role = RoleType.Merlin()
-
-    override var player = Player("Empty")
-
-    override val information: MutableList<ThavalonInformation> = ArrayList()
 }
