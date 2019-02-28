@@ -10,7 +10,8 @@ import thavalon.UpdaterPriority
  */
 enum class Alignment {
     Good,
-    Evil
+    Evil,
+    Unknown
 }
 
 enum class RoleEnum {
@@ -27,7 +28,9 @@ enum class RoleEnum {
     Morgana,
     Maelagant,
     Oberon,
-    Agravaine
+    Agravaine,
+
+    Unknown
 }
 
 /**
@@ -48,6 +51,8 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
     class Maelagant : RoleType(RoleEnum.Maelagant, Alignment.Evil)
     class Oberon : RoleType(RoleEnum.Oberon, Alignment.Evil)
     class Agravaine : RoleType(RoleEnum.Agravaine, Alignment.Evil)
+
+    class Unknown : RoleType(RoleEnum.Unknown, Alignment.Unknown)
 }
 
 /**
@@ -65,29 +70,31 @@ sealed class ThavalonInformation() {
     data class SingleSeenInformation(val seen : Role) : ThavalonInformation()
 
     // this information represents seeing someone seeing someone else (guinevere info)
-    data class ASeesBInformation(val A : Role, val B : Role) : ThavalonInformation()
+    data class ASeesBInformation(var A : Role, var B : Role) : ThavalonInformation()
 }
 
 /**
  * Abstract class that all roles must extend. Was originally an interface but wanted default initialization of
- * 'player' and 'information' fields
+ * 'player' and 'information' fields, and a default getUpdaters method
  */
 abstract class Role {
     // the type and alignment of the role
     abstract val role : RoleType
     // player assigned to this role
-    var player : Player = Player("Empty")
+    var player : Player = Player("????")
 
     // the information this role has about the gamestate
     val information : MutableList<ThavalonInformation> = ArrayList()
 
     // whether the given role is ok with the other roles in the game
-    fun gameOk(g : Game) : Boolean {
+    open fun gameOk(g : Game) : Boolean {
         return true
     }
 
     // gets a list of updaters to fill in this role's necessary information in the game
-    abstract fun getUpdaters(g : Game) : List<Updater>
+    open fun getUpdaters(g : Game) : List<Updater> {
+        return ArrayList()
+    }
 }
 
 /**
@@ -95,7 +102,7 @@ abstract class Role {
  * adds the evil team (minus yourself) as "seen" information
  */
 abstract class DefaultEvilRole : Role() {
-    fun getSeesEvilTeamUpdater() : Updater {
+    private fun getSeesEvilTeamUpdater() : Updater {
         // default evil team, sees all other evil roles that aren't you
         return Pair({g : Game -> val status = information.addAll(g.getEvilRoles().filter {
             it.role.role != role.role }.map { ThavalonInformation.SingleSeenInformation(it) })}
@@ -105,4 +112,11 @@ abstract class DefaultEvilRole : Role() {
     override fun getUpdaters(g: Game): List<Updater> {
         return listOf(getSeesEvilTeamUpdater())
     }
+}
+
+/**
+ * Singleton UnknownRole, used by oberon to corrupt guinevere information
+ */
+object UnknownRole : Role() {
+    override val role : RoleType = RoleType.Unknown()
 }
