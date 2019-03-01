@@ -15,6 +15,7 @@ class Oberon : DefaultEvilRole() {
     }
 
     private fun getOberonUpdater() : Updater {
+        // oberon updater must run last
         return Pair({g : Game -> obfuscateInformation(g, getTarget(g))}, UpdaterPriority.One)
     }
 
@@ -23,8 +24,7 @@ class Oberon : DefaultEvilRole() {
         goodTeam.shuffle()
         // find first member of good team with modifiable information
         return goodTeam.first {
-            it.information.any {x : ThavalonInformation -> x is ThavalonInformation.SingleSeenInformation ||
-                    x is ThavalonInformation.ASeesBInformation}
+            it.information.seen.isNotEmpty() || it.information.aSeesB.isNotEmpty()
         }
     }
 
@@ -34,30 +34,25 @@ class Oberon : DefaultEvilRole() {
     private fun obfuscateInformation(g: Game, target : Role) : Unit {
         assert(target.role.alignment == Alignment.Good)
 
-        val info : MutableList<ThavalonInformation> = target.information
-        info.shuffle()
         val oberonAlert = ThavalonInformation.AlertInformation("You have been Oberon'd!")
-        val toModify : ThavalonInformation = info.first { it is ThavalonInformation.SingleSeenInformation ||
-                it is ThavalonInformation.ASeesBInformation }
-        // this is guaranteed to be one of these types. If no such element was present in the list,
-        // first would have thrown a NoSuchElementException
-        when (toModify) {
-            is ThavalonInformation.SingleSeenInformation -> {
-                // in this case, we add an additional piece of (false) information to info
-                info.add(addSingleInformation(g, target))
-            }
-            is ThavalonInformation.ASeesBInformation -> {
-                // in this case, we want to obfuscate part of toModify
-                if (Random.nextBoolean()) {
-                    toModify.A = UnknownRole
-                } else {
-                    toModify.B = UnknownRole
-                }
+
+
+        if (target.information.seen.isEmpty()) {
+            target.information.add(modifyASeesBInformation(g, target))
+        } else if(target.information.aSeesB.isEmpty()) {
+            target.information.add(addSingleInformation(g, target))
+        } else {
+            // this case is only hit if there's a role with both kinds of information
+            // no such roles exist yet, but since we might add one I wrote this anyway
+            if (Random.nextBoolean()) {
+                 target.information.add(modifyASeesBInformation(g, target))
+            } else {
+                 target.information.add(addSingleInformation(g, target))
             }
         }
 
         // add oberon alert
-        info.add(oberonAlert)
+        target.information.add(oberonAlert)
     }
 
     /**
@@ -65,16 +60,31 @@ class Oberon : DefaultEvilRole() {
      * produces a falseSingleSeen information given a game and a target
      */
     private fun addSingleInformation(g : Game, target : Role) : ThavalonInformation.SingleSeenInformation {
+        assert(target.information.seen.isNotEmpty())
         val alreadySeen : MutableSet<RoleEnum> = HashSet()
         // collect all seen roles from information
-        target.information.forEach { if(it is ThavalonInformation.SingleSeenInformation) {
-                alreadySeen.add(it.seen.role.role)
-            }
+        target.information.seen.forEach {
+            alreadySeen.add(it.seen.role.role)
         }
         // shuffle roles in game
         val shuffledRoles = g.rolesInGame.shuffled()
+
+        // assert that no role can already see everyone
+        assert(alreadySeen.size < shuffledRoles.size)
+
         // return random seen information on a role we didn't previously see
         return ThavalonInformation.SingleSeenInformation(shuffledRoles.first { it.role.role !in alreadySeen })
+    }
+
+    private fun modifyASeesBInformation(g : Game, target : Role) : ThavalonInformation.ASeesBInformation {
+        assert(target.information.aSeesB.isNotEmpty())
+        val toModify : ThavalonInformation.ASeesBInformation = target.information.aSeesB.random()
+        if (Random.nextBoolean()) {
+            toModify.A = UnknownRole
+        } else {
+            toModify.B = UnknownRole
+        }
+        return toModify
     }
 
 }

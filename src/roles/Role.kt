@@ -77,13 +77,23 @@ sealed class ThavalonInformation() {
  * Class to better organize and aggregate information. Thinking about having roles contain this instead
  * of a single list of information because it'll let us cast less
  */
-class InformationAggregator() {
+class InformationAggregator {
+    // fields for each specific type of ThavalonInformation
     val alerts : MutableList<ThavalonInformation.AlertInformation> = ArrayList()
     val rolePresent : MutableList<ThavalonInformation.RolePresentInformation> = ArrayList()
     val seen : MutableList<ThavalonInformation.SingleSeenInformation> = ArrayList()
     val aSeesB : MutableList<ThavalonInformation.ASeesBInformation> = ArrayList()
 
-    fun addInformation(info : ThavalonInformation) : Boolean {
+    /**
+     * As a general note, the reason add and remove return Booleans is so that when(info) performs a pattern match
+     * and exhaustively checks all cases. If an uncovered case was there, the functions could potentially return
+     * Unit and thus violate their headers.
+     */
+
+
+
+
+    fun add(info : ThavalonInformation) : Boolean {
         return when(info) {
             is ThavalonInformation.AlertInformation -> alerts.add(info)
             is ThavalonInformation.RolePresentInformation -> rolePresent.add(info)
@@ -92,13 +102,21 @@ class InformationAggregator() {
         }
     }
 
-    fun removeInformation(info : ThavalonInformation) : Boolean {
+    fun addAll(infos : Collection<ThavalonInformation>) : Boolean {
+        return infos.map { add(it) }.any {it}
+    }
+
+    fun remove(info : ThavalonInformation) : Boolean {
         return when(info) {
             is ThavalonInformation.AlertInformation -> alerts.remove(info)
             is ThavalonInformation.RolePresentInformation -> rolePresent.remove(info)
             is ThavalonInformation.SingleSeenInformation -> seen.remove(info)
             is ThavalonInformation.ASeesBInformation -> aSeesB.remove(info)
         }
+    }
+
+    fun removeAll(infos : Collection<ThavalonInformation>) : Boolean {
+        return infos.map { remove(it) }.any {it}
     }
 }
 
@@ -113,7 +131,7 @@ abstract class Role {
     var player : Player = Player("????")
 
     // the information this role has about the gamestate
-    val information : MutableList<ThavalonInformation> = ArrayList()
+    val information : InformationAggregator = InformationAggregator()
 
     // whether the given role is ok with the other roles in the game
     open fun gameOk(g : Game) : Boolean {
