@@ -74,6 +74,35 @@ sealed class ThavalonInformation() {
 }
 
 /**
+ * Class to better organize and aggregate information. Thinking about having roles contain this instead
+ * of a single list of information because it'll let us cast less
+ */
+class InformationAggregator() {
+    val alerts : MutableList<ThavalonInformation.AlertInformation> = ArrayList()
+    val rolePresent : MutableList<ThavalonInformation.RolePresentInformation> = ArrayList()
+    val seen : MutableList<ThavalonInformation.SingleSeenInformation> = ArrayList()
+    val aSeesB : MutableList<ThavalonInformation.ASeesBInformation> = ArrayList()
+
+    fun addInformation(info : ThavalonInformation) : Boolean {
+        return when(info) {
+            is ThavalonInformation.AlertInformation -> alerts.add(info)
+            is ThavalonInformation.RolePresentInformation -> rolePresent.add(info)
+            is ThavalonInformation.SingleSeenInformation -> seen.add(info)
+            is ThavalonInformation.ASeesBInformation -> aSeesB.add(info)
+        }
+    }
+
+    fun removeInformation(info : ThavalonInformation) : Boolean {
+        return when(info) {
+            is ThavalonInformation.AlertInformation -> alerts.remove(info)
+            is ThavalonInformation.RolePresentInformation -> rolePresent.remove(info)
+            is ThavalonInformation.SingleSeenInformation -> seen.remove(info)
+            is ThavalonInformation.ASeesBInformation -> aSeesB.remove(info)
+        }
+    }
+}
+
+/**
  * Abstract class that all roles must extend. Was originally an interface but wanted default initialization of
  * 'player' and 'information' fields, and a default getUpdaters method
  */
