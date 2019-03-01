@@ -50,4 +50,4 @@ enum class UpdaterPriority {
  * of the updaterfunc when it comes to being applied to the game. A higher priority means the function
  * will execute before a function with lower priority
  */
-typealias Updater = Pair<(Game) -> Unit, UpdaterPriority>
+typealias Updater = Pair<UpdaterFunc, UpdaterPriority>
