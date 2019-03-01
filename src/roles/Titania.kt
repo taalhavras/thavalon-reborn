@@ -12,7 +12,7 @@ open class OldTitania : Role() {
     }
 
     private fun getTitaniaUpdater() : Updater {
-        return Pair({g : Game -> updateTargets(g, getTargets(g))}, UpdaterPriority.Three)
+        return Pair({g : Game -> updateTargets(g, getTargets(g))}, UpdaterPriority.One)
     }
 
     // old titania targets a single random evil

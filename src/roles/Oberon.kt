@@ -15,7 +15,7 @@ class Oberon : DefaultEvilRole() {
     }
 
     private fun getOberonUpdater() : Updater {
-        return Pair({g : Game -> obfuscateInformation(g, getTarget(g))}, UpdaterPriority.Three)
+        return Pair({g : Game -> obfuscateInformation(g, getTarget(g))}, UpdaterPriority.One)
     }
 
     private fun getTarget(g : Game) : Role {
