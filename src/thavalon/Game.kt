@@ -8,13 +8,45 @@ class Player(var name : String) {
     }
 }
 
-class Game(val rolesInGame : List<Role>, val players : List<Player>) {
+class Game(val rolesInGame : List<Role>, val players : List<String>) {
     fun getGoodRoles() : MutableList<Role> {
         return rolesInGame.filter { it.role.alignment == roles.Alignment.Good}.toMutableList()
     }
 
     fun getEvilRoles() : MutableList<Role> {
         return rolesInGame.filter { it.role.alignment == roles.Alignment.Evil }.toMutableList()
+    }
+
+    fun validate() : Boolean {
+        return rolesInGame.all { it.gameOk(this) }
+    }
+
+    fun fillInformation() : Unit {
+        val updaters : MutableList<Updater> = ArrayList()
+        // collect all updaters
+        rolesInGame.forEach { updaters.addAll(it.getUpdaters(this)) }
+        // sort them in descending order by their priority
+        updaters.sortByDescending { it.second }
+        // apply them all in order
+        updaters.forEach { it.first(this) }
+    }
+
+    fun assignPlayers() : Unit {
+        assert(rolesInGame.size == players.size)
+
+        for (i in 0 until rolesInGame.size) {
+            rolesInGame[i].player.setPlayerName(players[i])
+        }
+    }
+
+    fun setUp() : Boolean {
+        if (!validate()) {
+            return false
+        }
+
+        fillInformation()
+        assignPlayers()
+        return true
     }
 }
 
