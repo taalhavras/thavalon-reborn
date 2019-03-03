@@ -15,26 +15,26 @@ open class Lover(override val role : RoleType) : Role() {
     }
 
     fun getLoverInformation(g : Game) : ThavalonInformation {
-        val lusciousLover : RoleEnum = getOtherLover()
+        val lusciousLover : RoleType = getOtherLover()
         // the way this interacts with oberon is that it's impossible to oberon a lone lover (since they will
         // have no seen information). I'm not sure if this is the intended behavior. If it is, then we can't
         // send AlertInformation here
-        val otherLover : Role = g.getGoodRoles().find { it.role.role == lusciousLover } ?:
+        val otherLover : Role = g.getGoodRoles().find { it.role == lusciousLover } ?:
             return ThavalonInformation.AlertInformation("You are a sad and lonely lover")
         return ThavalonInformation.SingleSeenInformation(otherLover)
     }
 
-    fun getOtherLover() : RoleEnum {
-        return if(role.role == RoleEnum.Tristan) RoleEnum.Iseult else RoleEnum.Tristan
+    fun getOtherLover() : RoleType {
+        return if(role == RoleType.Tristan) RoleType.Iseult else RoleType.Tristan
     }
 }
 
 /**
  * These lovers are ok if there is no other lover in the game
  */
-class LoneTristan : Lover(RoleType.Tristan())
+class LoneTristan : Lover(RoleType.Tristan)
 
-class LoneIseult : Lover(RoleType.Iseult())
+class LoneIseult : Lover(RoleType.Iseult)
 
 open class NonLoneLover(override val role : RoleType) : Lover(role) {
     override fun gameOk(g: Game): Boolean {
@@ -45,6 +45,6 @@ open class NonLoneLover(override val role : RoleType) : Lover(role) {
 /**
  * These lovers are not ok if there is no other lover in the game
  */
-class Tristan : NonLoneLover(RoleType.Tristan())
+class Tristan : NonLoneLover(RoleType.Tristan)
 
-class Iseult : NonLoneLover(RoleType.Iseult())
+class Iseult : NonLoneLover(RoleType.Iseult)

@@ -36,5 +36,5 @@ class Merlin() : Role() {
         return seen
     }
 
-    override val role = RoleType.Merlin()
+    override val role = RoleType.Merlin
 }

@@ -5,7 +5,7 @@ import thavalon.Updater
 import thavalon.UpdaterPriority
 
 class Guinevere : Role() {
-    override val role: RoleType = RoleType.Guinevere()
+    override val role: RoleType = RoleType.Guinevere
 
     override fun getUpdaters(g: Game): List<Updater> {
         return listOf(getLieUpdater(), getTruthUpdater())

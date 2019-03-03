@@ -5,17 +5,17 @@ package roles
  */
 
 class Mordred() : DefaultEvilRole() {
-    override val role: RoleType = RoleType.Mordred()
+    override val role: RoleType = RoleType.Mordred
 }
 
 class Morgana() : DefaultEvilRole() {
-    override val role: RoleType = RoleType.Morgana()
+    override val role: RoleType = RoleType.Morgana
 }
 
 class Maelagant() : DefaultEvilRole() {
-    override val role: RoleType = RoleType.Maelagant()
+    override val role: RoleType = RoleType.Maelagant
 }
 
 class Agravaine() : DefaultEvilRole() {
-    override val role : RoleType = RoleType.Agravaine()
+    override val role : RoleType = RoleType.Agravaine
 }

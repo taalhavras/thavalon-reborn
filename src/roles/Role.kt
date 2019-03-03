@@ -37,34 +37,34 @@ enum class RoleEnum {
  * All legal role-alignment pairs
  */
 sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
-    class Merlin : RoleType(RoleEnum.Merlin, Alignment.Good)
-    class Lancelot : RoleType(RoleEnum.Lancelot, Alignment.Good)
-    class Percival : RoleType(RoleEnum.Percival, Alignment.Good)
-    class Guinevere : RoleType(RoleEnum.Guinevere, Alignment.Good)
-    class Tristan : RoleType(RoleEnum.Tristan, Alignment.Good)
-    class Iseult : RoleType(RoleEnum.Iseult, Alignment.Good)
-    class Arthur : RoleType(RoleEnum.Arthur, Alignment.Good)
-    class Titania : RoleType(RoleEnum.Titania, Alignment.Good)
+    object Merlin : RoleType(RoleEnum.Merlin, Alignment.Good)
+    object Lancelot : RoleType(RoleEnum.Lancelot, Alignment.Good)
+    object Percival : RoleType(RoleEnum.Percival, Alignment.Good)
+    object Guinevere : RoleType(RoleEnum.Guinevere, Alignment.Good)
+    object Tristan : RoleType(RoleEnum.Tristan, Alignment.Good)
+    object Iseult : RoleType(RoleEnum.Iseult, Alignment.Good)
+    object Arthur : RoleType(RoleEnum.Arthur, Alignment.Good)
+    object Titania : RoleType(RoleEnum.Titania, Alignment.Good)
 
-    class Mordred : RoleType(RoleEnum.Mordred, Alignment.Evil)
-    class Morgana : RoleType(RoleEnum.Morgana, Alignment.Evil)
-    class Maelagant : RoleType(RoleEnum.Maelagant, Alignment.Evil)
-    class Oberon : RoleType(RoleEnum.Oberon, Alignment.Evil)
-    class Agravaine : RoleType(RoleEnum.Agravaine, Alignment.Evil)
+    object Mordred : RoleType(RoleEnum.Mordred, Alignment.Evil)
+    object Morgana : RoleType(RoleEnum.Morgana, Alignment.Evil)
+    object Maelagant : RoleType(RoleEnum.Maelagant, Alignment.Evil)
+    object Oberon : RoleType(RoleEnum.Oberon, Alignment.Evil)
+    object Agravaine : RoleType(RoleEnum.Agravaine, Alignment.Evil)
 
-    class Unknown : RoleType(RoleEnum.Unknown, Alignment.Unknown)
+    object Unknown : RoleType(RoleEnum.Unknown, Alignment.Unknown)
 }
 
 /**
  * All different kinds of information in the game
  * Each role has access to a list of information
  */
-sealed class ThavalonInformation() {
-    // this is used for alerts (aka "you have been oberoned")
+sealed class ThavalonInformation {
+    // this is used for alerts (aka "you have been oberon'd")
     data class AlertInformation(val alert : String) : ThavalonInformation()
 
     // this is used to inform you that a role is in the game
-    data class RolePresentInformation(val present : Role) : ThavalonInformation()
+    data class RolePresentInformation(val present : RoleEnum) : ThavalonInformation()
 
     // this information represents seeing someone
     data class SingleSeenInformation(val seen : Role) : ThavalonInformation()
@@ -165,5 +165,5 @@ abstract class DefaultEvilRole : Role() {
  * Singleton UnknownRole, used by oberon to corrupt guinevere information
  */
 object UnknownRole : Role() {
-    override val role : RoleType = RoleType.Unknown()
+    override val role : RoleType = RoleType.Unknown
 }

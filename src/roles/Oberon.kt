@@ -6,7 +6,12 @@ import thavalon.UpdaterPriority
 import kotlin.random.Random
 
 class Oberon : DefaultEvilRole() {
-    override val role = RoleType.Oberon()
+    override val role = RoleType.Oberon
+
+    val singleSeenTargets : Set<RoleType> =  setOf(RoleType.Tristan, RoleType.Iseult,
+        RoleType.Percival, RoleType.Merlin)
+
+    val aSeesBTargets : Set<RoleType> = setOf(RoleType.Guinevere)
 
     override fun getUpdaters(g: Game): List<Updater> {
         val updaters : MutableList<Updater> = super.getUpdaters(g).toMutableList()
@@ -21,10 +26,13 @@ class Oberon : DefaultEvilRole() {
 
     private fun getTarget(g : Game) : Role {
         val goodTeam : MutableList<Role> = g.getGoodRoles()
+        // set of roles oberon can target
+        val targetableRoles : Set<RoleType> = singleSeenTargets.plus(aSeesBTargets)
+
         goodTeam.shuffle()
-        // find first member of good team with modifiable information
+        // find first targetable member of good team
         return goodTeam.first {
-            it.information.seen.isNotEmpty() || it.information.aSeesB.isNotEmpty()
+            it.role in targetableRoles
         }
     }
 
@@ -34,25 +42,26 @@ class Oberon : DefaultEvilRole() {
     private fun obfuscateInformation(g: Game, target : Role) : Unit {
         assert(target.role.alignment == Alignment.Good)
 
-        val oberonAlert = ThavalonInformation.AlertInformation("You have been Oberon'd!")
-
-
-        if (target.information.seen.isEmpty()) {
-            target.information.add(modifyASeesBInformation(g, target))
-        } else if(target.information.aSeesB.isEmpty()) {
+        // obfuscate information based on what kind of target we have
+        if (target.role in singleSeenTargets) {
             target.information.add(addSingleInformation(g, target))
-        } else {
-            // this case is only hit if there's a role with both kinds of information
-            // no such roles exist yet, but since we might add one I wrote this anyway
-            if (Random.nextBoolean()) {
-                 target.information.add(modifyASeesBInformation(g, target))
-            } else {
-                 target.information.add(addSingleInformation(g, target))
+        } else if(target.role in aSeesBTargets) {
+            // to modify this kind of information we need it to be present in some form
+            if(target.information.aSeesB.isEmpty()) {
+                // we just return without oberoning the target
+                return
             }
+            target.information.add(modifyASeesBInformation(g, target))
         }
 
-        // add oberon alert
-        target.information.add(oberonAlert)
+        val oberondAlert = ThavalonInformation.AlertInformation("You have been Oberon'd!")
+        val successfullyObfuscatedAlert = ThavalonInformation.AlertInformation("You have added false information" +
+                "to a member of the good team")
+        // add oberon alert to target
+        target.information.add(oberondAlert)
+        // inform oberon that they've successfully oberoned someone
+        information.add(successfullyObfuscatedAlert)
+
     }
 
     /**
@@ -61,10 +70,10 @@ class Oberon : DefaultEvilRole() {
      */
     private fun addSingleInformation(g : Game, target : Role) : ThavalonInformation.SingleSeenInformation {
         assert(target.information.seen.isNotEmpty())
-        val alreadySeen : MutableSet<RoleEnum> = HashSet()
+        val alreadySeen : MutableSet<RoleType> = HashSet()
         // collect all seen roles from information
         target.information.seen.forEach {
-            alreadySeen.add(it.seen.role.role)
+            alreadySeen.add(it.seen.role)
         }
         // shuffle roles in game
         val shuffledRoles = g.rolesInGame.shuffled()
@@ -73,7 +82,7 @@ class Oberon : DefaultEvilRole() {
         assert(alreadySeen.size < shuffledRoles.size)
 
         // return random seen information on a role we didn't previously see
-        return ThavalonInformation.SingleSeenInformation(shuffledRoles.first { it.role.role !in alreadySeen })
+        return ThavalonInformation.SingleSeenInformation(shuffledRoles.first { it.role !in alreadySeen })
     }
 
     private fun modifyASeesBInformation(g : Game, target : Role) : ThavalonInformation.ASeesBInformation {

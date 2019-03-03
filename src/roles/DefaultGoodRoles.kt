@@ -1,9 +1,9 @@
 package roles
 
 class Arthur : Role() {
-    override val role : RoleType = RoleType.Arthur()
+    override val role : RoleType = RoleType.Arthur
 }
 
 class Lancelot : Role() {
-    override val role : RoleType = RoleType.Lancelot()
+    override val role : RoleType = RoleType.Lancelot
 }
