@@ -8,7 +8,12 @@ class Player(var name : String) {
     }
 }
 
-class Game(val rolesInGame : List<Role>, val players : List<String>) {
+class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {
+    // init block shuffles players
+    init {
+        players.shuffle()
+    }
+
     fun getGoodRoles() : MutableList<Role> {
         return rolesInGame.filter { it.role.alignment == roles.Alignment.Good}.toMutableList()
     }
@@ -49,14 +54,6 @@ class Game(val rolesInGame : List<Role>, val players : List<String>) {
         return true
     }
 }
-
-
-/**
- * Interface for functions that update the game by filling in information
- */
-//interface UpdaterFunc {
-//    fun update(g : Game) : Unit
-//}
 
 typealias UpdaterFunc = (g : Game) -> Unit
 

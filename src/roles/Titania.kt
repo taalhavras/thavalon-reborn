@@ -5,7 +5,7 @@ import thavalon.Updater
 import thavalon.UpdaterPriority
 
 open class OldTitania : Role() {
-    override val role: RoleType = RoleType.Titania()
+    override val role: RoleType = RoleType.Titania
 
     override fun getUpdaters(g: Game): List<Updater> {
         return listOf(getTitaniaUpdater())
