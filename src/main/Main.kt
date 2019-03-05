@@ -9,5 +9,7 @@ fun main() {
     val roles : List<Role> = listOf(Oberon(), Maelagant(), Mordred(), Guinevere(), OldTitania(),
         Merlin(), Lancelot())
     val g : Game = Game(roles, players)
+    assert(g.setUp())
+    // TODO fix infinite recursion loop w/toString
     print(g)
 }

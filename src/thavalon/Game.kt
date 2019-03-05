@@ -53,6 +53,10 @@ class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {
         assignPlayers()
         return true
     }
+
+    override fun toString(): String {
+        return rolesInGame.toString()
+    }
 }
 
 typealias UpdaterFunc = (g : Game) -> Unit

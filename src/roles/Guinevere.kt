@@ -59,8 +59,9 @@ class Guinevere : Role() {
             .filter { it.role != RoleType.Mordred || it.role != RoleType.Guinevere }.random()
         // roles seen by role
         val seenByRole : Set<Role> = role.information.seen.map { it.seen }.toSet()
-        // potentialLies are people unseen by role who aren't role
-        val potentialLies : List<Role> = g.rolesInGame.filter { it !in seenByRole || it != role}
+        // potentialLies are people unseen by role who aren't role and who aren't mordred or gwen
+        val potentialLies : List<Role> = g.rolesInGame
+            .filter { it !in seenByRole && it != role && it.role != RoleType.Mordred && it.role != RoleType.Guinevere }
         // If we can't find a potential lie we just recursively call (we'll eventually get one I think)
         if(potentialLies.isEmpty()) {
             return lieGenerator(g)

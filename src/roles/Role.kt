@@ -53,6 +53,10 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
     object Agravaine : RoleType(RoleEnum.Agravaine, Alignment.Evil)
 
     object Unknown : RoleType(RoleEnum.Unknown, Alignment.Unknown)
+
+    override fun toString(): String {
+        return "ROLE: $role ALIGNMENT: $alignment"
+    }
 }
 
 /**
@@ -64,13 +68,21 @@ sealed class ThavalonInformation {
     data class AlertInformation(val alert : String) : ThavalonInformation()
 
     // this is used to inform you that a role is in the game
-    data class RolePresentInformation(val present : RoleEnum) : ThavalonInformation()
+    data class RolePresentInformation(val present : Role) : ThavalonInformation()
 
     // this information represents seeing someone
-    data class SingleSeenInformation(val seen : Role) : ThavalonInformation()
+    data class SingleSeenInformation(val seen : Role) : ThavalonInformation() {
+        override fun toString(): String {
+            return "${seen.role}"
+        }
+    }
 
     // this information represents seeing someone seeing someone else (guinevere info)
-    data class ASeesBInformation(var A : Role, var B : Role) : ThavalonInformation()
+    data class ASeesBInformation(var A : Role, var B : Role) : ThavalonInformation() {
+        override fun toString(): String {
+            return "${A.role} sees ${B.role}"
+        }
+    }
 }
 
 /**
@@ -89,9 +101,6 @@ class InformationAggregator {
      * and exhaustively checks all cases. If an uncovered case was there, the functions could potentially return
      * Unit and thus violate their headers.
      */
-
-
-
 
     fun add(info : ThavalonInformation) : Boolean {
         return when(info) {
@@ -118,6 +127,10 @@ class InformationAggregator {
     fun removeAll(infos : Collection<ThavalonInformation>) : Boolean {
         return infos.map { remove(it) }.any {it}
     }
+
+    override fun toString(): String {
+        return "$alerts \n $seen \n $aSeesB \n $rolePresent \n"
+    }
 }
 
 /**
@@ -141,6 +154,10 @@ abstract class Role {
     // gets a list of updaters to fill in this role's necessary information in the game
     open fun getUpdaters(g : Game) : List<Updater> {
         return ArrayList()
+    }
+
+    override fun toString(): String {
+        return "$role $information\n"
     }
 }
 

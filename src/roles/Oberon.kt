@@ -51,7 +51,7 @@ class Oberon : DefaultEvilRole() {
                 // we just return without oberoning the target
                 return
             }
-            target.information.add(modifyASeesBInformation(g, target))
+            modifyASeesBInformation(g, target)
         }
 
         val oberondAlert = ThavalonInformation.AlertInformation("You have been Oberon'd!")
@@ -85,7 +85,7 @@ class Oberon : DefaultEvilRole() {
         return ThavalonInformation.SingleSeenInformation(shuffledRoles.first { it.role !in alreadySeen })
     }
 
-    private fun modifyASeesBInformation(g : Game, target : Role) : ThavalonInformation.ASeesBInformation {
+    private fun modifyASeesBInformation(g : Game, target : Role) : Unit {
         assert(target.information.aSeesB.isNotEmpty())
         val toModify : ThavalonInformation.ASeesBInformation = target.information.aSeesB.random()
         if (Random.nextBoolean()) {
@@ -93,7 +93,6 @@ class Oberon : DefaultEvilRole() {
         } else {
             toModify.B = UnknownRole
         }
-        return toModify
     }
 
 }
