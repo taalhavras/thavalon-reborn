@@ -55,7 +55,7 @@ class Oberon : DefaultEvilRole() {
         }
 
         val oberondAlert = ThavalonInformation.AlertInformation("You have been Oberon'd!")
-        val successfullyObfuscatedAlert = ThavalonInformation.AlertInformation("You have added false information" +
+        val successfullyObfuscatedAlert = ThavalonInformation.AlertInformation("You have added false information " +
                 "to a member of the good team")
         // add oberon alert to target
         target.information.add(oberondAlert)
