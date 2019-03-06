@@ -168,8 +168,9 @@ abstract class Role {
 abstract class DefaultEvilRole : Role() {
     private fun getSeesEvilTeamUpdater() : Updater {
         // default evil team, sees all other evil roles that aren't you
-        return Pair({g : Game -> val status = information.addAll(g.getEvilRoles().filter {
-            it.role.role != role.role }.map { ThavalonInformation.SingleSeenInformation(it) })}
+        return Pair({g : Game -> val status = information.addAll(g.getEvilRoles()
+            .filter { it.role != role } // see evil team except yourself
+            .map { ThavalonInformation.SingleSeenInformation(it) })} // convert to SingleSeenInformation
             , UpdaterPriority.Ten)
     }
 

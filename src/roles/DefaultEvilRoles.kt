@@ -1,5 +1,7 @@
 package roles
 
+import thavalon.Game
+
 /**
  * This class contains the implementations for evil roles whose only information is who else is on the evil team
  */
@@ -18,4 +20,9 @@ class Maelagant() : DefaultEvilRole() {
 
 class Agravaine() : DefaultEvilRole() {
     override val role : RoleType = RoleType.Agravaine
+
+    override fun gameOk(g: Game): Boolean {
+        // agravaine is only in game w/eight or more players
+        return g.rolesInGame.size >= 8 && super.gameOk(g)
+    }
 }
