@@ -7,12 +7,19 @@ import java.lang.IllegalArgumentException
  * Base class for Thavalon rulesets
  */
 open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
+    // number of times to reroll before giving up
+    private val NUM_REROLLS = 100
 
     /**
      * Consumes a list of players and produces a game based on the roles in this ruleset.
      * Throws IllegalArgumentException if a valid game cannot be rolled
      */
     fun makeGame(players : MutableList<String>) : Game {
+        return makeGameHelper(players, NUM_REROLLS)
+    }
+
+
+    private fun makeGameHelper(players : MutableList<String>, iter : Int) : Game {
         val numPlayers = players.size
         val ratio : Pair<Int, Int> = getRatio(numPlayers) ?: throw IllegalArgumentException("Bad game ratio")
         val numGood : Int = ratio.first
@@ -29,10 +36,12 @@ open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
         val game : Game = Game(roles, players)
 
         if(!game.setUp()) {
-            // try again
-            return makeGame(players)
+            if(iter == 0) {
+                throw IllegalArgumentException("Couldn't set up game")
+            }
 
-//            throw IllegalArgumentException("Couldn't set up game")
+            // try again
+            return makeGameHelper(players, iter - 1)
         }
 
         return game
@@ -58,4 +67,8 @@ open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
 object FivesRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), Lancelot()),
     listOf(Mordred(), Morgana(), Maelagant(), Oberon()))
 
+object SevensRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), OldTitania()),
+    listOf(Mordred(), Morgana(), Maelagant(), Oberon()))
 
+object EightsRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
+    listOf(Mordred(), Morgana(), Maelagant(), Oberon(), Agravaine()))
