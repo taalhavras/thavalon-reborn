@@ -20,9 +20,4 @@ class Maelagant() : DefaultEvilRole() {
 
 class Agravaine() : DefaultEvilRole() {
     override val role : RoleType = RoleType.Agravaine
-
-    override fun gameOk(g: Game): Boolean {
-        // agravaine is only in game w/eight or more players
-        return g.rolesInGame.size >= 8 && super.gameOk(g)
-    }
 }
