@@ -23,6 +23,7 @@ enum class RoleEnum {
     Iseult,
     Arthur,
     Titania,
+    Nimue,
 
     Mordred,
     Morgana,
@@ -45,6 +46,7 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
     object Iseult : RoleType(RoleEnum.Iseult, Alignment.Good)
     object Arthur : RoleType(RoleEnum.Arthur, Alignment.Good)
     object Titania : RoleType(RoleEnum.Titania, Alignment.Good)
+    object Nimue : RoleType(RoleEnum.Nimue, Alignment.Good)
 
     object Mordred : RoleType(RoleEnum.Mordred, Alignment.Evil)
     object Morgana : RoleType(RoleEnum.Morgana, Alignment.Evil)
