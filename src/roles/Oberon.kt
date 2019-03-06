@@ -8,10 +8,10 @@ import kotlin.random.Random
 class Oberon : DefaultEvilRole() {
     override val role = RoleType.Oberon
 
-    val singleSeenTargets : Set<RoleType> =  setOf(RoleType.Tristan, RoleType.Iseult,
+    private val singleSeenTargets : Set<RoleType> =  setOf(RoleType.Tristan, RoleType.Iseult,
         RoleType.Percival, RoleType.Merlin)
 
-    val aSeesBTargets : Set<RoleType> = setOf(RoleType.Guinevere)
+    private val aSeesBTargets : Set<RoleType> = setOf(RoleType.Guinevere)
 
     override fun getUpdaters(g: Game): List<Updater> {
         val updaters : MutableList<Updater> = super.getUpdaters(g).toMutableList()
