@@ -13,6 +13,8 @@ class Oberon : DefaultEvilRole() {
 
     private val aSeesBTargets : Set<RoleType> = setOf(RoleType.Guinevere)
 
+    private val rolePresentTargets : Set<RoleType> = setOf(RoleType.NewArthur, RoleType.Nimue)
+
     override fun getUpdaters(g: Game): List<Updater> {
         val updaters : MutableList<Updater> = super.getUpdaters(g).toMutableList()
         updaters.add(getOberonUpdater())
@@ -44,7 +46,7 @@ class Oberon : DefaultEvilRole() {
 
         // obfuscate information based on what kind of target we have
         if (target.role in singleSeenTargets) {
-            target.information.add(addSingleInformation(g, target))
+            modifySingleInformation(g, target)
         } else if(target.role in aSeesBTargets) {
             // to modify this kind of information we need it to be present in some form
             if(target.information.aSeesB.isEmpty()) {
@@ -52,6 +54,8 @@ class Oberon : DefaultEvilRole() {
                 return
             }
             modifyASeesBInformation(g, target)
+        } else if(target.role in rolePresentTargets) {
+            modifyRolePresentInformation(g, target)
         }
 
         val oberondAlert = ThavalonInformation.AlertInformation("You have been Oberon'd!")
@@ -66,9 +70,8 @@ class Oberon : DefaultEvilRole() {
 
     /**
      * Helper for adding a false singleSeenInformation to target
-     * produces a falseSingleSeen information given a game and a target
      */
-    private fun addSingleInformation(g : Game, target : Role) : ThavalonInformation.SingleSeenInformation {
+    private fun modifySingleInformation(g : Game, target : Role) : Unit {
         assert(target.information.seen.isNotEmpty())
         val alreadySeen : MutableSet<RoleType> = HashSet()
         // collect all seen roles from information
@@ -81,10 +84,13 @@ class Oberon : DefaultEvilRole() {
         // assert that no role can already see everyone
         assert(alreadySeen.size < shuffledRoles.size)
 
-        // return random seen information on a role we didn't previously see
-        return ThavalonInformation.SingleSeenInformation(shuffledRoles.first { it.role !in alreadySeen })
+        // add random seen information on a role we didn't previously see to the target
+        target.information.add(ThavalonInformation.SingleSeenInformation(shuffledRoles.first { it.role !in alreadySeen }))
     }
 
+    /**
+     * Modifies an aSeesBInformation that the target has
+     */
     private fun modifyASeesBInformation(g : Game, target : Role) : Unit {
         assert(target.information.aSeesB.isNotEmpty())
         val toModify : ThavalonInformation.ASeesBInformation = target.information.aSeesB.random()
@@ -93,6 +99,18 @@ class Oberon : DefaultEvilRole() {
         } else {
             toModify.B = UnknownRole
         }
+    }
+
+    /**
+     * Erases a RolePresentInformation from the target
+     */
+    private fun modifyRolePresentInformation(g : Game, target : Role) : Unit {
+        assert(target.information.rolePresent.isNotEmpty())
+        // now we replace a random piece of rolePresent information with UnknownRole
+        // remove a random piece of information
+        target.information.rolePresent.remove(target.information.rolePresent.random())
+        // now add Unknown Role as a present role
+        target.information.rolePresent.add(ThavalonInformation.RolePresentInformation(UnknownRole))
     }
 
 }
