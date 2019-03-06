@@ -17,7 +17,7 @@ class Guinevere : Role() {
 
     fun getUpdater() : Updater {
         return Pair(updater@{g : Game ->
-            // try to find a truthInformation, if we fail return from lambda
+            // try to find a truth information and a lie information if we fail return from lambda
             val potentialTruthInfo : ThavalonInformation.ASeesBInformation = truthGenerator(g) ?: return@updater
             val potentialLieInfo : ThavalonInformation.ASeesBInformation = lieGenerator(g) ?: return@updater
             this.information.add(potentialTruthInfo)
@@ -32,7 +32,7 @@ class Guinevere : Role() {
                 .filter { i : ThavalonInformation.SingleSeenInformation -> // filter out seen information that includes unseeable roles
                     i.seen.role !in unseeableRoles }
                 .map { i : ThavalonInformation.SingleSeenInformation ->
-                ThavalonInformation.ASeesBInformation(it, i.seen) } // transform each singleseeninfo to an ASeesB information
+                ThavalonInformation.ASeesBInformation(it, i.seen) } // transform each singleSeenInfo to an ASeesB information
             }.flatten() // collapse list
     }
 
