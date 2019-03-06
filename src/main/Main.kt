@@ -4,12 +4,26 @@ import roles.*
 import thavalon.Game
 
 fun main() {
+//    oberonTitaniaGame()
+    doubleMordredGame()
+}
+
+fun oberonTitaniaGame() {
     val players : MutableList<String> = listOf("Raghu", "Grace", "Kevin", "Josh", "Julius", "May", "George")
         .toMutableList()
     val roles : List<Role> = listOf(Oberon(), Maelagant(), Mordred(), Guinevere(), OldTitania(),
         Merlin(), Lancelot())
     val g : Game = Game(roles, players)
     assert(g.setUp())
-    // TODO fix infinite recursion loop w/toString
+    print(g)
+}
+
+
+fun doubleMordredGame() {
+    val players : MutableList<String> = listOf("Raghu", "Grace", "Kevin", "May", "George")
+        .toMutableList()
+    val roles : List<Role> = listOf(Mordred(), Mordred(), Tristan(), Iseult(), Guinevere())
+    val g : Game = Game(roles, players)
+    assert(g.setUp())
     print(g)
 }
