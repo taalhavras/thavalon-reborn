@@ -1,12 +1,14 @@
 package main
 
 import roles.*
+import thavalon.FivesRuleset
 import thavalon.Game
 
 fun main() {
 //    oberonTitaniaGame()
 //    doubleMordredGame()
-    noInfoGwen()
+//    noInfoGwen()
+    fivesGame()
 }
 
 fun oberonTitaniaGame() {
@@ -35,5 +37,12 @@ fun noInfoGwen() {
     val roles : List<Role> = listOf(Mordred(), Maelagant(), LoneTristan(), OldPercival(), Guinevere())
     val g : Game = Game(roles, players)
     assert(g.setUp())
+    print(g)
+}
+
+fun fivesGame() {
+     val players : MutableList<String> = listOf("Raghu", "Grace", "Kevin", "May", "George")
+        .toMutableList()
+    val g : Game = FivesRuleset.makeGame(players)
     print(g)
 }

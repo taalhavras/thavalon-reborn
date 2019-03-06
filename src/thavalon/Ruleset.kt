@@ -29,7 +29,10 @@ open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
         val game : Game = Game(roles, players)
 
         if(!game.setUp()) {
-            throw IllegalArgumentException("Couldn't set up game")
+            // try again
+            return makeGame(players)
+
+//            throw IllegalArgumentException("Couldn't set up game")
         }
 
         return game
