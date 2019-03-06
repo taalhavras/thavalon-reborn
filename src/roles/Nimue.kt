@@ -12,13 +12,14 @@ class Nimue : Role() {
     }
 
     private fun getNimueUpdater() : Updater {
-        return Pair({g : Game ->
+        return Pair(updater@{g : Game ->
             val nimueInformation : List<ThavalonInformation.RolePresentInformation> =
                 g.rolesInGame
                     .filter { it != this } // remove ourselves from the game (don't want info on us)
                     .map { ThavalonInformation.RolePresentInformation(it) } // transform into appropriate info
             // add all information to ourself
-            val status = information.addAll(nimueInformation)
+            information.addAll(nimueInformation)
+            return@updater
         }, UpdaterPriority.Ten)
     }
 }

@@ -11,7 +11,10 @@ open class Lover(override val role : RoleType) : Role() {
     }
 
     fun getLoverUpdater() : Updater {
-        return Pair({g : Game -> val status = information.add(getLoverInformation(g))}, UpdaterPriority.Ten)
+        return Pair(updater@{g : Game ->
+            information.add(getLoverInformation(g))
+            return@updater
+        }, UpdaterPriority.Ten)
     }
 
     fun getLoverInformation(g : Game) : ThavalonInformation {

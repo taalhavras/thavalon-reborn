@@ -19,8 +19,11 @@ open class OldPercival : Role() {
     }
 
     fun makePercivalUpdater() : Updater {
-        return Pair({g : Game -> val status = this.information.addAll(g.rolesInGame.filter { seenByPercival(it)}
-            .map { ThavalonInformation.SingleSeenInformation(it) })}, UpdaterPriority.Nine)
+        return Pair(updater@{g : Game ->
+            this.information.addAll(g.rolesInGame.filter { seenByPercival(it)}
+                .map { ThavalonInformation.SingleSeenInformation(it)})
+            return@updater
+        }, UpdaterPriority.Nine)
     }
 
 }

@@ -14,23 +14,19 @@ class Merlin() : Role() {
      * Helper used to produce the merlin updater, runs getSeen helper and wraps roles into
      * the appropriate thavalon info class
      */
-//    private fun getMerlinUpdater() : Updater {
-//        return Pair({g : Game -> this.information = this.getSeen(g).map {
-//            ThavalonInformation.SingleSeenInformation(it) }.toMutableList()
-//        }, UpdaterPriority.Ten)
-//    }
-
     private fun getMerlinUpdater() : Updater {
-        return Pair({g : Game -> val status = this.information.addAll(this.getSeen(g).map {
-            ThavalonInformation.SingleSeenInformation(it)})
+        return Pair(updater@{g : Game ->
+            information.addAll(getSeen(g)
+                .map { ThavalonInformation.SingleSeenInformation(it)})
+            return@updater
         }, UpdaterPriority.Ten)
     }
 
     private fun getSeen(g : Game) : MutableList<Role> {
         // merlin cannot see mordred
-        val seen : MutableList<Role> = g.getEvilRoles().filter { it.role.role != RoleEnum.Mordred }.toMutableList()
+        val seen : MutableList<Role> = g.getEvilRoles().filter { it.role != RoleType.Mordred }.toMutableList()
         // try to find lance if we can, if we cannot we just return the evil role list minus mordred
-        val lance = g.getGoodRoles().find { it.role.role == RoleEnum.Lancelot } ?: return seen
+        val lance = g.getGoodRoles().find { it.role == RoleType.Lancelot } ?: return seen
         // we found lance, so add it and return
         seen.add(lance)
         return seen
