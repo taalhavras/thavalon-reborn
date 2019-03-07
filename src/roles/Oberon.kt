@@ -29,7 +29,7 @@ class Oberon : DefaultEvilRole() {
     private fun getTarget(g : Game) : Role {
         val goodTeam : MutableList<Role> = g.getGoodRoles()
         // set of roles oberon can target
-        val targetableRoles : Set<RoleType> = singleSeenTargets.plus(aSeesBTargets)
+        val targetableRoles : Set<RoleType> = singleSeenTargets.plus(aSeesBTargets).plus(rolePresentTargets)
 
         goodTeam.shuffle()
         // find first targetable member of good team
@@ -45,27 +45,28 @@ class Oberon : DefaultEvilRole() {
         assert(target.role.alignment == Alignment.Good)
 
         // obfuscate information based on what kind of target we have
-        if (target.role in singleSeenTargets) {
-            modifySingleInformation(g, target)
-        } else if(target.role in aSeesBTargets) {
-            // to modify this kind of information we need it to be present in some form
-            if(target.information.aSeesB.isEmpty()) {
-                // we just return without oberoning the target
-                return
+        when {
+            target.role in singleSeenTargets -> modifySingleInformation(g, target)
+            target.role in aSeesBTargets -> {
+                // to modify this kind of information we need it to be present in some form
+                if(target.information.aSeesB.isEmpty()) {
+                    // we just return without oberoning the target
+                    return
+                }
+                modifyASeesBInformation(g, target)
             }
-            modifyASeesBInformation(g, target)
-        } else if(target.role in rolePresentTargets) {
-            modifyRolePresentInformation(g, target)
+            target.role in rolePresentTargets -> modifyRolePresentInformation(g, target)
         }
 
         val oberondAlert = ThavalonInformation.AlertInformation("You have been Oberon'd!")
         val successfullyObfuscatedAlert = ThavalonInformation.AlertInformation("You have added false information " +
                 "to a member of the good team")
+            // add oberon alert to target
+        // inform oberon that they've successfully oberoned someone
         // add oberon alert to target
         target.information.add(oberondAlert)
         // inform oberon that they've successfully oberoned someone
         information.add(successfullyObfuscatedAlert)
-
     }
 
     /**
