@@ -19,6 +19,10 @@ open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
     }
 
 
+    /**
+     * Helper for making games that caps the recursion limit (in case some invalid gamestate is presented we
+     * will not infinitely loop)
+     */
     private fun makeGameHelper(players : MutableList<String>, iter : Int) : Game {
         val numPlayers = players.size
         val ratio : Pair<Int, Int> = getRatio(numPlayers) ?: throw IllegalArgumentException("Bad game ratio")
@@ -67,7 +71,7 @@ open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
 object FivesRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), Lancelot()),
     listOf(Mordred(), Morgana(), Maelagant(), Oberon()))
 
-object SevensRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), OldTitania()),
+object SevensRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
     listOf(Mordred(), Morgana(), Maelagant(), Oberon()))
 
 object EightsRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
