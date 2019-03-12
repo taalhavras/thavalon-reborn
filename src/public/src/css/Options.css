@@ -1,0 +1,68 @@
+.options_wrapper {
+    align-items: center;
+    background-color: white;
+    min-width: 300px;
+    max-width: 600px;
+    overflow: auto;
+
+}
+.option_form {
+    height: 100%;
+    width: 100%;
+    color: #4f4f4f;
+    padding: 0;
+    justify-content: left;
+
+}
+
+.checks {
+    overflow: auto;
+    display: table-cell;
+    /*flex-wrap: wrap;*/
+    /*align-items: flex-start;*/
+    /*flex-flow: column wrap;*/
+    /*flex-direction: column;*/
+    max-height: 100%;
+}
+
+.option_form .check {
+    padding: 0;
+    margin: 30px 0 0 0;
+    width: 13px;
+    height: 13px;
+    vertical-align: bottom;
+
+
+}
+
+.option_ele {
+    display: inline-block;
+    margin: 10px 20px;
+}
+
+.options_submit:hover {
+    cursor: pointer;
+    background-color: #4f4f4f;
+
+
+
+}
+.options_submit  {
+    outline: none;
+    border: 0;
+    margin: 20px;
+    height: 38px;
+    background-color: #585859;
+    color: white;
+    font-weight: bold;
+    font-size: 10pt;
+    width: 60px;
+    border-radius: 20px;
+
+
+}
+
+
+.options_submit:hover {
+
+}

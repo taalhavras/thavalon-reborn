@@ -1,0 +1,9 @@
+.Game {
+}
+
+.names {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin: 50px auto;
+}

@@ -1,0 +1,15 @@
+body {
+    color: white;
+}
+
+.player_info {
+    width: 90vw;
+    max-width: 700px;
+    margin: auto;
+}
+
+.player_title {
+    font-family: Cardinal;
+    font-size: 30pt;
+}
+

@@ -1,0 +1,56 @@
+.player-tag-wrapper {
+    display: inline-block;
+    white-space: nowrap;
+    color: white;
+    /*background-color: #7b7c7c;*/
+    background-color: Transparent;
+    flex-basis: auto; /* default value */
+    flex-grow: 1;
+    height: 50px;
+    text-align: center;
+    border-radius: 20px;
+    margin: 10px;
+
+}
+
+
+.player-tag-wrapper button {
+    display: inline-block;
+    font-weight: bold;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    vertical-align: center;
+    margin-left: 0;
+    /*background-color: #585859;*/
+    background-color: Transparent;
+
+    border: 1px solid white;
+
+    border-radius: 50%;
+
+}
+
+.player-tag-wrapper button:hover {
+    /*background-color: #4f4f4f;*/
+    background-color: Transparent;
+
+}
+
+
+.player-tag-wrapper p {
+    display: inline-block;
+
+    text-align: center;
+    font-weight: bold;
+    padding: 0 10px;
+
+
+}
+
+.player_name {
+    display: inline-block;
+
+    margin: auto 5px auto 1px;
+
+}

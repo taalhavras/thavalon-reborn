@@ -2,7 +2,7 @@
 .idea
 out/
 
-public/node_modules
+src/public/node_modules
 public/.pnp
 /public/.pnp.js
 
