@@ -9,15 +9,15 @@ class Colgrevance : Role() {
     override val role: RoleType = RoleType.Colgrevance
 
     override fun getUpdaters(g: Game): List<Updater> {
-        listOf(getColgrevanceUpdater())
+        return listOf(getColgrevanceUpdater())
     }
 
     private fun getColgrevanceUpdater() : Updater {
         return Pair(updater@{g : Game ->
             information.addAll(g.getEvilRoles()
                     .filter { it != this } // don't see yourself
-                    .map { ThavalonInformation.PerfectInformation(it) // convert to PerfectInformation
-                    return@updater })
+                    .map { ThavalonInformation.PerfectInformation(it)}) // convert to PerfectInformation
+                    return@updater
         }, UpdaterPriority.Ten)
     }
 }
