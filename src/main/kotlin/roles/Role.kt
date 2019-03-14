@@ -22,6 +22,7 @@ enum class RoleEnum {
     Tristan,
     Iseult,
     Arthur,
+    Galahad,
     Titania,
     Nimue,
 
@@ -45,9 +46,8 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
     object Guinevere : RoleType(RoleEnum.Guinevere, Alignment.Good)
     object Tristan : RoleType(RoleEnum.Tristan, Alignment.Good)
     object Iseult : RoleType(RoleEnum.Iseult, Alignment.Good)
-    // need Arthur and NewArthur as separate because the two roles are so different (have different interactions w/oberon)
+    object Galahad : RoleType(RoleEnum.Galahad, Alignment.Good)
     object Arthur : RoleType(RoleEnum.Arthur, Alignment.Good)
-    object NewArthur : RoleType(RoleEnum.Arthur, Alignment.Good)
     object Titania : RoleType(RoleEnum.Titania, Alignment.Good)
     object Nimue : RoleType(RoleEnum.Nimue, Alignment.Good)
 
@@ -89,6 +89,13 @@ sealed class ThavalonInformation {
             return "${A.role} sees ${B.role}"
         }
     }
+
+    // this information represents perfect knowledge of a player and their role (i.e. you know their name and their role)
+    data class PerfectInformation(val seen : Role) : ThavalonInformation() {
+        override fun toString(): String {
+            return "${seen.role}"
+        }
+    }
 }
 
 /**
@@ -100,6 +107,7 @@ class InformationAggregator {
     val rolePresent : MutableList<ThavalonInformation.RolePresentInformation> = ArrayList()
     val seen : MutableList<ThavalonInformation.SingleSeenInformation> = ArrayList()
     val aSeesB : MutableList<ThavalonInformation.ASeesBInformation> = ArrayList()
+    val perfect : MutableList<ThavalonInformation.PerfectInformation> = ArrayList()
 
     /**
      * As a general note, the reason add and remove return Booleans is so that when(info) performs a pattern match
@@ -113,6 +121,7 @@ class InformationAggregator {
             is ThavalonInformation.RolePresentInformation -> rolePresent.add(info)
             is ThavalonInformation.SingleSeenInformation -> seen.add(info)
             is ThavalonInformation.ASeesBInformation -> aSeesB.add(info)
+            is ThavalonInformation.PerfectInformation -> perfect.add(info)
         }
     }
 
@@ -126,6 +135,7 @@ class InformationAggregator {
             is ThavalonInformation.RolePresentInformation -> rolePresent.remove(info)
             is ThavalonInformation.SingleSeenInformation -> seen.remove(info)
             is ThavalonInformation.ASeesBInformation -> aSeesB.remove(info)
+            is ThavalonInformation.PerfectInformation -> perfect.add(info)
         }
     }
 
@@ -134,7 +144,7 @@ class InformationAggregator {
     }
 
     override fun toString(): String {
-        return "$alerts \n $seen \n $aSeesB \n $rolePresent \n"
+        return "$alerts \n $seen \n $aSeesB \n $rolePresent \n $perfect \n"
     }
 }
 

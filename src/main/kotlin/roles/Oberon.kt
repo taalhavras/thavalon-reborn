@@ -13,7 +13,7 @@ class Oberon : DefaultEvilRole() {
 
     private val aSeesBTargets : Set<RoleType> = setOf(RoleType.Guinevere)
 
-    private val rolePresentTargets : Set<RoleType> = setOf(RoleType.NewArthur, RoleType.Nimue)
+    private val rolePresentTargets : Set<RoleType> = setOf(RoleType.Arthur, RoleType.Nimue)
 
     override fun getUpdaters(g: Game): List<Updater> {
         val updaters : MutableList<Updater> = super.getUpdaters(g).toMutableList()
@@ -29,7 +29,7 @@ class Oberon : DefaultEvilRole() {
     private fun getTarget(g : Game) : Role {
         val goodTeam : MutableList<Role> = g.getGoodRoles()
         // set of roles oberon can target
-        val targetableRoles : Set<RoleType> = singleSeenTargets.plus(aSeesBTargets)
+        val targetableRoles : Set<RoleType> = singleSeenTargets.plus(aSeesBTargets).plus(rolePresentTargets)
 
         goodTeam.shuffle()
         // find first targetable member of good team

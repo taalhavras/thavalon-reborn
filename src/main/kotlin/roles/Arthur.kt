@@ -4,18 +4,12 @@ import thavalon.Game
 import thavalon.Updater
 import thavalon.UpdaterPriority
 
-/**
- * Class for standard Arthur, night phase declaration version
- */
-open class Arthur : Role() {
-    override val role : RoleType = RoleType.Arthur
-}
 
 /**
- * Class for new Arthur, knows all good roles in game
+ * Class for Arthur, knows all good roles in game
  */
-class NewArthur : Arthur() {
-    override val role : RoleType = RoleType.NewArthur
+class Arthur : Role() {
+    override val role : RoleType = RoleType.Arthur
 
     override fun getUpdaters(g: Game): List<Updater> {
         return listOf(getArthurUpdater())
