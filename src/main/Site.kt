@@ -21,6 +21,9 @@ fun main(args: Array<String>) {
                     files("js")
                 }
 
+                static("css") {
+                    files("css")
+                }
             }
             get("/") {
                 call.respondFile(File("src/public/build/index.html"))
@@ -29,3 +32,4 @@ fun main(args: Array<String>) {
     }
     server.start(wait = true)
 }
+
