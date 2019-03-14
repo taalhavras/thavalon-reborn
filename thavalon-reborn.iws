@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba3b5c13-9d8e-40d4-a902-d008929e0b4a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/Main.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Colgrevance.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Galahad.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/Arthur.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Arthur.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/Colgrevance.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/DefaultEvilRoles.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/roles/DefaultEvilRoles.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/Guinevere.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Guinevere.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/Lancelot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Lancelot.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/Lovers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Lovers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/Merlin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Merlin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/Nimue.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Nimue.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/Oberon.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Oberon.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/Percival.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Percival.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/Role.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Role.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/roles/Titania.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/roles/Titania.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/thavalon/Game.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/thavalon/Game.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/thavalon/Ruleset.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/thavalon/Ruleset.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -58,18 +39,14 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
-              <caret line="60" selection-start-line="60" selection-end-line="60" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/Site.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
+            <state relative-caret-position="435">
+              <caret line="29" column="29" lean-forward="true" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
               <folding>
                 <element signature="e#13#383#0" expanded="true" />
               </folding>
@@ -229,18 +206,18 @@
       <option name="presentableId" value="Default" />
       <updated>1552567266167</updated>
       <workItem from="1552567267962" duration="4619000" />
-      <workItem from="1552582880770" duration="710000" />
+      <workItem from="1552582880770" duration="1008000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5329000" />
+    <option name="totallyTimeSpent" value="5627000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2532189" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2532189" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -255,10 +232,10 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32891566" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32891566" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Build" order="12" weight="0.3299363" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.3299363" />
+      <window_info active="true" anchor="bottom" id="Build" order="12" visible="true" weight="0.32891566" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32891566" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -323,8 +300,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Site.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
+        <state relative-caret-position="435">
+          <caret line="29" column="29" lean-forward="true" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
           <folding>
             <element signature="e#13#383#0" expanded="true" />
           </folding>
@@ -332,11 +309,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">
