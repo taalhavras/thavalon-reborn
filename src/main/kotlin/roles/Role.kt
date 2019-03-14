@@ -107,6 +107,7 @@ class InformationAggregator {
     val rolePresent : MutableList<ThavalonInformation.RolePresentInformation> = ArrayList()
     val seen : MutableList<ThavalonInformation.SingleSeenInformation> = ArrayList()
     val aSeesB : MutableList<ThavalonInformation.ASeesBInformation> = ArrayList()
+    val perfect : MutableList<ThavalonInformation.PerfectInformation> = ArrayList()
 
     /**
      * As a general note, the reason add and remove return Booleans is so that when(info) performs a pattern match
@@ -120,6 +121,7 @@ class InformationAggregator {
             is ThavalonInformation.RolePresentInformation -> rolePresent.add(info)
             is ThavalonInformation.SingleSeenInformation -> seen.add(info)
             is ThavalonInformation.ASeesBInformation -> aSeesB.add(info)
+            is ThavalonInformation.PerfectInformation -> perfect.add(info)
         }
     }
 
@@ -133,6 +135,7 @@ class InformationAggregator {
             is ThavalonInformation.RolePresentInformation -> rolePresent.remove(info)
             is ThavalonInformation.SingleSeenInformation -> seen.remove(info)
             is ThavalonInformation.ASeesBInformation -> aSeesB.remove(info)
+            is ThavalonInformation.PerfectInformation -> perfect.add(info)
         }
     }
 
@@ -141,7 +144,7 @@ class InformationAggregator {
     }
 
     override fun toString(): String {
-        return "$alerts \n $seen \n $aSeesB \n $rolePresent \n"
+        return "$alerts \n $seen \n $aSeesB \n $rolePresent \n $perfect \n"
     }
 }
 
