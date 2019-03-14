@@ -185,7 +185,7 @@ abstract class DefaultEvilRole : Role() {
         // default evil team, sees all other evil roles that aren't you
         return Pair(updater@{g : Game ->
             information.addAll(g.getEvilRoles()
-                .filter { it.role != role || it.role != RoleType.Colgrevance } // see evil team except yourself AND colgrevance
+                .filter { it.role != role && it.role != RoleType.Colgrevance } // see evil team except yourself AND colgrevance
                 .map { ThavalonInformation.SingleSeenInformation(it) }) // convert to SingleSeenInformation
             return@updater
         }, UpdaterPriority.Ten)

@@ -31,7 +31,7 @@ open class OldTitania : Role() {
         // inform r that they have been titania'd
         r.information.add(ThavalonInformation.AlertInformation("You have been Titania'd!"))
         // tell titania who they titania'd
-        information.add(ThavalonInformation.AlertInformation("You have added false information to a" +
+        information.add(ThavalonInformation.AlertInformation("You have added false information to a " +
                 "player with the role of " + r.role.role.toString()))
     }
 }
