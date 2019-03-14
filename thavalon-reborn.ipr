@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="thavalon_reborn.thavalon_reborn.main" target="1.8" />
+      <module name="thavalon_reborn.thavalon_reborn.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="Encoding" addBOMForNewFiles="with NO BOM" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+  <component name="InspectionProjectProfileManager">
+    <profile version="1.0">
+      <option name="myName" value="Project Default" />
+    </profile>
+    <version value="1.0" />
+  </component>
+  <component name="ProjectCodeStyleConfiguration">
+    <option name="USE_PER_PROJECT_SETTINGS" value="true" />
+    <code_scheme name="Project" version="173">
+      <JetCodeStyleSettings>
+        <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+      </JetCodeStyleSettings>
+      <codeStyleSettings language="kotlin">
+        <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+      </codeStyleSettings>
+    </code_scheme>
+  </component>
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/thavalon_reborn.thavalon_reborn.iml" filepath="$PROJECT_DIR$/thavalon_reborn.thavalon_reborn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/thavalon_reborn.thavalon_reborn.main.iml" filepath="$PROJECT_DIR$/thavalon_reborn.thavalon_reborn.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/thavalon_reborn.thavalon_reborn.test.iml" filepath="$PROJECT_DIR$/thavalon_reborn.thavalon_reborn.test.iml" />
+    </modules>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8.0_191" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+  </component>
+  <component name="libraryTable">
+    <library name="Gradle: ch.qos.logback:logback-classic:1.2.1">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.1/706a8b8206ead3683ec639dd270d11fd948fbb0e/logback-classic-1.2.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.1/9fca3c77b4401de7541f01d858b2aec55f4fc51f/logback-classic-1.2.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: ch.qos.logback:logback-classic:1.2.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/7c4f3c474fb2c041d8028740440937705ebb473a/logback-classic-1.2.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/cfd5385e0c5ed1c8a5dce57d86e79cf357153a64/logback-classic-1.2.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: ch.qos.logback:logback-core:1.2.1">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.1/378913dfc3c6c71e7e2a2853eff2c3e8ac27599/logback-core-1.2.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.1/8025b15884a6a3909c6b0fe881c81b647f2fc7fe/logback-core-1.2.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: ch.qos.logback:logback-core:1.2.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.3/864344400c3d4d92dfeb0a305dc87d953677c03c/logback-core-1.2.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.3/3ebabe69eba0196af9ad3a814f723fb720b9101e/logback-core-1.2.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.typesafe:config:1.3.1">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.typesafe/config/1.3.1/2cf7a6cc79732e3bdf1647d7404279900ca63eb0/config-1.3.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.typesafe/config/1.3.1/a27878630ff503b63ed25ff2a25fa8ef888740b3/config-1.3.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-client-cio:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-client-cio/1.1.3/2ce723447e14d83326bcc1b0f79c8cae27ea7898/ktor-client-cio-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-client-cio/1.1.3/e15d13029a972ba307430b64dede86f05af3964/ktor-client-cio-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-client-core-jvm:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-client-core-jvm/1.1.3/18dc0963f4385dfd0f71d7fab57d88d5321ac89b/ktor-client-core-jvm-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-client-core-jvm/1.1.3/65d4e72cc952aae9ee4d6a61fe2af2b5987ac33/ktor-client-core-jvm-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-client-jetty:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-client-jetty/1.1.3/f3d66b3bf526ceb59e5c153412eefd82e09100dd/ktor-client-jetty-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-client-jetty/1.1.3/55b8c6a284dcf24c02fbec37181679cdb89bfb9/ktor-client-jetty-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-client-tests:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-client-tests/1.1.3/7e242e82307a3b6b6da712b621e4cd5f2660fa88/ktor-client-tests-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-client-tests/1.1.3/9651d91b0cc3a4a26aade181b5222ceb1801dccd/ktor-client-tests-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-http-cio:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-http-cio/1.1.3/47e0be9d70818ab08be9ec8c5a05a13347167b8a/ktor-http-cio-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-http-cio/1.1.3/ea0568552978f6c565d8211ca473caf50dcb259b/ktor-http-cio-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-http-jvm:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-http-jvm/1.1.3/7ee93a1a4ec1e6274a49a27fdff546bf3b1663d/ktor-http-jvm-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-http-jvm/1.1.3/82d1b8fb75e4eaa0bdb909f7f5a326a47564b112/ktor-http-jvm-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-network-tls:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-network-tls/1.1.3/bf9ed6f5909cb06b4254a9c4ece45151cdc6a3f3/ktor-network-tls-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-network-tls/1.1.3/9184d46a3953505a34864cba02c80b019e033077/ktor-network-tls-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-network:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-network/1.1.3/79c80c205bcac1442f9d45ae91222a5ddd60d143/ktor-network-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-network/1.1.3/a652d53b5924025511159d99c41ec57489d348d5/ktor-network-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-server-core:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-core/1.1.3/246c5b16adbb0bad25ab5d8dddc6fb651f8e25e3/ktor-server-core-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-core/1.1.3/587ea9419d38a49f685da3d81db7a083c89d559/ktor-server-core-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-server-host-common:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-host-common/1.1.3/5ea6f8eade97c7d32174c4084f2af212de453158/ktor-server-host-common-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-host-common/1.1.3/dc2e3fb8e658f420f2966d1339720e8875bb4095/ktor-server-host-common-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-server-jetty:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-jetty/1.1.3/c8e1738e4f069ef24dcaa4bb8df0be67869f706e/ktor-server-jetty-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-jetty/1.1.3/31d45951d2ca4c7188175b062f7a49857e3d6a35/ktor-server-jetty-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-server-netty:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-netty/1.1.3/23b3d089f456e29746f0231fdd562e0326d37822/ktor-server-netty-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-netty/1.1.3/85435d7e8ef2437ba6bf60e8e5881b5e06aa03f6/ktor-server-netty-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-server-servlet:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-servlet/1.1.3/ba1928e0fb7095d22605594c09fad5bbf2ed3989/ktor-server-servlet-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-servlet/1.1.3/3043983a91c1fcda97c60d3b6743b888cd6b8d8f/ktor-server-servlet-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-server-test-host:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-test-host/1.1.3/f0a96c97a5c091547333929670aa431dc100951e/ktor-server-test-host-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-test-host/1.1.3/43042e33f164b31a29cbf274056bc32a1c86d328/ktor-server-test-host-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-server-tests:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-tests/1.1.3/797b938fb78971b69a9d4ba2667e1c7f3ab3edea/ktor-server-tests-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-tests/1.1.3/f5adceac302445ea4bf13dd6b9e7c21fa23575e3/ktor-server-tests-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-utils-jvm:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-utils-jvm/1.1.3/bf55431317b60ea57b43ee896651773ccf5c442e/ktor-utils-jvm-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-utils-jvm/1.1.3/afa32cdcf462c07584f899e78c71521bd5df17ea/ktor-utils-jvm-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.ktor:ktor-websockets:1.1.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-websockets/1.1.3/44acca29e3c5ba1a42d09df8df629cdb32363d04/ktor-websockets-1.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.ktor/ktor-websockets/1.1.3/4381bba961b5ad32eefea1759f230261cafcc2d/ktor-websockets-1.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.netty:netty-buffer:4.1.24.Final">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.1.24.Final/e354bed2e60b568307138e403f55ba241c1c16d2/netty-buffer-4.1.24.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.1.24.Final/ced36ea8494a1f5d99e0aba9442cf739c97b694f/netty-buffer-4.1.24.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.netty:netty-codec-http2:4.1.24.Final">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http2/4.1.24.Final/c0c0d9d20402e4493083447052b59d5680e88b2e/netty-codec-http2-4.1.24.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http2/4.1.24.Final/b031a4f9e1f4d218f43528ab9bd45fe01f77137a/netty-codec-http2-4.1.24.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.netty:netty-codec-http:4.1.24.Final">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http/4.1.24.Final/8f20009953b2c7c3d860cef928007bc01aa58ac/netty-codec-http-4.1.24.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http/4.1.24.Final/a5e7e5d9ed023cb41962e2beb97bb60112d50abf/netty-codec-http-4.1.24.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.netty:netty-codec:4.1.24.Final">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.1.24.Final/290857e5103956bbda11836e33245f2439226b77/netty-codec-4.1.24.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.1.24.Final/17fe0364f05a2c0fff6dcb173b635b4fba097c79/netty-codec-4.1.24.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.netty:netty-common:4.1.24.Final">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.1.24.Final/7eeecd7906543214c3c1c984d275d3c6de10b99d/netty-common-4.1.24.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.1.24.Final/128c0aa2ce4b26b3a619532cb726c605d9da7047/netty-common-4.1.24.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.netty:netty-handler:4.1.24.Final">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.1.24.Final/bad56e7da211c5ebe031ae155cb648b1065c7bb6/netty-handler-4.1.24.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.1.24.Final/843c8f8e5030d315617dc68051b2aafe7bf190c6/netty-handler-4.1.24.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.netty:netty-resolver:4.1.24.Final">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.1.24.Final/dbc1e5b50d31aed883ea3beeb6489e1977d0687f/netty-resolver-4.1.24.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.1.24.Final/b10dfa5947f05e2a1ee3060ba7a7b3a2e5f67887/netty-resolver-4.1.24.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.netty:netty-transport:4.1.24.Final">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.24.Final/d37292c94d3a4cba48d9b6cfb6e8e55282035d0d/netty-transport-4.1.24.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.24.Final/659e3db972506c66e352b6070c99d45d45b20243/netty-transport-4.1.24.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: javax.servlet:javax.servlet-api:3.1.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="Gradle: junit:junit:4.12">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="Gradle: org.eclipse.jetty.alpn:alpn-api:1.1.3.v20160715">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.alpn/alpn-api/1.1.3.v20160715/a1bf3a937f91b4c953acd13e8c9552347adc2198/alpn-api-1.1.3.v20160715.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.alpn/alpn-api/1.1.3.v20160715/c4895d0fb6425ff46cbb60d43f4b018e236779/alpn-api-1.1.3.v20160715-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty.http2:http2-client:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.http2/http2-client/9.4.11.v20180605/339820bf5c760ddc2de380ce11e294738c4f052c/http2-client-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.http2/http2-client/9.4.11.v20180605/94a677593a5917f7c811815fec41c59d47b3e7dc/http2-client-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty.http2:http2-common:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.http2/http2-common/9.4.11.v20180605/c3505689e5be699d04298dde534f431382feaa83/http2-common-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.http2/http2-common/9.4.11.v20180605/e7ab220d19db61a392b6a47a3b432eb761432b5a/http2-common-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty.http2:http2-hpack:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.http2/http2-hpack/9.4.11.v20180605/485673fa87b67e1e89986ba8668f7154fd071682/http2-hpack-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.http2/http2-hpack/9.4.11.v20180605/10ed0c135b0571483e66caa60f57a839587d76f9/http2-hpack-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty.http2:http2-http-client-transport:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.http2/http2-http-client-transport/9.4.11.v20180605/b686cb48df4b38a31876c6a3adda4b654604716a/http2-http-client-transport-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.http2/http2-http-client-transport/9.4.11.v20180605/c83b1550918a1385754e92a6f86661ec3f715b1a/http2-http-client-transport-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty.http2:http2-server:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.http2/http2-server/9.4.11.v20180605/6b3026400e31de4eac4735a6845a893f7f021160/http2-server-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.http2/http2-server/9.4.11.v20180605/ec4cd8642eb18c4a15728aa7ddb09d480389fbd4/http2-server-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-alpn-client:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-client/9.4.11.v20180605/f2b629044cd968bbe15f63778e4aaf095ac2fb5c/jetty-alpn-client-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-client/9.4.11.v20180605/d74264bc781e5e4f52f706b3cbc4ffced433ab71/jetty-alpn-client-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-alpn-java-client:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-java-client/9.4.11.v20180605/143095a4dfef5fe5b803df93030677ac4cda71af/jetty-alpn-java-client-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-java-client/9.4.11.v20180605/1751635caeabc6757320464f8cef9d4839cecec2/jetty-alpn-java-client-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-alpn-java-server:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-java-server/9.4.11.v20180605/945e87a1ed91d7881e6264cb6e5b2467408f8650/jetty-alpn-java-server-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-java-server/9.4.11.v20180605/9e4a76d905fd99547e02f5bb9f8de5eae865261/jetty-alpn-java-server-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-alpn-openjdk8-client:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-openjdk8-client/9.4.11.v20180605/9a881b7f2c76973b72c5306fa3695012077bbc39/jetty-alpn-openjdk8-client-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-openjdk8-client/9.4.11.v20180605/5c29ee95a14ced25e4667930a3d0afbdf9bc68f6/jetty-alpn-openjdk8-client-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-alpn-openjdk8-server:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-openjdk8-server/9.4.11.v20180605/c1f528c935510d6aba2ddf7026d96cd43cdfb62e/jetty-alpn-openjdk8-server-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-openjdk8-server/9.4.11.v20180605/5ad170431b7f541b2f03176e02c13775591c9b65/jetty-alpn-openjdk8-server-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-alpn-server:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-server/9.4.11.v20180605/ec3b6afab2c074141f0faa71446bc41c6146f44b/jetty-alpn-server-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-alpn-server/9.4.11.v20180605/1f262e199dc6456adb4e2bff968c73ed73d26069/jetty-alpn-server-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-client:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-client/9.4.11.v20180605/be0622ef33de4239d0625c7a39c48a41c45d0675/jetty-client-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-client/9.4.11.v20180605/b4dfcefee24babba9e01fd7e97d5b46c40aff601/jetty-client-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-continuation:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-continuation/9.4.11.v20180605/31f1e347d013356317164b86bbbc2a6ce5c5e871/jetty-continuation-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-continuation/9.4.11.v20180605/8257ca7d3265c90489b621b00840bab2e8c2b3f8/jetty-continuation-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-http:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-http/9.4.11.v20180605/20c35f5336befe35b0bd5c4a63e07170fe7872d7/jetty-http-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-http/9.4.11.v20180605/5bc30d1f7e8c4456c22cc85999b8cafd3741bdff/jetty-http-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-io:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-io/9.4.11.v20180605/d164de1dac18c4ca80a1b783d879c97449909c3b/jetty-io-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-io/9.4.11.v20180605/2c0caba292b1cb74cec1d36c6f91dc863c89b5a/jetty-io-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-server:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-server/9.4.11.v20180605/58353c2f27515b007fc83ae22002feb34fc24714/jetty-server-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-server/9.4.11.v20180605/e7d832d74df616137755996b41bc28bb82b3bc42/jetty-server-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-servlets:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-servlets/9.4.11.v20180605/8301f94a8b8e4a8ed7c065984b18c02c4206b920/jetty-servlets-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-servlets/9.4.11.v20180605/96b568e18036ac51e9c7ea1d71d3b4151f40a583/jetty-servlets-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.eclipse.jetty:jetty-util:9.4.11.v20180605">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-util/9.4.11.v20180605/f0f25aa2f27d618a04bc7356fa247ae4a05245b3/jetty-util-9.4.11.v20180605.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-util/9.4.11.v20180605/4e5c4c483cfd9804c2fc5d5751866243bbb9d740/jetty-util-9.4.11.v20180605-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.hamcrest:hamcrest-core:1.3">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.3.21">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.3.21/d0d5ff2ac2ebd8a42697af41e20fc225a23c5d3b/kotlin-reflect-1.3.21.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.3.21/a30e058efd57c50515227c894abed1db20edb2b5/kotlin-reflect-1.3.21-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.21" type="kotlin.common">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.21/f30e4a9897913e53d778f564110bafa1fef46643/kotlin-stdlib-common-1.3.21.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.21/224a3bcfa1c088dd5d7c4a3958a68427b44c65dc/kotlin-stdlib-common-1.3.21-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.21">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.21/d207ce2c9bcf17dc8e51bab4dbfdac4d013e7138/kotlin-stdlib-jdk7-1.3.21.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.21/93dd94ae3e45cbde664abacd9d4c9b1b99f34201/kotlin-stdlib-jdk7-1.3.21-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.21">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.3.21/d0634d54452abc421db494ad32dd215e6591c49f/kotlin-stdlib-jdk8-1.3.21.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.3.21/7c5bbe1b5e11cf9098d3bc3eddf97e8ed8f4e94/kotlin-stdlib-jdk8-1.3.21-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.21">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.21/4bcc2012b84840e19e1e28074284cac908be0295/kotlin-stdlib-1.3.21.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.21/b8815e48fb45e94821287365bd9ce8623f459ac7/kotlin-stdlib-1.3.21-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlin:kotlin-test-annotations-common:1.3.21" type="kotlin.common">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-annotations-common/1.3.21/fa06fbbfdd3ac286f91c2a320f67bcb3e1ff45ee/kotlin-test-annotations-common-1.3.21.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-annotations-common/1.3.21/9e9731696b29827bb52f283c4b7878eaab1f9dc8/kotlin-test-annotations-common-1.3.21-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlin:kotlin-test-common:1.3.21" type="kotlin.common">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-common/1.3.21/36470631bd1b5d7d78506e4dcb644e1b0d1708a8/kotlin-test-common-1.3.21.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-common/1.3.21/cec2c6c08fdfb5c7b5cc07edb54c111057176dd6/kotlin-test-common-1.3.21-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlin:kotlin-test-junit:1.3.21">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-junit/1.3.21/17d1a5cdd282f901004dea50a04ba363b4a9ccef/kotlin-test-junit-1.3.21.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-junit/1.3.21/3a76ccefc145461399c809be324ddc5b6c00aaff/kotlin-test-junit-1.3.21-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlin:kotlin-test:1.3.21">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test/1.3.21/38d09017c4e62144d76281b35e9b1c17c22ef056/kotlin-test-1.3.21.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test/1.3.21/1bb242f60991c7bf0af2490879c4efcf333f099/kotlin-test-1.3.21-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlinx:atomicfu-common:0.12.2" type="kotlin.common">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/atomicfu-common/0.12.2/2b9f5910aebb4a0e5a611f0b2fda527d5ebaec5c/atomicfu-common-0.12.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/atomicfu-common/0.12.2/eadb904dc952141abd1ae26bf21ad19d279fbf90/atomicfu-common-0.12.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlinx:atomicfu:0.12.2">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/atomicfu/0.12.2/b164d85b406b8bbec6bed935755fe0df412bde34/atomicfu-0.12.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/atomicfu/0.12.2/e8ee8b5840b5a3fd5ad2de6c2857f1d3457c71ce/atomicfu-0.12.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.1.1" type="kotlin.common">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-common/1.1.1/7ed04382bdf0c89c5d87ac462aa4935ae8e85243/kotlinx-coroutines-core-common-1.1.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-common/1.1.1/113450f5f2a971252086c89dd26cde062455fbe8/kotlinx-coroutines-core-common-1.1.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/1.1.1/3d2b7321cdef9ebf9cb7729ea4f75a6f6457df86/kotlinx-coroutines-core-1.1.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/1.1.1/7fa353579a38ee5bc873511455e4cca65d930b52/kotlinx-coroutines-core-1.1.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-io-jvm:0.1.6">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-io-jvm/0.1.6/c0147f472d788a7b2e451b46e1e26b5093b0730/kotlinx-coroutines-io-jvm-0.1.6.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-io-jvm/0.1.6/6a06df3975f288a60e960fc3d6797bfcf52bcdc6/kotlinx-coroutines-io-jvm-0.1.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-io:0.1.6">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-io/0.1.6/70aec74c12fb2eb3bb6dd9dd3331b5a74e1a3f37/kotlinx-coroutines-io-0.1.6.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-io/0.1.6/871097fc9b1d306038fb5572a6874d61a5095e9f/kotlinx-coroutines-io-0.1.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.1.1">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-jdk8/1.1.1/830dbee69f68af66803b8b426e0a5f48be7a7db4/kotlinx-coroutines-jdk8-1.1.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-jdk8/1.1.1/dbee6cb9cafacb65c84e51d667b2472d7fd49179/kotlinx-coroutines-jdk8-1.1.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlinx:kotlinx-io-jvm:0.1.6">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-io-jvm/0.1.6/a05cbb3480835e25bdd66a87c2f35a45a793d5b9/kotlinx-io-jvm-0.1.6.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-io-jvm/0.1.6/2c2b3c89bfaab1547d6c6485ec774eb9e173181/kotlinx-io-jvm-0.1.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains.kotlinx:kotlinx-io:0.1.6">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-io/0.1.6/da1ba2f92bddb47f27ea0fa577c85f54f67736d7/kotlinx-io-0.1.6.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-io/0.1.6/34cb2eb8db122d9bd48880ea085ffec55fb08578/kotlinx-io-0.1.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jetbrains:annotations:13.0">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/5991ca87ef1fb5544943d9abc5a9a37583fabe03/annotations-13.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.mortbay.jetty.alpn:alpn-boot:8.1.13.v20181017">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.mortbay.jetty.alpn/alpn-boot/8.1.13.v20181017/fecc7a23eb1cc8df0e5152f5276d36393a9d0bea/alpn-boot-8.1.13.v20181017.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.mortbay.jetty.alpn/alpn-boot/8.1.13.v20181017/7f69f46c6f40a265e75201aaa525146ef741f7a/alpn-boot-8.1.13.v20181017-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.slf4j:slf4j-api:1.7.25">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+  </component>
+</project>

@@ -6,8 +6,10 @@
     background-color: Transparent;
     flex-basis: auto; /* default value */
     flex-grow: 1;
-    height: 50px;
+    height: 35px;
     text-align: center;
+    vertical-align: center;
+    border: 1px solid white;
     border-radius: 20px;
     margin: 10px;
 
@@ -15,19 +17,18 @@
 
 
 .player-tag-wrapper button {
+    border: none;
+    margin-top: 12px;
+    margin-left: 4px;
+
     display: inline-block;
     font-weight: bold;
-    height: 30px;
-    width: 30px;
     text-align: center;
     vertical-align: center;
-    margin-left: 0;
+
     /*background-color: #585859;*/
     background-color: Transparent;
 
-    border: 1px solid white;
-
-    border-radius: 50%;
 
 }
 
@@ -40,13 +41,15 @@
 
 .player-tag-wrapper p {
     display: inline-block;
-
+    margin: auto;
     text-align: center;
     font-weight: bold;
-    padding: 0 10px;
+    padding: 0 10px 0 0;
 
 
 }
+
+
 
 .player_name {
     display: inline-block;

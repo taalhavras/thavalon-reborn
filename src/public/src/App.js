@@ -154,7 +154,7 @@ class App extends Component {
             || this.state.players.length === 7
             || this.state.players.length === 8
             || this.state.players.length === 10) {
-            return ( <Link to={{ pathname: "/game/" + this.state.gameNum, state: { names: this.names()} } }>
+            return ( <Link to={{ pathname: "/game/" + this.state.gameNum, state: { names: this.names(), num: this.state.players.length} } }>
                 <button  className={"large_button"}>
                     Start Game
                 </button>
@@ -178,6 +178,13 @@ class App extends Component {
             next = names.next();
         }
         return array;
+    };
+
+
+    options_change = (key) => {
+        const roles = this.state.roles;
+        roles[key] = !roles[key];
+        this.setState({roles: roles});
     };
 
     /**
@@ -206,7 +213,7 @@ class App extends Component {
           {this.state.input ?
               <div>
                   {this.state.options ?
-                  <div className={"options"}><Options options={this.state.roles} submit={this.options}/>
+                  <div className={"options"}><Options options={this.state.roles} submit={this.options} />
                   </div> : null}
               <form className="player_input" id={"player-name-input"} onSubmit={this.playerSubmit}>
                   <input type="text" id ={"input-field"} placeholder={"Enter player name"}/>
@@ -240,7 +247,6 @@ class App extends Component {
                   {this.state.info ?
                       <div className={"rules_wrapper"}>
                           <button className={"exit_button"} onClick={this.info}> x </button>
-
                           <div className={"rules"}>
                           <h1>Rules</h1>
                           <h2> Lorum Ipsum</h2>

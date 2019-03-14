@@ -15,10 +15,9 @@ class Game extends Component {
         if (this.props.location.state.names === undefined) {
           return null;
         }
-        let donotopen = this.props.location.pathname + "/donotopen";
+        console.log(this.props.location.state.num);
 
         return ( <div className="names">
-
                 {this.props.location.state.names.map(curr =>
                 {
                     const path = this.props.location.pathname + "/" + curr;
@@ -29,8 +28,8 @@ class Game extends Component {
                         <button className={"my_button, large_button"}>{curr.toString()}</button>
                     </Link>);
                 })}
-                <Link key ={count} to={{pathname: {donotopen}, state: {name: "Do Not Open", role: "", role_info: ""}}}>
-                    <button className={"my_button, large_button"}>{"Do Not Open"}</button>
+                <Link key ={count} to={{pathname: "/donotopen", state: {name: "Do Not Open", role: ""}}}>
+                    <button className={"my_button, large_button"}>Do Not Open</button>
                 </Link>
             </div>
 

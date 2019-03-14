@@ -75,18 +75,18 @@
   border: 10px solid #4f4f4f;
 }
 .rules {
+  margin: 0;
+  padding: 20px;
   text-align: left;
-  padding: 10px;
   background-color: white;
   color: #4f4f4f;
   overflow-y: scroll;
   overflow-x: auto;
   height: 90vh;
-  width: 90vw;
+  width: 80vw;
   max-width: 600px;
 
 }
-
 .exit_button:hover {
   color: grey;
   cursor: pointer;
@@ -96,11 +96,13 @@
 .exit_button {
   outline: none;
   border: none;
-  position: relative;
-  top: -5px;
+  position: absolute;
+  top: 5px;
   font-size: 24pt;
   left: 95%;
   color: grey;
+  margin: 0;
+  padding: 0;
 }
 .rules h1 {
   margin: 0 auto;

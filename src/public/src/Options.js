@@ -10,23 +10,25 @@ import './css/Options.css';
  */
 class Options extends Component {
 
-    render() {
+    handleChange = (key) => {
+        this.props.handleChange(key);
+    };
 
+    render() {
+        let count = 0;
         return (<div className={"options_wrapper"}>
                 <form className={"option_form"} onSubmit={this.props.submit}>
                     <div className={"checks"}>
                         {this.props.options.map(function (element) {
-                        return (<div className={"option_ele"}>
+                            count++;
+                        return (<div key={count} className={"option_ele"}>
                        <label className="label">
-                           <input className={"check slider"} type={"checkbox"} id={element.key} key={element.key} defaultChecked={element.value}/>
-                           <span className={"slider round"}> </span>
+                           <input className={"check slider"} type={"checkbox"} defaultChecked={element.value}/>
                            {element.key}
                        </label>
-
                         </div>);
                     })}
                     </div>
-
                     <input className={"options_submit"} type={"submit"} value={"Done"}/>
                 </form>
             </div>

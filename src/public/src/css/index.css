@@ -6,6 +6,7 @@
 
 
 
+textarea, select, input, button { outline: none; }
 
 body {
   margin: 0;
