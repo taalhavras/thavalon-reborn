@@ -89,6 +89,13 @@ sealed class ThavalonInformation {
             return "${A.role} sees ${B.role}"
         }
     }
+
+    // this information represents perfect knowledge of a player and their role (i.e. you know their name and their role)
+    data class PerfectInformation(val seen : Role) : ThavalonInformation() {
+        override fun toString(): String {
+            return "${seen.role}"
+        }
+    }
 }
 
 /**
