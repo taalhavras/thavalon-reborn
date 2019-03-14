@@ -10,12 +10,14 @@ import thavalon.UpdaterPriority
 open class OldPercival : Role() {
     override val role: RoleType = RoleType.Percival
 
+    val seen : Set<RoleType> = setOf(RoleType.Morgana, RoleType.Merlin)
+
     override fun getUpdaters(g: Game): List<Updater> {
         return listOf(makePercivalUpdater())
     }
 
     fun seenByPercival(r : Role) : Boolean {
-        return r.role == RoleType.Morgana || r.role == RoleType.Merlin
+        return r.role in seen
     }
 
     fun makePercivalUpdater() : Updater {
@@ -31,7 +33,7 @@ open class OldPercival : Role() {
 /**
  * New Percival implementation, must see at least one role
  */
-class NewPercival() : OldPercival() {
+class NewPercival : OldPercival() {
     override fun gameOk(g: Game): Boolean {
         return g.rolesInGame.any {seenByPercival(it)}
     }
