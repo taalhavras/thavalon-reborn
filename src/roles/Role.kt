@@ -30,6 +30,7 @@ enum class RoleEnum {
     Maelagant,
     Oberon,
     Agravaine,
+    Colgrevance,
 
     Unknown
 }
@@ -55,6 +56,7 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
     object Maelagant : RoleType(RoleEnum.Maelagant, Alignment.Evil)
     object Oberon : RoleType(RoleEnum.Oberon, Alignment.Evil)
     object Agravaine : RoleType(RoleEnum.Agravaine, Alignment.Evil)
+    object Colgrevance : RoleType(RoleEnum.Colgrevance, Alignment.Evil)
 
     object Unknown : RoleType(RoleEnum.Unknown, Alignment.Unknown)
 
@@ -90,8 +92,7 @@ sealed class ThavalonInformation {
 }
 
 /**
- * Class to better organize and aggregate information. Thinking about having roles contain this instead
- * of a single list of information because it'll let us cast less
+ * Class to organize and aggregate information. Each role contains an instance of this class
  */
 class InformationAggregator {
     // fields for each specific type of ThavalonInformation
@@ -174,7 +175,7 @@ abstract class DefaultEvilRole : Role() {
         // default evil team, sees all other evil roles that aren't you
         return Pair(updater@{g : Game ->
             information.addAll(g.getEvilRoles()
-                .filter { it.role != role } // see evil team except yourself
+                .filter { it.role != role || it.role != RoleType.Colgrevance } // see evil team except yourself AND colgrevance
                 .map { ThavalonInformation.SingleSeenInformation(it) }) // convert to SingleSeenInformation
             return@updater
         }, UpdaterPriority.Ten)
