@@ -13,7 +13,7 @@ class Oberon : DefaultEvilRole() {
 
     private val aSeesBTargets : Set<RoleType> = setOf(RoleType.Guinevere)
 
-    private val rolePresentTargets : Set<RoleType> = setOf(RoleType.NewArthur, RoleType.Nimue)
+    private val rolePresentTargets : Set<RoleType> = setOf(RoleType.Arthur, RoleType.Nimue)
 
     override fun getUpdaters(g: Game): List<Updater> {
         val updaters : MutableList<Updater> = super.getUpdaters(g).toMutableList()

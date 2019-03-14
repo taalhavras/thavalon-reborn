@@ -22,6 +22,7 @@ enum class RoleEnum {
     Tristan,
     Iseult,
     Arthur,
+    Galahad,
     Titania,
     Nimue,
 
@@ -45,9 +46,8 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
     object Guinevere : RoleType(RoleEnum.Guinevere, Alignment.Good)
     object Tristan : RoleType(RoleEnum.Tristan, Alignment.Good)
     object Iseult : RoleType(RoleEnum.Iseult, Alignment.Good)
-    // need Arthur and NewArthur as separate because the two roles are so different (have different interactions w/oberon)
+    object Galahad : RoleType(RoleEnum.Galahad, Alignment.Good)
     object Arthur : RoleType(RoleEnum.Arthur, Alignment.Good)
-    object NewArthur : RoleType(RoleEnum.Arthur, Alignment.Good)
     object Titania : RoleType(RoleEnum.Titania, Alignment.Good)
     object Nimue : RoleType(RoleEnum.Nimue, Alignment.Good)
 
