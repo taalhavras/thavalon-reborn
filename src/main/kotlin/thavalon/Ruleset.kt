@@ -66,7 +66,7 @@ open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
 }
 
 /**
- * Standard rulesets for 5, 7, 8 player games
+ * Standard rulesets for 5, 7, 8, and 10 player games
  */
 object FivesRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), Lancelot()),
     listOf(Mordred(), Morgana(), Maelagant(), Oberon()))
@@ -76,3 +76,6 @@ object SevensRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tris
 
 object EightsRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
     listOf(Mordred(), Morgana(), Maelagant(), Oberon(), Agravaine()))
+
+object TensRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
+    listOf(Mordred(), Morgana(), Maelagant(), Oberon(), Agravaine(), Colgrevance()))

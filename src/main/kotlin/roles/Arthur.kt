@@ -14,7 +14,7 @@ open class Arthur : Role() {
 /**
  * Class for new Arthur, knows all good roles in game
  */
-class NewArthur : Arthur() {
+class NewArthur : Role() {
     override val role : RoleType = RoleType.NewArthur
 
     override fun getUpdaters(g: Game): List<Updater> {
