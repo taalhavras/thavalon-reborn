@@ -74,26 +74,30 @@ sealed class ThavalonInformation {
     data class AlertInformation(val alert : String) : ThavalonInformation()
 
     // this is used to inform you that a role is in the game
-    data class RolePresentInformation(val present : Role) : ThavalonInformation()
+    data class RolePresentInformation(val present : Role) : ThavalonInformation() {
+        override fun toString(): String {
+            return "${present.role}"
+        }
+    }
 
     // this information represents seeing someone
     data class SingleSeenInformation(val seen : Role) : ThavalonInformation() {
         override fun toString(): String {
-            return "${seen.role}"
+            return "${seen.player}"
         }
     }
 
     // this information represents seeing someone seeing someone else (guinevere info)
     data class ASeesBInformation(var A : Role, var B : Role) : ThavalonInformation() {
         override fun toString(): String {
-            return "${A.role} sees ${B.role}"
+            return "${A.player} sees ${B.player}"
         }
     }
 
     // this information represents perfect knowledge of a player and their role (i.e. you know their name and their role)
     data class PerfectInformation(val seen : Role) : ThavalonInformation() {
         override fun toString(): String {
-            return "${seen.role}"
+            return "${seen.player} is ${seen.role.role}"
         }
     }
 }
@@ -185,7 +189,7 @@ abstract class DefaultEvilRole : Role() {
         // default evil team, sees all other evil roles that aren't you
         return Pair(updater@{g : Game ->
             information.addAll(g.getEvilRoles()
-                .filter { it.role != role || it.role != RoleType.Colgrevance } // see evil team except yourself AND colgrevance
+                .filter { it.role != role && it.role != RoleType.Colgrevance } // see evil team except yourself AND colgrevance
                 .map { ThavalonInformation.SingleSeenInformation(it) }) // convert to SingleSeenInformation
             return@updater
         }, UpdaterPriority.Ten)
