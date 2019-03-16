@@ -2,9 +2,64 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba3b5c13-9d8e-40d4-a902-d008929e0b4a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Site.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Site.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/public/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/public/build/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/public/build/static/css/main.641b8635.chunk.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/public/build/static/css/main.641b8635.chunk.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/asset-manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/precache-manifest.d998e0e979942cb876de126f83ed1234.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/service-worker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/css/main.641b8635.chunk.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/css/main.641b8635.chunk.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/js/2.aeae9541.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/js/2.aeae9541.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/js/main.e1eba67f.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/js/main.e1eba67f.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/js/runtime~main.fdfcfda2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/js/runtime~main.fdfcfda2.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/media/Cardinal.38c51607.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/media/Enchanted-Land.4cc44563.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/media/Quicksand_Bold.c3bf00e5.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/media/Quicksand_Book.dd2da1d8.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/media/Yataghan-Regular.0dae9690.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/build/static/media/excalibur_by_psdeluxe_d8a6nxy-pre.1950d3c1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/Board.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/Game.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/Mission.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/Options.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/Player.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/PlayerTag.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/css/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/css/Board.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/css/Game.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/css/Mission.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/css/Options.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/css/Player.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/css/PlayerTag.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/css/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/css/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/fonts/Cardinal.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/fonts/Enchanted-Land.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/fonts/Quicksand_Bold.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/fonts/Quicksand_Book.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/fonts/Yataghan-Regular.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/public/excalibur_by_psdeluxe_d8a6nxy-pre.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/public/src/serviceWorker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thavalon-reborn.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/thavalon-reborn.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thavalon-reborn.iws" beforeDir="false" afterPath="$PROJECT_DIR$/thavalon-reborn.iws" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -42,47 +97,66 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+            <state relative-caret-position="44">
+              <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/Site.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="30" column="9" lean-forward="true" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+            <state relative-caret-position="453">
+              <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
               <folding>
-                <element signature="e#13#383#0" expanded="true" />
+                <element signature="e#13#761#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/public/public/index.html">
+        <entry file="file://$PROJECT_DIR$/src/main/kotlin/thavalon/Ruleset.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
+            <state relative-caret-position="-766" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/react/src/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="381">
+              <caret line="186" selection-start-line="186" selection-end-line="186" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+                <element signature="e#1789#1846#0" />
+                <element signature="e#1917#1972#0" />
+                <element signature="e#2098#2372#0" />
+                <element signature="e#2443#2505#0" />
+                <element signature="e#2577#2633#0" />
+                <element signature="e#2769#3477#0" />
+                <element signature="e#3600#3944#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/public/build/index.html">
+        <entry file="file://$PROJECT_DIR$/react/src/Game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="418" selection-start-column="417" selection-end-column="418" />
+            <state relative-caret-position="-9">
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/public/build/static/css/main.641b8635.chunk.css">
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/jre/lib/rt.jar!/sun/nio/fs/UnixFileAttributeViews.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="647" selection-start-column="647" selection-end-column="647" />
+            <state relative-caret-position="182">
+              <caret line="285" selection-start-line="285" selection-end-line="285" />
             </state>
           </provider>
         </entry>
@@ -102,10 +176,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/public/public/index.html" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/Site.kt" />
         <option value="$PROJECT_DIR$/src/public/build/index.html" />
         <option value="$PROJECT_DIR$/src/public/build/static/css/main.641b8635.chunk.css" />
+        <option value="$PROJECT_DIR$/src/public/package.json" />
+        <option value="$PROJECT_DIR$/react/src/App.js" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/Site.kt" />
       </list>
     </option>
   </component>
@@ -118,7 +194,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -129,67 +204,57 @@
             <path>
               <item name="thavalon_reborn" type="b2602c69:ProjectViewProjectNode" />
               <item name="thavalon-reborn" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="gradle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thavalon_reborn" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thavalon-reborn" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thavalon_reborn" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thavalon-reborn" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thavalon_reborn" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thavalon-reborn" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="thavalon_reborn" type="b2602c69:ProjectViewProjectNode" />
               <item name="thavalon-reborn" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="thavalon_reborn" type="b2602c69:ProjectViewProjectNode" />
               <item name="thavalon-reborn" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="thavalon_reborn" type="b2602c69:ProjectViewProjectNode" />
               <item name="thavalon-reborn" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="thavalon_reborn" type="b2602c69:ProjectViewProjectNode" />
               <item name="thavalon-reborn" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="thavalon_reborn" type="b2602c69:ProjectViewProjectNode" />
-              <item name="thavalon-reborn" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="thavalon_reborn" type="b2602c69:ProjectViewProjectNode" />
-              <item name="thavalon-reborn" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="media" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="thavalon_reborn" type="b2602c69:ProjectViewProjectNode" />
-              <item name="thavalon-reborn" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="thavalon" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -198,10 +263,17 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/public/src/public" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -261,17 +333,19 @@
       <updated>1552567266167</updated>
       <workItem from="1552567267962" duration="4619000" />
       <workItem from="1552582880770" duration="1400000" />
+      <workItem from="1552742117826" duration="128000" />
+      <workItem from="1552754682454" duration="2930000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6019000" />
+    <option name="totallyTimeSpent" value="10468000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2532189" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26037195" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -332,37 +406,11 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/Main.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="55" />
-          <folding>
-            <element signature="e#14#78#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Main.kt" />
     <entry file="file://$PROJECT_DIR$/src/public/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="31" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Site.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="30" column="9" lean-forward="true" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
-          <folding>
-            <element signature="e#13#383#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -373,10 +421,129 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/public/build/static/css/main.641b8635.chunk.css">
+    <entry file="file://$PROJECT_DIR$/src/public/build/static/css/main.641b8635.chunk.css" />
+    <entry file="file://$PROJECT_DIR$/src/public/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/public/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/main/Main.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-316" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/public/src/public/manifest.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/public/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/public/src/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="57" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/public/src/logo.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/public/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="647" selection-start-column="647" selection-end-column="647" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/public/src/public/favicon.ico">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/public/src/public/excalibur_by_psdeluxe_d8a6nxy-pre.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/public/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/public/src/css/Options.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/public/src/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="25" lean-forward="true" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/jre/lib/rt.jar!/sun/nio/fs/UnixFileAttributeViews.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="285" selection-start-line="285" selection-end-line="285" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/react/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="186" selection-start-line="186" selection-end-line="186" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#1789#1846#0" />
+            <element signature="e#1917#1972#0" />
+            <element signature="e#2098#2372#0" />
+            <element signature="e#2443#2505#0" />
+            <element signature="e#2577#2633#0" />
+            <element signature="e#2769#3477#0" />
+            <element signature="e#3600#3944#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/react/src/Game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9">
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/thavalon/Ruleset.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-766" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Site.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
+          <folding>
+            <element signature="e#13#761#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
