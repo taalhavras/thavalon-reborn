@@ -8,24 +8,63 @@ import { Link } from 'react-router-dom';
  */
 class Game extends Component {
 
-    render() {
-
-        console.log(this.props);
-        let count = 0;
-        if (this.props.location.state.names === undefined) {
-          return null;
+    constructor(props) {
+        super(props);
+        this.state = {
+            game: []
         }
-        console.log(this.props.location.state.num);
+    }
+    getGameInfo = () => {
+        console.log("Get Game Info");
+        const url = "/game/info/" + this.props.location.state.id;
+        fetch(url, {
+            method: "GET"
+        })
+            .then(response => {
+                return response.json();
 
+            }) .then (data => {
+                console.log("Response");
+                console.log(data);
+                this.setState({game: data});
+                return data;
+        });
+
+
+
+    };
+
+
+    render_game = () => {
+        const url = "/game/info/" + this.props.location.state.id;
+        fetch(url)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                this.setState({game: data})
+            });
+    };
+    componentDidMount() {
+        this.render_game();
+        this.interval = setInterval(this.render_game, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+
+    }
+
+    render() {
+        let count = 0;
         return ( <div className="names">
-                {this.props.location.state.names.map(curr =>
+                {this.state.game.map(curr =>
                 {
                     const path = this.props.location.pathname + "/" + curr;
-                    console.log(path);
                     count++;
-                    return (<Link key ={count} to={{pathname: path, state: {name: curr.toString(), role: "You are Lorem Ipsum",
-                        role_info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"}}}>
-                        <button className={"my_button, large_button"}>{curr.toString()}</button>
+                    return (<Link key ={count} to={{pathname: path, state: {name: curr.name, role: curr.role,
+                        role_info: curr.information}}}>
+                        <button className={"my_button, large_button"}>{curr.name}</button>
                     </Link>);
                 })}
                 <Link key ={count} to={{pathname: "/donotopen", state: {name: "Do Not Open", role: ""}}}>

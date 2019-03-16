@@ -6,6 +6,10 @@ class Player(var name : String) {
     fun setPlayerName(newName : String) : Unit {
         this.name = newName
     }
+
+    override fun toString(): String {
+        return name
+    }
 }
 
 class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {

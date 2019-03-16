@@ -1,5 +1,7 @@
 package main
+import com.google.gson.Gson
 import com.google.gson.JsonParser
+import com.google.gson.reflect.TypeToken
 import io.ktor.application.call;
 import io.ktor.application.install
 import io.ktor.http.content.files
@@ -18,6 +20,7 @@ import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import jdk.nashorn.internal.parser.JSONParser
+import roles.Role
 import thavalon.*
 import java.io.File
 import java.lang.IllegalArgumentException
@@ -25,6 +28,8 @@ import java.lang.IllegalArgumentException
 data class Names(val names : List<String>)
 
 fun main(args: Array<String>) {
+
+    val games: MutableMap<String, String> = HashMap()
     val server = embeddedServer(Netty, port = 4444) {
         install(ContentNegotiation) {
             gson {
@@ -55,6 +60,7 @@ fun main(args: Array<String>) {
                 val post = call.receiveText()
                 val parsed = JsonParser().parse(post).asJsonObject
                 val names = parsed["names"].asJsonArray.map { it.asString }.toMutableList()
+                val id = parsed["id"].asString
                 val g : Game = when(names.size) {
                     5 -> FivesRuleset.makeGame(names)
                     7 -> SevensRuleset.makeGame(names)
@@ -62,11 +68,28 @@ fun main(args: Array<String>) {
                     10 -> TensRuleset.makeGame(names)
                     else -> throw IllegalArgumentException("BAD NAMES: $names")
                 }
-                val status = g.setUp()
-                if(!status) {
-                    throw IllegalArgumentException("GAME NOT SETUP")
-                }
 
+
+                val gameResponse : MutableList<Map<String, String>> = ArrayList()
+                for (r : Role in g.rolesInGame) {
+                    val m  : MutableMap<String, String> = HashMap()
+
+                    m["name"] = r.player.name
+                    m["role"] = r.role.role.toString()
+                    m["information"] = r.information.toString()
+
+                    gameResponse.add(m)
+                }
+                println(g)
+                val gson = Gson()
+                val gameJson = gson.toJson(gameResponse)
+                games.put(id, gameJson)
+            }
+
+            get("/game/info/{id}") {
+                println(games)
+                val id : String= call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
+                call.respond(games.get(id) ?: throw IllegalArgumentException("BAD ID: " + id))
             }
         }
     }

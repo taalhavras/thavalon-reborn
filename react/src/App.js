@@ -40,12 +40,13 @@ class App extends Component {
         ];
 
         this.state = {
-            games: [0],
             gameNum: 0,
             input: false,
             info: false,
             players: [],
             names: [],
+            currId: this.generateID(),
+            game: [],
             options: false,
             join: false,
             join_input: (<input type="text"  className={"input_ele"} id ={"join"} placeholder={"Enter Game ID"} />),
@@ -55,6 +56,11 @@ class App extends Component {
         };
 
     }
+
+   componentWillUnmount() {
+       this.postToGame(this.state.currId);
+
+   }
 
     /**
      * Shows the create game fields.
@@ -129,7 +135,6 @@ class App extends Component {
      * @param key leading to player.
      */
     removePlayer = (key) => {
-        console.log("key: " + key);
         const players = this.state.players;
         let i;
         for (i = 0; i < players.length; i++) {
@@ -137,7 +142,6 @@ class App extends Component {
                break;
             }
         }
-        console.log("i: " + i);
 
         players.splice(i, 1);
         this.setState({players: players});
@@ -145,7 +149,7 @@ class App extends Component {
     };
 
 
-    postToGame = () => {
+     postToGame = (id) => {
         console.log("posting");
         fetch('/names', {
             method: 'POST',
@@ -155,16 +159,25 @@ class App extends Component {
 
             },
             body: JSON.stringify({
-                names: this.names()
+                names: this.names(),
+                id: id
             })
-        }).then((response) => {
-            console.log(response)
         }).catch(error => {
                 console.log(error);
             });
-
-
     };
+
+
+    generateID  = () => {
+        //copied this from the handout lmao
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let result = '';
+        for (let i = 0; i < 6; i++)
+            result += chars[(Math.floor(Math.random() * chars.length))];
+        return result;
+    };
+
+
     /**
      * Checks if a game can be started, and displays the appropriate button.
      * @returns {*}
@@ -174,7 +187,9 @@ class App extends Component {
             || this.state.players.length === 7
             || this.state.players.length === 8
             || this.state.players.length === 10) {
-            return ( <Link onClick={this.postToGame} to={{ pathname: "/game/" + this.state.gameNum, state: { names: this.names(), num: this.state.players.length} } }>
+            console.log(this);
+
+            return ( <Link  to={{ pathname: "/game/" + this.state.currId, state: { names: this.names(), id: this.state.currId, num: this.state.players.length, game:this.state.game} } }>
                 <button  className={"large_button"}>
                     Start Game
                 </button>
@@ -219,9 +234,6 @@ class App extends Component {
           array.push(next.value.name);
           next = names.next();
       }
-      console.log("Array");
-
-      console.log(array);
       return (
       <div className="lobby">
         <h1>
