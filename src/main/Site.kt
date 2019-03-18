@@ -58,7 +58,7 @@ fun main(args: Array<String>) {
                 val post = call.receiveText()
                 val parsed = JsonParser().parse(post).asJsonObject
                 val names = parsed["names"].asJsonArray.map { it.asString }.toMutableList()
-                val id = UUID.randomUUID().toString()
+                val id = UUID.randomUUID().toString().substring(0, 6)
                 val g : Game = when(names.size) {
                     5 -> FivesRuleset().makeGame(names)
                     7 -> SevensRuleset().makeGame(names)
