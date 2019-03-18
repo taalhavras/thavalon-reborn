@@ -47,6 +47,6 @@ import thavalon.Game
     fun fivesGame() {
         val players: MutableList<String> = listOf("Raghu", "Grace", "Kevin", "May", "George")
                 .toMutableList()
-        val g: Game = FivesRuleset.makeGame(players)
+        val g: Game = FivesRuleset().makeGame(players)
         print(g)
     }

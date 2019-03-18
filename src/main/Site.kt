@@ -60,10 +60,10 @@ fun main(args: Array<String>) {
                 val names = parsed["names"].asJsonArray.map { it.asString }.toMutableList()
                 val id = UUID.randomUUID().toString()
                 val g : Game = when(names.size) {
-                    5 -> FivesRuleset.makeGame(names)
-                    7 -> SevensRuleset.makeGame(names)
-                    8 -> EightsRuleset.makeGame(names)
-                    10 -> TensRuleset.makeGame(names)
+                    5 -> FivesRuleset().makeGame(names)
+                    7 -> SevensRuleset().makeGame(names)
+                    8 -> EightsRuleset().makeGame(names)
+                    10 -> TensRuleset().makeGame(names)
                     else -> throw IllegalArgumentException("BAD NAMES: $names")
                 }
 
