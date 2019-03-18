@@ -13,6 +13,7 @@ import io.ktor.response.respond
 import io.ktor.response.respondFile
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
+import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
@@ -80,8 +81,9 @@ fun main(args: Array<String>) {
                 println(g)
                 // put player info into map with id we generated
                 games.put(id, players)
+                val json = gson.toJson(id);
                 // send id back to frontend
-                call.respond(id)
+                call.respond(json);
             }
 
             get("/game/info/{id}") {

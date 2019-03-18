@@ -14,8 +14,19 @@
   border: 1px solid lightgray;
   color: lightgray;
 
+}
 
 
+#join-submit {
+  height: 38px;
+  width: 50px;
+  margin: 10px;
+}
+
+#add-submit {
+  height: 38px;
+  width: 50px;
+  margin: 10px;
 }
 .player-submit  {
   outline: none;
@@ -26,7 +37,6 @@
   color: white;
   font-weight: bold;
   font-size: 10pt;
-  width: 30px;
   border-radius: 20px;
 
 

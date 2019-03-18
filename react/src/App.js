@@ -147,7 +147,7 @@ class App extends Component {
         }).then(data => {
             console.log(data);
             const redirect =
-               <Redirect to={{ pathname: "/game/" + data["id"]}} />;
+               <Redirect to={{ pathname: "/game/" + data}} />;
                        this.setState({redirect: redirect});
         }).catch(error => {
                 console.log(error);
@@ -236,7 +236,7 @@ class App extends Component {
               <form className="player_input" id={"player-name-input"} onSubmit={this.playerSubmit}>
                   <input type="text" id ={"input-field"} placeholder={"Enter player name"}/>
                   <br></br>
-                  <input type={"submit"} className={"player-submit"}  value={"Add"}/>
+                  <input type={"submit"} className={"player-submit"} id={"add-submit"} value={"Add"}/>
                   <button className={"small_button"} onClick={this.options}>Options</button>
 
               </form>
@@ -255,7 +255,7 @@ class App extends Component {
               <div>
                   <form className="player_input" onSubmit={this.forwardToGame}>
                       {this.state.join_input}
-                          <input type={"submit"} className={"player-submit"}  value={"Join"}/>
+                          <input type={"submit"} className={"player-submit"} id={"join-submit"} value={"Join"}/>
                   </form>
 
               </div> : null }

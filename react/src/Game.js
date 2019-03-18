@@ -9,7 +9,6 @@ class Game extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.location.state.id);
         this.state = {
             game: []
 
@@ -48,7 +47,7 @@ class Game extends Component {
         return ( <div className="names">
                 {this.state.game.map(curr =>
                 {
-                    const path = this.props.location.pathname + "/" + curr;
+                    const path = this.props.location.pathname + "/" + curr.name;
                     count++;
                     return (<Link key ={count} to={{pathname: path, state: {name: curr.name, role: curr.role,
                         role_info: curr.information}}}>
