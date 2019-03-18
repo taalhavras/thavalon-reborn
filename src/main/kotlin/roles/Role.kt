@@ -71,7 +71,11 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
  */
 sealed class ThavalonInformation {
     // this is used for alerts (aka "you have been oberon'd")
-    data class AlertInformation(val alert : String) : ThavalonInformation()
+    data class AlertInformation(val alert : String) : ThavalonInformation() {
+        override fun toString(): String {
+            return alert
+        }
+    }
 
     // this is used to inform you that a role is in the game
     data class RolePresentInformation(val present : Role) : ThavalonInformation() {
@@ -146,6 +150,23 @@ class InformationAggregator {
     fun removeAll(infos : Collection<ThavalonInformation>) : Boolean {
         return infos.map { remove(it) }.any {it}
     }
+
+    /**
+     * For each tyoe of information in the InformationAggregator, we produce a list of stringified information
+     */
+    fun toStringifiedInformation() : List<List<String>> {
+        fun <T> tostring_elts(l : List<T>) : List<String> {
+            return l.map { it.toString() }
+        }
+        val res : MutableList<List<String>> = ArrayList()
+        res.add(tostring_elts(alerts))
+        res.add(tostring_elts(rolePresent))
+        res.add(tostring_elts(seen))
+        res.add(tostring_elts(aSeesB))
+        res.add(tostring_elts(perfect))
+        return res
+    }
+
 
     override fun toString(): String {
         return "$alerts \n $seen \n $aSeesB \n $rolePresent \n $perfect \n"

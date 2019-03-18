@@ -1,14 +1,13 @@
 package main
 import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import com.google.gson.reflect.TypeToken
 import io.ktor.application.call;
 import io.ktor.application.install
 import io.ktor.http.content.files
 import io.ktor.http.content.static
 import io.ktor.http.content.staticRootFolder
-import io.ktor.request.receive
-import io.ktor.request.receiveParameters
 import io.ktor.request.receiveText
 import io.ktor.response.respond
 import io.ktor.response.respondFile
@@ -19,17 +18,15 @@ import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import jdk.nashorn.internal.parser.JSONParser
 import roles.Role
 import thavalon.*
 import java.io.File
 import java.lang.IllegalArgumentException
-
-data class Names(val names : List<String>)
+import java.util.*
 
 fun main(args: Array<String>) {
-
-    val games: MutableMap<String, String> = HashMap()
+    val gson = Gson()
+    val games : MutableMap<String, JsonArray> = HashMap()
     val server = embeddedServer(Netty, port = 4444) {
         install(ContentNegotiation) {
             gson {
@@ -60,7 +57,7 @@ fun main(args: Array<String>) {
                 val post = call.receiveText()
                 val parsed = JsonParser().parse(post).asJsonObject
                 val names = parsed["names"].asJsonArray.map { it.asString }.toMutableList()
-                val id = parsed["id"].asString
+                val id = UUID.randomUUID().toString()
                 val g : Game = when(names.size) {
                     5 -> FivesRuleset.makeGame(names)
                     7 -> SevensRuleset.makeGame(names)
@@ -69,27 +66,29 @@ fun main(args: Array<String>) {
                     else -> throw IllegalArgumentException("BAD NAMES: $names")
                 }
 
-
-                val gameResponse : MutableList<Map<String, String>> = ArrayList()
+                // construct json for player info
+                val players = JsonArray()
                 for (r : Role in g.rolesInGame) {
-                    val m  : MutableMap<String, String> = HashMap()
-
-                    m["name"] = r.player.name
-                    m["role"] = r.role.role.toString()
-                    m["information"] = r.information.toString()
-
-                    gameResponse.add(m)
+                    // construct json for individual player
+                    val player = JsonObject()
+                    player.addProperty("name", r.player.name)
+                    player.addProperty("role", r.role.role.toString())
+                    player.addProperty("information", gson.toJson(r.information.toStringifiedInformation()))
+                    // add player to players json array
+                    players.add(player)
                 }
                 println(g)
-                val gson = Gson()
-                val gameJson = gson.toJson(gameResponse)
-                games.put(id, gameJson)
+                // put player info into map with id we generated
+                games.put(id, players)
+                // send id back to frontend
+                call.respond(id)
             }
 
             get("/game/info/{id}") {
                 println(games)
                 val id : String= call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
-                call.respond(games.get(id) ?: throw IllegalArgumentException("BAD ID: " + id))
+                // TODO this might have to be gson.toJson(games.get(id)), not sure how sending a jsonArray will play w/frontend
+                call.respond(games.get(id) ?: throw IllegalArgumentException("BAD ID: $id"))
             }
         }
     }
