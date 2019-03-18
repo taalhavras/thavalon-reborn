@@ -26,7 +26,7 @@ import java.util.*
 
 fun main(args: Array<String>) {
     val gson = Gson()
-    val games : MutableMap<String, JsonArray> = HashMap()
+    val games : MutableMap<String, String> = HashMap()
     val server = embeddedServer(Netty, port = 4444) {
         install(ContentNegotiation) {
             gson {
@@ -79,7 +79,7 @@ fun main(args: Array<String>) {
                 }
                 println(g)
                 // put player info into map with id we generated
-                games.put(id, players)
+                games.put(id, gson.toJson(players))
                 // send id back to frontend
                 call.respond(id)
             }
