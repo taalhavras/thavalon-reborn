@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/App.css';
-import { Link, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import "./css/styles.css";
 import "./PlayerTag";
 import "./css/PlayerTag.css";
@@ -40,58 +40,23 @@ class App extends Component {
         ];
 
         this.state = {
-            gameNum: 0,
             input: false,
             info: false,
             players: [],
             names: [],
-            currId: this.generateID(),
+            currId: "NULL",
             game: [],
             options: false,
             join: false,
+            join_redirect: "",
             join_input: (<input type="text"  className={"input_ele"} id ={"join"} placeholder={"Enter Game ID"} />),
             roles: roles,
             switches: [],
-            player_key: 0
+            redirect: "",
+            player_key: 0,
         };
 
     }
-
-   componentWillUnmount() {
-       this.postToGame(this.state.currId);
-
-   }
-
-    /**
-     * Shows the create game fields.
-     */
-    showInputs = () => {
-       this.setState({input: !this.state.input});
-    };
-
-    /**
-     * Shows the join game fields.
-     */
-    join = () => {
-        this.setState({join: !this.state.join})
-    };
-
-    /**
-     * Forwards the player to the game specified by game id.
-     * @returns {*}
-     */
-    forwardToGame = () => {
-        const game = parseInt(document.getElementById("join").value);
-        if (this.state.games.includes(
-            game)) {
-            const path = "game/" + game;
-            return <Redirect to={path}/>
-        } else {
-            return null;
-        }
-    };
-
-
 
     /**
      * Shows the options panel.
@@ -109,6 +74,19 @@ class App extends Component {
 
     };
 
+    /**
+     * Shows the input panel
+     */
+    showInputs = () => {
+        this.setState({input: !this.state.input});
+    };
+
+    /**
+     * Shows the join game fields.
+     */
+    join = () => {
+        this.setState({join: !this.state.join})
+    };
     /**
      * Adds a player to the game
      * @param event sumbit event for the player form.
@@ -148,8 +126,10 @@ class App extends Component {
 
     };
 
-
-     postToGame = (id) => {
+    /**
+     * Redirects to a new game on submit of the Create Game form.
+     */
+     postToGame = () => {
         console.log("posting");
         fetch('/names', {
             method: 'POST',
@@ -159,24 +139,20 @@ class App extends Component {
 
             },
             body: JSON.stringify({
-                names: this.names(),
-                id: id
+                names: this.names()
             })
+        }).then(response => {
+            return response.json();
+
+        }).then(data => {
+            console.log(data);
+            const redirect =
+               <Redirect to={{ pathname: "/game/" + data["id"]}} />;
+                       this.setState({redirect: redirect});
         }).catch(error => {
                 console.log(error);
             });
     };
-
-
-    generateID  = () => {
-        //copied this from the handout lmao
-        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        let result = '';
-        for (let i = 0; i < 6; i++)
-            result += chars[(Math.floor(Math.random() * chars.length))];
-        return result;
-    };
-
 
     /**
      * Checks if a game can be started, and displays the appropriate button.
@@ -187,17 +163,26 @@ class App extends Component {
             || this.state.players.length === 7
             || this.state.players.length === 8
             || this.state.players.length === 10) {
-            console.log(this);
 
-            return ( <Link  to={{ pathname: "/game/" + this.state.currId, state: { names: this.names(), id: this.state.currId, num: this.state.players.length, game:this.state.game} } }>
-                <button  className={"large_button"}>
+            return (
+                <button onClick={this.postToGame} className={"large_button"}>
                     Start Game
                 </button>
-            </Link>);
+           );
         } else {
             return (<button className={"invalid_start"}>Start Game</button>)
 
         }
+    };
+
+    /**
+     * Forwards the player to the game specified by game id.
+     * @returns {*}
+     */
+    forwardToGame = (event) => {
+        event.preventDefault();
+        const id = event.target[0].value;
+        this.setState({join_redirect: <Redirect to={{ pathname: "/game/" + id}} />})
     };
 
     /**
@@ -214,7 +199,6 @@ class App extends Component {
         }
         return array;
     };
-
 
     options_change = (key) => {
         const roles = this.state.roles;
@@ -236,6 +220,8 @@ class App extends Component {
       }
       return (
       <div className="lobby">
+          {this.state.redirect}
+          {this.state.join_redirect}
         <h1>
           THavalon
         </h1>
@@ -250,7 +236,7 @@ class App extends Component {
               <form className="player_input" id={"player-name-input"} onSubmit={this.playerSubmit}>
                   <input type="text" id ={"input-field"} placeholder={"Enter player name"}/>
                   <br></br>
-                  <input type={"submit"} id={"player-submit"}  value={"Add"}/>
+                  <input type={"submit"} className={"player-submit"}  value={"Add"}/>
                   <button className={"small_button"} onClick={this.options}>Options</button>
 
               </form>
@@ -267,12 +253,11 @@ class App extends Component {
           </button>
           {this.state.join ?
               <div>
-                  <form className="player_input">
+                  <form className="player_input" onSubmit={this.forwardToGame}>
                       {this.state.join_input}
-                  </form> <br></br>
-                  <button className={"small_button"} onClick={this.forwardToGame}>
-                      Join
-                  </button>
+                          <input type={"submit"} className={"player-submit"}  value={"Join"}/>
+                  </form>
+
               </div> : null }
 
               <div className="info">

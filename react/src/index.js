@@ -14,9 +14,9 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(<BrowserRouter>
     <Switch>
         <Route exact path='/' component={App} />
-        <Route exact path='/game/:number' component={Game} />
-        <Route exact path='/game/:number/board' component={Board} />
-        <Route exact path='/game/:number/:name' component={Player} />
+        <Route exact path='/game/:id' component={Game} />
+        <Route exact path='/game/:id/board' component={Board} />
+        <Route exact path='/game/:id/:name' component={Player} />
     </Switch>
 </BrowserRouter>, document.getElementById('root'));
 

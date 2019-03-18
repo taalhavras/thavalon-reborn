@@ -4,50 +4,38 @@ import { Link } from 'react-router-dom';
 
 /**
  * Models a game page, with links to each player.
- * Expects a names prop, which is an array of String names of players,
  */
 class Game extends Component {
 
     constructor(props) {
         super(props);
+        console.log(this.props.location.state.id);
         this.state = {
             game: []
-        }
-    }
-    getGameInfo = () => {
-        console.log("Get Game Info");
-        const url = "/game/info/" + this.props.location.state.id;
-        fetch(url, {
-            method: "GET"
-        })
-            .then(response => {
-                return response.json();
 
-            }) .then (data => {
-                console.log("Response");
-                console.log(data);
-                this.setState({game: data});
-                return data;
-        });
-
-
-
-    };
-
+        }}
 
     render_game = () => {
-        const url = "/game/info/" + this.props.location.state.id;
-        fetch(url)
-            .then(response => {
+        const id = this.props.match.params.id;
+        console.log("Get Game Info");
+        const url = "/game/info/" + id;
+        fetch(url, {
+            method: "GET"
+        }).then(response => {
                 return response.json();
-            })
-            .then(data => {
-                this.setState({game: data})
-            });
+            }) .then (data => {
+            console.log("Response");
+            console.log(data);
+            this.setState({game: data});
+            return data;
+        }).catch(error => {
+            console.log(error);
+        });
     };
-    componentDidMount() {
+
+
+    componentWillMount() {
         this.render_game();
-        this.interval = setInterval(this.render_game, 1000);
     }
 
     componentWillUnmount() {
