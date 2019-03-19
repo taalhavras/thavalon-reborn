@@ -10,7 +10,8 @@ class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            game: []
+            game: [],
+            start: ""
         }}
 
     render_game = () => {
@@ -24,7 +25,7 @@ class Game extends Component {
             }) .then (data => {
             console.log("Response");
             console.log(data);
-            this.setState({game: data});
+            this.setState({game: data, start: data[0].name});
             return data;
         }).catch(error => {
             console.log(error);
@@ -43,7 +44,9 @@ class Game extends Component {
 
     render() {
         let count = 0;
+
         return ( <div className="names">
+                <h2> Starting Player: {this.state.start} </h2>
                 {this.state.game.map(curr =>
                 {
                     const path = this.props.location.pathname + "/" + curr.name;
