@@ -13,7 +13,6 @@ import io.ktor.response.respond
 import io.ktor.response.respondFile
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
-import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
@@ -28,7 +27,10 @@ import java.util.*
 fun main(args: Array<String>) {
     val gson = Gson()
     val games : MutableMap<String, JsonArray> = HashMap()
-    val server = embeddedServer(Netty, port = 4444) {
+
+    val port : String = System.getenv("PORT") ?: "4444"
+
+    val server = embeddedServer(Netty, port = port.toInt()) {
         install(ContentNegotiation) {
             gson {
 
