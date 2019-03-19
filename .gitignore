@@ -22,7 +22,6 @@ public/npm-debug.log*
 public/yarn-debug.log*
 public/yarn-error.log*
 
-build/
 
 .gradle/
 
