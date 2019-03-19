@@ -14,9 +14,31 @@ body {
 
 }
 
+ul {
+    list-style: none;
+    text-align: left;
+}
+
 .player_title {
     font-family: Cardinal;
     font-size: 30pt;
 }
 
+li {
+    margin: 10px;
+}
+.donotopen {
+    margin: 50px auto;
+    text-align: center;
+    font-weight: bold;
+}
 
+.donotopen ul {
+    max-width: 200px;
+    text-align: left;
+    margin: auto;
+}
+
+#show_button {
+    margin: auto;
+}
