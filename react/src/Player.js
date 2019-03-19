@@ -26,16 +26,15 @@ class Player extends Component {
         console.log(res);
 
         return res.flat();
-
     };
 
     render() {
-
-
         return ( <div className={"player_info"}>
                 <h1 className={"player_title"}> Displaying information for {this.props.location.state.name} </h1>
-                <h2>{this.props.location.state.role}</h2>
-
+                <h2>You are {this.props.location.state.role}</h2>
+                    { this.props.location.state.description.split("\n").map((i,key) => {
+                        return <div key={key}>{i}</div>;
+                    })}
                 <ul>
                     {this.state.info.map(function(ele) {
                         return <li>{ele}</li>;

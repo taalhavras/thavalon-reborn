@@ -49,7 +49,7 @@ class Game extends Component {
                     const path = this.props.location.pathname + "/" + curr.name;
                     count++;
                     return (<Link key={count} to={{pathname: path, state: {name: curr.name, role: curr.role,
-                        role_info: curr.information}}}>
+                        role_info: curr.information, description: curr.description}}}>
                         <button className={"my_button, large_button"}>{curr.name}</button>
                     </Link>);
                 })}
