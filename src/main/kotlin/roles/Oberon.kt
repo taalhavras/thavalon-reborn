@@ -73,10 +73,12 @@ class Oberon : DefaultEvilRole() {
      */
     private fun modifySingleInformation(g : Game, target : Role) : Unit {
         assert(target.information.seen.isNotEmpty())
-        val alreadySeen : MutableSet<RoleType> = HashSet()
+        val alreadySeen : MutableSet<Role> = HashSet()
+        // start alreadySeen with yourself so that oberon can't make a target see themselves
+        alreadySeen.add(target)
         // collect all seen roles from information
         target.information.seen.forEach {
-            alreadySeen.add(it.seen.role)
+            alreadySeen.add(it.seen)
         }
         // shuffle roles in game
         val shuffledRoles = g.rolesInGame.shuffled()
@@ -85,7 +87,7 @@ class Oberon : DefaultEvilRole() {
         assert(alreadySeen.size < shuffledRoles.size)
 
         // add random seen information on a role we didn't previously see to the target
-        target.information.add(ThavalonInformation.SingleSeenInformation(shuffledRoles.first { it.role !in alreadySeen }))
+        target.information.add(ThavalonInformation.SingleSeenInformation(shuffledRoles.first { it !in alreadySeen }))
     }
 
     /**
