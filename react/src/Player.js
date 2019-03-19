@@ -17,7 +17,15 @@ class Player extends Component {
 
     parseInfo = () => {
         const info = JSON.parse(this.props.location.state.role_info);
-        return info.flat();
+        console.log(info);
+        let res = [];
+        // collect all information arrays into one 2d array
+        Object.keys(info).forEach((key) => {
+            res.push(info[key]);
+        });
+        console.log(res);
+
+        return res.flat();
 
     };
 

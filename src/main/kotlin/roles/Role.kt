@@ -65,6 +65,10 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
     }
 }
 
+fun <T> tostring_elts(l : List<T>) : List<String> {
+    return l.map { it.toString() }
+}
+
 /**
  * All different kinds of information in the game
  * Each role has access to a list of information
@@ -151,23 +155,6 @@ class InformationAggregator {
         return infos.map { remove(it) }.any {it}
     }
 
-    /**
-     * For each tyoe of information in the InformationAggregator, we produce a list of stringified information
-     */
-    fun toStringifiedInformation() : List<List<String>> {
-        fun <T> tostring_elts(l : List<T>) : List<String> {
-            return l.map { it.toString() }
-        }
-        val res : MutableList<List<String>> = ArrayList()
-        res.add(tostring_elts(alerts))
-        res.add(tostring_elts(rolePresent))
-        res.add(tostring_elts(seen))
-        res.add(tostring_elts(aSeesB))
-        res.add(tostring_elts(perfect))
-        return res
-    }
-
-
     override fun toString(): String {
         return "$alerts \n $seen \n $aSeesB \n $rolePresent \n $perfect \n"
     }
@@ -199,6 +186,20 @@ abstract class Role {
     override fun toString(): String {
         return "$role $information\n"
     }
+
+    /**
+     * Used to add flavor text, etc, to information
+     */
+    open fun prepareInformation() : MutableMap<String, List<String>> {
+
+        val res : MutableMap<String, List<String>> = HashMap()
+        res.put("alerts", tostring_elts(information.alerts))
+        res.put("rolePresent", tostring_elts(information.rolePresent))
+        res.put("seen", tostring_elts(information.seen))
+        res.put("aSeesB", tostring_elts(information.aSeesB))
+        res.put("perfect", tostring_elts(information.perfect))
+        return res
+    }
 }
 
 /**
@@ -218,6 +219,13 @@ abstract class DefaultEvilRole : Role() {
 
     override fun getUpdaters(g: Game): List<Updater> {
         return listOf(getSeesEvilTeamUpdater())
+    }
+
+    override fun prepareInformation(): MutableMap<String, List<String>> {
+        val m = super.prepareInformation()
+
+        m["seen"] = m["seen"]!!.map { "$it is a fellow member of the Evil council" }
+        return m
     }
 }
 

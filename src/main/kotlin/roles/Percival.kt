@@ -28,6 +28,12 @@ open class OldPercival : Role() {
         }, UpdaterPriority.Nine)
     }
 
+    override fun prepareInformation(): MutableMap<String, List<String>> {
+        val m = super.prepareInformation()
+
+        m["seen"] = m["seen"]!!.map { "You see $it as Merlin (Or Morgana)" }
+        return m
+    }
 }
 
 /**

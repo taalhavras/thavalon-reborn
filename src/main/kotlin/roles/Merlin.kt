@@ -3,9 +3,11 @@ package roles
 import thavalon.Game
 import thavalon.Updater
 import thavalon.UpdaterPriority
+import java.lang.IllegalArgumentException
 
-class Merlin() : Role() {
+class Merlin : Role() {
 
+    override val role = RoleType.Merlin
     override fun getUpdaters(g: Game): List<Updater> {
         return listOf(this.getMerlinUpdater())
     }
@@ -32,5 +34,10 @@ class Merlin() : Role() {
         return seen
     }
 
-    override val role = RoleType.Merlin
+    override fun prepareInformation(): MutableMap<String, List<String>> {
+        val m = super.prepareInformation()
+
+        m["seen"] = m["seen"]!!.map { "You see $it as Evil (Or Lancelot)" }
+        return m
+    }
 }

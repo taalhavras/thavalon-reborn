@@ -74,7 +74,7 @@ fun main(args: Array<String>) {
                     val player = JsonObject()
                     player.addProperty("name", r.player.name)
                     player.addProperty("role", r.role.role.toString())
-                    player.addProperty("information", gson.toJson(r.information.toStringifiedInformation()))
+                    player.addProperty("information", gson.toJson(r.prepareInformation()))
                     // add player to players json array
                     players.add(player)
                 }

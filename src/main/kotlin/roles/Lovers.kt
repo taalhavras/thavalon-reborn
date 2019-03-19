@@ -27,6 +27,13 @@ open class Lover(override val role : RoleType) : Role() {
     fun getOtherLover() : RoleType {
         return if(role == RoleType.Tristan) RoleType.Iseult else RoleType.Tristan
     }
+
+    override fun prepareInformation(): MutableMap<String, List<String>> {
+        val m = super.prepareInformation()
+
+        m["seen"] = m["seen"]!!.map { "You see $it as your luxurious lover ${getOtherLover().role}" }
+        return m
+    }
 }
 
 /**
