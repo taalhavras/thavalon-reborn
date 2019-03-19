@@ -6,6 +6,7 @@ import "./css/styles.css";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Game from './Game.js';
 import Board from './Board.js';
+import DoNotOpen from './DoNotOpen.js';
 
 import Player from './Player.js';
 
@@ -18,6 +19,8 @@ ReactDOM.render(<BrowserRouter history={customHistory}>
     <Switch>
         <Route exact path='/' component={App} />
         <Route exact path='/:id' component={Game} />
+        <Route exact path='/:id/donotopen' component={DoNotOpen} />
+
         <Route exact path='/:id/board' component={Board} />
         <Route exact path='/:id/:name' component={Player} />
     </Switch>
