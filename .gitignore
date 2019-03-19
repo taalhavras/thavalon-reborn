@@ -26,3 +26,5 @@ public/yarn-error.log*
 .gradle/
 
 .DS_Store
+
+/build
