@@ -10,7 +10,6 @@
 
 .player-submit:hover {
   cursor: pointer;
-
   border: 1px solid lightgray;
   color: lightgray;
 
@@ -28,6 +27,8 @@
   width: 50px;
   margin: 10px;
 }
+
+
 .player-submit  {
   outline: none;
   margin: 10px;

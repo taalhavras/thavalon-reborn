@@ -11,7 +11,6 @@ class Game extends Component {
         super(props);
         this.state = {
             game: []
-
         }}
 
     render_game = () => {
@@ -34,13 +33,13 @@ class Game extends Component {
 
 
     componentWillMount() {
+        this.props.history.push("");
+        this.props.history.push(this.props.location);
+
         this.render_game();
     }
 
-    componentWillUnmount() {
-        clearInterval(this.interval);
 
-    }
 
     render() {
         let count = 0;
@@ -49,7 +48,7 @@ class Game extends Component {
                 {
                     const path = this.props.location.pathname + "/" + curr.name;
                     count++;
-                    return (<Link key ={count} to={{pathname: path, state: {name: curr.name, role: curr.role,
+                    return (<Link key={count} to={{pathname: path, state: {name: curr.name, role: curr.role,
                         role_info: curr.information}}}>
                         <button className={"my_button, large_button"}>{curr.name}</button>
                     </Link>);

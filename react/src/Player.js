@@ -9,12 +9,30 @@ import './css/Player.css';
 
  */
 class Player extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {info: this.parseInfo()};
+    }
+
+    parseInfo = () => {
+        const info = JSON.parse(this.props.location.state.role_info);
+        return info.flat();
+
+    };
+
     render() {
+
+
         return ( <div className={"player_info"}>
                 <h1 className={"player_title"}> Displaying information for {this.props.location.state.name} </h1>
                 <h2>{this.props.location.state.role}</h2>
-               <p>{this.props.location.state.role_info}</p>
 
+                <ul>
+                    {this.state.info.map(function(ele) {
+                        return <li>{ele}</li>;
+                    })}
+                </ul>
             </div>
 
         );

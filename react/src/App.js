@@ -147,7 +147,7 @@ class App extends Component {
         }).then(data => {
             console.log(data);
             const redirect =
-               <Redirect to={{ pathname: "/game/" + data}} />;
+               <Redirect to={{ pathname: "/" + data}} />;
                        this.setState({redirect: redirect});
         }).catch(error => {
                 console.log(error);
@@ -182,7 +182,7 @@ class App extends Component {
     forwardToGame = (event) => {
         event.preventDefault();
         const id = event.target[0].value;
-        this.setState({join_redirect: <Redirect to={{ pathname: "/game/" + id}} />})
+        this.setState({join_redirect: <Redirect to={{ pathname: "/" + id}} />})
     };
 
     /**
@@ -199,6 +199,8 @@ class App extends Component {
         }
         return array;
     };
+
+
 
     options_change = (key) => {
         const roles = this.state.roles;

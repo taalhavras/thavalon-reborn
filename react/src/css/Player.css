@@ -4,12 +4,19 @@ body {
 
 .player_info {
     width: 90vw;
-    max-width: 700px;
+    max-width: 300px;
     margin: auto;
+}
+
+.player_info ul {
+    list-style: none;
+    text-align: left;
+
 }
 
 .player_title {
     font-family: Cardinal;
     font-size: 30pt;
 }
+
 
