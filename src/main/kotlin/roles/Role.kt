@@ -84,7 +84,7 @@ sealed class ThavalonInformation {
     // this is used to inform you that a role is in the game
     data class RolePresentInformation(val present : Role) : ThavalonInformation() {
         override fun toString(): String {
-            return "${present.role}"
+            return "${present.role} is in the game!"
         }
     }
 
@@ -167,6 +167,14 @@ class InformationAggregator {
 abstract class Role {
     // the type and alignment of the role
     abstract val role : RoleType
+
+    // description of the role and any unique characteristics it may have
+    open val description : String = if (role.alignment == Alignment.Evil) {
+        "You are a member of the Evil council"
+    } else {
+        "You are on the good team"
+    }
+
     // player assigned to this role
     var player : Player = Player("????")
 
@@ -207,6 +215,7 @@ abstract class Role {
  * adds the evil team (minus yourself) as "seen" information
  */
 abstract class DefaultEvilRole : Role() {
+
     private fun getSeesEvilTeamUpdater() : Updater {
         // default evil team, sees all other evil roles that aren't you
         return Pair(updater@{g : Game ->
@@ -234,4 +243,6 @@ abstract class DefaultEvilRole : Role() {
  */
 object UnknownRole : Role() {
     override val role : RoleType = RoleType.Unknown
+    override val description: String
+        get() = "Unknown Role"
 }
