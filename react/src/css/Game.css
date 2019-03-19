@@ -4,6 +4,10 @@
 .names {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 300px;
     margin: 50px auto;
+}
+
+h3 {
+    margin: 5px;
 }
