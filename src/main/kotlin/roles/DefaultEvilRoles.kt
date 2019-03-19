@@ -14,10 +14,11 @@ class Morgana : DefaultEvilRole() {
 
 class Maelagant : DefaultEvilRole() {
     override val role: RoleType = RoleType.Maelagant
-    override val description: String
-        get() = super.description + "\nAbility: Reversal\nYou can play reverses" +
+    override fun getDescription(): String {
+        return super.getDescription() +  "\nAbility: Reversal\nYou can play reverses" +
                 " on missions. A reverse inverts the result of a mission: A successful mission will fail and" +
                 " a failing mission will succeed."
+    }
 }
 
 class Agravaine : DefaultEvilRole() {

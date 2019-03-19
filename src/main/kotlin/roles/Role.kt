@@ -169,7 +169,7 @@ abstract class Role {
     abstract val role : RoleType
 
     // description of the role and any unique characteristics it may have
-    open val description : String = if (role.alignment == Alignment.Evil) {
+    open fun getDescription() : String = if (role.alignment == Alignment.Evil) {
         "You are a member of the Evil council"
     } else {
         "You are on the good team"
@@ -243,6 +243,7 @@ abstract class DefaultEvilRole : Role() {
  */
 object UnknownRole : Role() {
     override val role : RoleType = RoleType.Unknown
-    override val description: String
-        get() = "Unknown Role"
+    override fun getDescription() : String {
+        return "UNKNOWN ROLE"
+    }
 }
