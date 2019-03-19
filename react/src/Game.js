@@ -46,7 +46,9 @@ class Game extends Component {
         let count = 0;
 
         return ( <div className="names">
-                <h2> Starting Player: {this.state.start} </h2>
+                <h3>Game ID: {this.props.match.params.id} </h3>
+                <h3> Starting Player: {this.state.start}</h3>
+
                 {this.state.game.map(curr =>
                 {
                     const path = this.props.location.pathname + "/" + curr.name;
