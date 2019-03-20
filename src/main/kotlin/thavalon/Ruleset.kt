@@ -68,14 +68,14 @@ open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
 /**
  * Standard rulesets for 5, 7, 8, and 10 player games
  */
-class FivesRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), Lancelot()),
+class FivesRuleset : Ruleset(listOf(Merlin(), NewPercival(), Guinevere(), Tristan(), Iseult(), Lancelot()),
     listOf(Mordred(), Morgana(), Maelagant(), Oberon()))
 
-class SevensRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
+class SevensRuleset : Ruleset(listOf(Merlin(), NewPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
     listOf(Mordred(), Morgana(), Maelagant(), Oberon()))
 
-class EightsRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
+class EightsRuleset : Ruleset(listOf(Merlin(), NewPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
     listOf(Mordred(), Morgana(), Maelagant(), Oberon(), Agravaine()))
 
-class TensRuleset : Ruleset(listOf(Merlin(), OldPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
+class TensRuleset : Ruleset(listOf(Merlin(), NewPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
     listOf(Mordred(), Morgana(), Maelagant(), Oberon(), Agravaine(), Colgrevance()))
