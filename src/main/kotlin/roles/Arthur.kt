@@ -17,7 +17,7 @@ class Arthur : Role() {
 
     private fun getArthurUpdater() : Updater {
         return Pair(updater@{g : Game ->
-            val infos : List<ThavalonInformation.RolePresentInformation> = g.rolesInGame
+            val infos : List<ThavalonInformation.RolePresentInformation> = g.getGoodRoles()
                 .filter { it != this } // filter our self
                 .map { ThavalonInformation.RolePresentInformation(it) } // convert to information
             information.addAll(infos) // add to our information

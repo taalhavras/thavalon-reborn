@@ -86,7 +86,7 @@ sealed class ThavalonInformation {
     // this is used to inform you that a role is in the game
     data class RolePresentInformation(val present : Role) : ThavalonInformation() {
         override fun toString(): String {
-            return "${present.role} is in the game!"
+            return "${present.role.role} is in the game!"
         }
     }
 
