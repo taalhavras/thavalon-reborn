@@ -26,9 +26,8 @@ class Gawain : Role() {
             val sameTeam = getSameTeamPair(g) ?: return@updater
             val diffTeam = getDifferentTeamPair(g) ?: return@updater
 
-            // add information in a random order
-            val bothInfo : List<ThavalonInformation.PairSeenInformation> = listOf(sameTeam, diffTeam).shuffled()
-            information.addAll(bothInfo)
+            // add information
+            information.addAll(listOf(sameTeam, diffTeam))
             return@updater
         }, UpdaterPriority.Ten)
     }

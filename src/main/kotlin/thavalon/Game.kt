@@ -12,9 +12,10 @@ class Player(var name : String) {
     }
 }
 
-class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {
-    // init block shuffles players
+class Game(val rolesInGame : MutableList<Role>, val players : MutableList<String>) {
+    // init block shuffles players and roles
     init {
+        rolesInGame.shuffle()
         players.shuffle()
     }
 
@@ -68,6 +69,10 @@ class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {
         updaters.sortByDescending { it.second }
         // apply them all in order
         updaters.forEach { it.first(this) }
+        // now, before we finish, we shuffle the order of information in all roles to avoid
+        // biases in how we ordered our information modification (i.e. merlin seeing lance
+        // last, gwen truth before lie, etc.
+        rolesInGame.forEach { it.information.shuffle() }
     }
 
     /**

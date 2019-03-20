@@ -157,6 +157,16 @@ class InformationAggregator {
         return infos.map { remove(it) }.any {it}
     }
 
+    /**
+     * Shuffles data (except alerts)
+     */
+    fun shuffle() : Unit {
+        rolePresent.shuffle()
+        seen.shuffle()
+        pairSeen.shuffle()
+        perfect.shuffle()
+    }
+
     override fun toString(): String {
         return "$alerts \n $seen \n $pairSeen \n $rolePresent \n $perfect \n"
     }

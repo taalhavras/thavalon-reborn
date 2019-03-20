@@ -20,8 +20,8 @@ class Guinevere : Role() {
             // try to find a truth information and a lie information if we fail return from lambda
             val potentialTruthInfo : ThavalonInformation.PairSeenInformation = truthGenerator(g) ?: return@updater
             val potentialLieInfo : ThavalonInformation.PairSeenInformation = lieGenerator(g) ?: return@updater
-            this.information.add(potentialTruthInfo)
-            this.information.add(potentialLieInfo)
+            // add information
+            information.addAll(listOf(potentialLieInfo, potentialTruthInfo))
         }, UpdaterPriority.Three)
     }
 
