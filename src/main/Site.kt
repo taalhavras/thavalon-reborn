@@ -97,6 +97,10 @@ fun main(args: Array<String>) {
                 // TODO this might have to be gson.toJson(games.get(id)), not sure how sending a jsonArray will play w/frontend
                 call.respond(games.get(id) ?: throw IllegalArgumentException("BAD ID: $id"))
             }
+
+            get("/{id}") {
+                call.respondFile(File("react/build/index.html"))
+            }
         }
     }
     server.start(wait = true)

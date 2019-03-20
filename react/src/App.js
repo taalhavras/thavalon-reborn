@@ -87,6 +87,20 @@ class App extends Component {
     join = () => {
         this.setState({join: !this.state.join})
     };
+
+
+     namesContainValidChars = (name) => {
+         // string containing all invalid characters
+         const invalid_chars = "/?#\\.";
+         // filter out all names containing invalid characters
+         for(let i in invalid_chars) {
+             let c = invalid_chars[i];
+             if(name.includes(c)) {
+                 return false;
+             }
+         }
+         return true;
+     };
     /**
      * Adds a player to the game
      * @param event sumbit event for the player form.
@@ -96,6 +110,11 @@ class App extends Component {
         if (event.target[0].value === "") {
             return;
         }
+
+        if (!this.namesContainValidChars(event.target[0].value)) {
+            return;
+        }
+
         const players = this.state.players;
         this.setState({player_key: this.state.player_key + 1} );
         const key = this.state.player_key;
@@ -154,15 +173,18 @@ class App extends Component {
             });
     };
 
+
+
+
     /**
      * Checks if a game can be started, and displays the appropriate button.
      * @returns {*}
      */
     isValid = () => {
-        if (this.state.players.length === 5
+        if ((this.state.players.length === 5
             || this.state.players.length === 7
             || this.state.players.length === 8
-            || this.state.players.length === 10) {
+            || this.state.players.length === 10)) {
 
             return (
                 <button onClick={this.postToGame} className={"large_button"}>
