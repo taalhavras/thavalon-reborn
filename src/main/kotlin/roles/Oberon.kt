@@ -1,8 +1,8 @@
-package roles
+package main.kotlin.roles
 
-import thavalon.Game
-import thavalon.Updater
-import thavalon.UpdaterPriority
+import main.kotlin.thavalon.Game
+import main.kotlin.thavalon.Updater
+import main.kotlin.thavalon.UpdaterPriority
 import kotlin.random.Random
 
 class Oberon : DefaultEvilRole() {
@@ -11,7 +11,7 @@ class Oberon : DefaultEvilRole() {
     private val singleSeenTargets : Set<RoleType> =  setOf(RoleType.Tristan, RoleType.Iseult,
         RoleType.Percival, RoleType.Merlin)
 
-    private val aSeesBTargets : Set<RoleType> = setOf(RoleType.Guinevere)
+    private val pairSeenTargets : Set<RoleType> = setOf(RoleType.Guinevere, RoleType.Gawain)
 
     private val rolePresentTargets : Set<RoleType> = setOf(RoleType.Arthur, RoleType.Nimue)
 
@@ -29,7 +29,7 @@ class Oberon : DefaultEvilRole() {
     private fun getTarget(g : Game) : Role {
         val goodTeam : MutableList<Role> = g.getGoodRoles()
         // set of roles oberon can target
-        val targetableRoles : Set<RoleType> = singleSeenTargets.plus(aSeesBTargets).plus(rolePresentTargets)
+        val targetableRoles : Set<RoleType> = singleSeenTargets.plus(pairSeenTargets).plus(rolePresentTargets)
 
         goodTeam.shuffle()
         // find first targetable member of good team
@@ -47,13 +47,13 @@ class Oberon : DefaultEvilRole() {
         // obfuscate information based on what kind of target we have
         if (target.role in singleSeenTargets) {
             modifySingleInformation(g, target)
-        } else if(target.role in aSeesBTargets) {
+        } else if(target.role in pairSeenTargets) {
             // to modify this kind of information we need it to be present in some form
-            if(target.information.aSeesB.isEmpty()) {
+            if(target.information.pairSeen.isEmpty()) {
                 // we just return without oberoning the target
                 return
             }
-            modifyASeesBInformation(g, target)
+            modifyPairSeenInformation(g, target)
         } else if(target.role in rolePresentTargets) {
             modifyRolePresentInformation(g, target)
         }
@@ -91,11 +91,11 @@ class Oberon : DefaultEvilRole() {
     }
 
     /**
-     * Modifies an aSeesBInformation that the target has
+     * Modifies an PairSeenInformation such that that the target has one name obfuscated
      */
-    private fun modifyASeesBInformation(g : Game, target : Role) : Unit {
-        assert(target.information.aSeesB.isNotEmpty())
-        val toModify : ThavalonInformation.ASeesBInformation = target.information.aSeesB.random()
+    private fun modifyPairSeenInformation(g : Game, target : Role) : Unit {
+        assert(target.information.pairSeen.isNotEmpty())
+        val toModify : ThavalonInformation.PairSeenInformation = target.information.pairSeen.random()
         if (Random.nextBoolean()) {
             toModify.A = UnknownRole
         } else {

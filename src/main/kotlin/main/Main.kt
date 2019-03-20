@@ -1,8 +1,8 @@
 package main.kotlin.main
 
-import roles.*
-import thavalon.FivesRuleset
-import thavalon.Game
+import main.kotlin.roles.*
+import main.kotlin.thavalon.FivesRuleset
+import main.kotlin.thavalon.Game
 
     fun Main() {
         main()

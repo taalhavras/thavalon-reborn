@@ -1,4 +1,4 @@
-package roles
+package main.kotlin.roles
 
 /**
  * Class for Galahad, night phase declaration version

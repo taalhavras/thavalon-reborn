@@ -1,4 +1,4 @@
-package roles
+package main.kotlin.roles
 
 /**
  * This class contains the implementations for evil roles whose only information is who else is on the evil team

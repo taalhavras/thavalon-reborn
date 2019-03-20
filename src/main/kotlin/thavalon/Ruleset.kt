@@ -1,6 +1,6 @@
-package thavalon
+package main.kotlin.thavalon
 
-import roles.*
+import main.kotlin.roles.*
 import java.lang.IllegalArgumentException
 
 /**

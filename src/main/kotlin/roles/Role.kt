@@ -1,9 +1,9 @@
-package roles
+package main.kotlin.roles
 
-import thavalon.Game
-import thavalon.Player
-import thavalon.Updater
-import thavalon.UpdaterPriority
+import main.kotlin.thavalon.Game
+import main.kotlin.thavalon.Player
+import main.kotlin.thavalon.Updater
+import main.kotlin.thavalon.UpdaterPriority
 
 /**
  * Thavalon Alignments
@@ -25,6 +25,7 @@ enum class RoleEnum {
     Galahad,
     Titania,
     Nimue,
+    Gawain,
 
     Mordred,
     Morgana,
@@ -50,6 +51,7 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
     object Arthur : RoleType(RoleEnum.Arthur, Alignment.Good)
     object Titania : RoleType(RoleEnum.Titania, Alignment.Good)
     object Nimue : RoleType(RoleEnum.Nimue, Alignment.Good)
+    object Gawain : RoleType(RoleEnum.Gawain, Alignment.Good)
 
     object Mordred : RoleType(RoleEnum.Mordred, Alignment.Evil)
     object Morgana : RoleType(RoleEnum.Morgana, Alignment.Evil)
@@ -95,10 +97,10 @@ sealed class ThavalonInformation {
         }
     }
 
-    // this information represents seeing someone seeing someone else (guinevere info)
-    data class ASeesBInformation(var A : Role, var B : Role) : ThavalonInformation() {
+    // this information represents seeing a pair of roles (guinevere, gawain info)
+    data class PairSeenInformation(var A : Role, var B : Role) : ThavalonInformation() {
         override fun toString(): String {
-            return "${A.player} sees ${B.player}"
+            return "${A.player}/${B.player}"
         }
     }
 
@@ -118,7 +120,7 @@ class InformationAggregator {
     val alerts : MutableList<ThavalonInformation.AlertInformation> = ArrayList()
     val rolePresent : MutableList<ThavalonInformation.RolePresentInformation> = ArrayList()
     val seen : MutableList<ThavalonInformation.SingleSeenInformation> = ArrayList()
-    val aSeesB : MutableList<ThavalonInformation.ASeesBInformation> = ArrayList()
+    val pairSeen : MutableList<ThavalonInformation.PairSeenInformation> = ArrayList()
     val perfect : MutableList<ThavalonInformation.PerfectInformation> = ArrayList()
 
     /**
@@ -132,7 +134,7 @@ class InformationAggregator {
             is ThavalonInformation.AlertInformation -> alerts.add(info)
             is ThavalonInformation.RolePresentInformation -> rolePresent.add(info)
             is ThavalonInformation.SingleSeenInformation -> seen.add(info)
-            is ThavalonInformation.ASeesBInformation -> aSeesB.add(info)
+            is ThavalonInformation.PairSeenInformation -> pairSeen.add(info)
             is ThavalonInformation.PerfectInformation -> perfect.add(info)
         }
     }
@@ -146,7 +148,7 @@ class InformationAggregator {
             is ThavalonInformation.AlertInformation -> alerts.remove(info)
             is ThavalonInformation.RolePresentInformation -> rolePresent.remove(info)
             is ThavalonInformation.SingleSeenInformation -> seen.remove(info)
-            is ThavalonInformation.ASeesBInformation -> aSeesB.remove(info)
+            is ThavalonInformation.PairSeenInformation -> pairSeen.remove(info)
             is ThavalonInformation.PerfectInformation -> perfect.add(info)
         }
     }
@@ -156,7 +158,7 @@ class InformationAggregator {
     }
 
     override fun toString(): String {
-        return "$alerts \n $seen \n $aSeesB \n $rolePresent \n $perfect \n"
+        return "$alerts \n $seen \n $pairSeen \n $rolePresent \n $perfect \n"
     }
 }
 
@@ -204,7 +206,7 @@ abstract class Role {
         res.put("alerts", tostring_elts(information.alerts))
         res.put("rolePresent", tostring_elts(information.rolePresent))
         res.put("seen", tostring_elts(information.seen))
-        res.put("aSeesB", tostring_elts(information.aSeesB))
+        res.put("pairSeen", tostring_elts(information.pairSeen))
         res.put("perfect", tostring_elts(information.perfect))
         return res
     }
@@ -220,8 +222,10 @@ abstract class DefaultEvilRole : Role() {
         // default evil team, sees all other evil roles that aren't you
         return Pair(updater@{g : Game ->
             information.addAll(g.getEvilRoles()
-                .filter { it.role != role && it.role != RoleType.Colgrevance } // see evil team except yourself AND colgrevance
-                .map { ThavalonInformation.SingleSeenInformation(it) }) // convert to SingleSeenInformation
+                // see evil team except yourself AND colgrevance
+                .filter { it.role != role && it.role != RoleType.Colgrevance }
+                // convert to SingleSeenInformation
+                .map { ThavalonInformation.SingleSeenInformation(it) })
             return@updater
         }, UpdaterPriority.Ten)
     }

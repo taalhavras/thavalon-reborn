@@ -1,6 +1,6 @@
-package thavalon
+package main.kotlin.thavalon
 
-import roles.Role
+import main.kotlin.roles.*
 
 class Player(var name : String) {
     fun setPlayerName(newName : String) : Unit {
@@ -22,14 +22,14 @@ class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {
      * @return good roles in the game
      */
     fun getGoodRoles() : MutableList<Role> {
-        return rolesInGame.filter { it.role.alignment == roles.Alignment.Good}.toMutableList()
+        return rolesInGame.filter { it.role.alignment == Alignment.Good}.toMutableList()
     }
 
     /**
      * @return evil roles in the game
      */
     fun getEvilRoles() : MutableList<Role> {
-        return rolesInGame.filter { it.role.alignment == roles.Alignment.Evil }.toMutableList()
+        return rolesInGame.filter { it.role.alignment == Alignment.Evil }.toMutableList()
     }
 
     /**

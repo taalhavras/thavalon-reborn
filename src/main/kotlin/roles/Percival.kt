@@ -1,8 +1,8 @@
-package roles
+package main.kotlin.roles
 
-import thavalon.Game
-import thavalon.Updater
-import thavalon.UpdaterPriority
+import main.kotlin.thavalon.Game
+import main.kotlin.thavalon.Updater
+import main.kotlin.thavalon.UpdaterPriority
 
 /**
  * Old percival implementation. Doesn't care if they don't see anyone

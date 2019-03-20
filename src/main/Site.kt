@@ -18,8 +18,8 @@ import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import roles.Role
-import thavalon.*
+import main.kotlin.thavalon.*
+import main.kotlin.roles.*
 import java.io.File
 import java.lang.IllegalArgumentException
 import java.util.*

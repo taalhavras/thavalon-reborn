@@ -1,8 +1,8 @@
-package roles
+package main.kotlin.roles
 
-import thavalon.Game
-import thavalon.Updater
-import thavalon.UpdaterPriority
+import main.kotlin.thavalon.Game
+import main.kotlin.thavalon.Updater
+import main.kotlin.thavalon.UpdaterPriority
 
 
 class Guinevere : Role() {
@@ -18,28 +18,28 @@ class Guinevere : Role() {
     fun getUpdater() : Updater {
         return Pair(updater@{g : Game ->
             // try to find a truth information and a lie information if we fail return from lambda
-            val potentialTruthInfo : ThavalonInformation.ASeesBInformation = truthGenerator(g) ?: return@updater
-            val potentialLieInfo : ThavalonInformation.ASeesBInformation = lieGenerator(g) ?: return@updater
+            val potentialTruthInfo : ThavalonInformation.PairSeenInformation = truthGenerator(g) ?: return@updater
+            val potentialLieInfo : ThavalonInformation.PairSeenInformation = lieGenerator(g) ?: return@updater
             this.information.add(potentialTruthInfo)
             this.information.add(potentialLieInfo)
         }, UpdaterPriority.Three)
     }
 
-    private fun getAllASeesBInformation(g : Game) : List<ThavalonInformation.ASeesBInformation> {
+    private fun getAllPairSeenInformation(g : Game) : List<ThavalonInformation.PairSeenInformation> {
         return g.rolesInGame
             .filter { it.role !in unseeableRoles } // filter out roles we cannot see
             .map { it.information.seen // map over role's seen information
                 .filter { i : ThavalonInformation.SingleSeenInformation -> // filter out seen information that includes unseeable roles
                     i.seen.role !in unseeableRoles }
                 .map { i : ThavalonInformation.SingleSeenInformation ->
-                ThavalonInformation.ASeesBInformation(it, i.seen) } // transform each singleSeenInfo to an ASeesB information
+                ThavalonInformation.PairSeenInformation(it, i.seen) } // transform each singleSeenInfo to an PairSeen information
             }.flatten() // collapse list
     }
 
     // produces an even distribution across all information in the game instead of all roles
-    private fun truthGenerator(g : Game) : ThavalonInformation.ASeesBInformation? {
+    private fun truthGenerator(g : Game) : ThavalonInformation.PairSeenInformation? {
 
-        val gameInfos : List<ThavalonInformation.ASeesBInformation> = getAllASeesBInformation(g)
+        val gameInfos : List<ThavalonInformation.PairSeenInformation> = getAllPairSeenInformation(g)
 
         if(gameInfos.isEmpty()) {
             return null
@@ -49,21 +49,21 @@ class Guinevere : Role() {
     }
 
     // lie generator across information instead of across roles
-    private fun lieGenerator(g : Game) : ThavalonInformation.ASeesBInformation? {
+    private fun lieGenerator(g : Game) : ThavalonInformation.PairSeenInformation? {
         val rolesInvolvedInLies : List<Role> = g.rolesInGame.filter { it.role !in unseeableRoles }
 
-        val allPotentialLieInformation : MutableSet<ThavalonInformation.ASeesBInformation> = HashSet()
+        val allPotentialLieInformation : MutableSet<ThavalonInformation.PairSeenInformation> = HashSet()
 
-        // construct all possible aSeesBInformation from the game (cartesian product of roles)
+        // construct all possible PairSeenInformation from the game (cartesian product of roles)
         for (r1 in rolesInvolvedInLies) {
             for (r2 in rolesInvolvedInLies) {
                 if(r1 != r2) {
-                    allPotentialLieInformation.add(ThavalonInformation.ASeesBInformation(r1, r2))
+                    allPotentialLieInformation.add(ThavalonInformation.PairSeenInformation(r1, r2))
                 }
             }
         }
-        // get all actual aSeesBInformation from the game
-        val gameInfos : List<ThavalonInformation.ASeesBInformation> = getAllASeesBInformation(g)
+        // get all actual gwen info from the game
+        val gameInfos : List<ThavalonInformation.PairSeenInformation> = getAllPairSeenInformation(g)
         // set difference to find lies
         val lieInformation = allPotentialLieInformation.minus(gameInfos)
 
@@ -75,4 +75,10 @@ class Guinevere : Role() {
         return lieInformation.random()
     }
 
+    override fun prepareInformation(): MutableMap<String, List<String>> {
+        val m = super.prepareInformation()
+        // format pairSeen info into "A" sees "B"
+        m["pairSeen"] = m["pairSeen"]!!.map { it.replace("/", " sees ") }
+        return m
+    }
 }

@@ -1,4 +1,4 @@
-package roles
+package main.kotlin.roles
 
 class Lancelot : Role() {
     override val role : RoleType = RoleType.Lancelot

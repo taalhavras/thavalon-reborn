@@ -1,8 +1,8 @@
-package roles
+package main.kotlin.roles
 
-import thavalon.Game
-import thavalon.Updater
-import thavalon.UpdaterPriority
+import main.kotlin.thavalon.Game
+import main.kotlin.thavalon.Updater
+import main.kotlin.thavalon.UpdaterPriority
 
 // colgrevance doesn't inherit from DefaultEvilRole but instead just regular role
 class Colgrevance : Role() {
