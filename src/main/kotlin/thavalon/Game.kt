@@ -12,10 +12,9 @@ class Player(var name : String) {
     }
 }
 
-class Game(val rolesInGame : MutableList<Role>, val players : MutableList<String>) {
-    // init block shuffles players and roles
+class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {
+    // init block shuffles players
     init {
-        rolesInGame.shuffle()
         players.shuffle()
     }
 
