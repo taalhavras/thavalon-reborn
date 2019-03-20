@@ -101,6 +101,17 @@ class App extends Component {
          }
          return true;
      };
+
+     isDuplicateName = (name) => {
+         for(let i in this.state.players) {
+             if(this.state.players[i].name === name) {
+                 return true;
+             }
+         }
+         return false;
+     };
+
+
     /**
      * Adds a player to the game
      * @param event sumbit event for the player form.
@@ -112,6 +123,10 @@ class App extends Component {
         }
 
         if (!this.namesContainValidChars(event.target[0].value)) {
+            return;
+        }
+
+        if(this.isDuplicateName(event.target[0].value)) {
             return;
         }
 
