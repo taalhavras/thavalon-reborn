@@ -45,22 +45,24 @@ class Oberon : DefaultEvilRole() {
         assert(target.role.alignment == Alignment.Good)
 
         // obfuscate information based on what kind of target we have
-        if (target.role in singleSeenTargets) {
-            modifySingleInformation(g, target)
-        } else if(target.role in pairSeenTargets) {
-            // to modify this kind of information we need it to be present in some form
-            if(target.information.pairSeen.isEmpty()) {
-                // we just return without oberoning the target
-                return
+        when {
+            target.role in singleSeenTargets -> modifySingleInformation(g, target)
+            target.role in pairSeenTargets -> {
+                // to modify this kind of information we need it to be present in some form
+                if(target.information.pairSeen.isEmpty()) {
+                    // we just return without oberoning the target
+                    return
+                }
+                modifyPairSeenInformation(target)
             }
-            modifyPairSeenInformation(g, target)
-        } else if(target.role in rolePresentTargets) {
-            modifyRolePresentInformation(g, target)
+            target.role in rolePresentTargets -> modifyRolePresentInformation(target)
         }
 
         val oberondAlert = ThavalonInformation.AlertInformation("You have been Oberon'd!")
         val successfullyObfuscatedAlert = ThavalonInformation.AlertInformation("You have added false information " +
                 "to a member of the good team")
+            // add oberon alert to target
+        // inform oberon that they've successfully oberoned someone
         // add oberon alert to target
         target.information.add(oberondAlert)
         // inform oberon that they've successfully oberoned someone
@@ -93,7 +95,7 @@ class Oberon : DefaultEvilRole() {
     /**
      * Modifies an PairSeenInformation such that that the target has one name obfuscated
      */
-    private fun modifyPairSeenInformation(g : Game, target : Role) : Unit {
+    private fun modifyPairSeenInformation(target : Role) : Unit {
         assert(target.information.pairSeen.isNotEmpty())
         val toModify : ThavalonInformation.PairSeenInformation = target.information.pairSeen.random()
         if (Random.nextBoolean()) {
@@ -106,7 +108,7 @@ class Oberon : DefaultEvilRole() {
     /**
      * Erases a RolePresentInformation from the target
      */
-    private fun modifyRolePresentInformation(g : Game, target : Role) : Unit {
+    private fun modifyRolePresentInformation(target : Role) : Unit {
         assert(target.information.rolePresent.isNotEmpty())
         // now we replace a random piece of rolePresent information with UnknownRole
         // remove a random piece of information
