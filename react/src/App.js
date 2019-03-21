@@ -106,8 +106,10 @@ class App extends Component {
      };
 
      isDuplicateName = (name) => {
+         // use trimmed name to avoid stuff like 'A     ' and '     A' being considered different names
+         name = name.trim();
          for(let i in this.state.players) {
-             if(this.state.players[i].name === name) {
+             if(this.state.players[i].name.trim() === name) {
                  return true;
              }
          }
