@@ -72,4 +72,4 @@ jar {
 //    }.writeTo("pom.xml")
 //}
 
-build.dependsOn buildReact
+//build.dependsOn buildReact
