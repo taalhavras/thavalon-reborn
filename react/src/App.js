@@ -3,6 +3,8 @@ import './css/App.css';
 import {Redirect} from 'react-router-dom';
 import "./css/styles.css";
 import "./PlayerTag";
+import Rules from "./Rules";
+
 import "./css/PlayerTag.css";
 import PlayerTag from "./PlayerTag";
 import Options from "./Options";
@@ -54,6 +56,7 @@ class App extends Component {
             switches: [],
             redirect: "",
             player_key: 0,
+            error: ""
         };
 
     }
@@ -120,24 +123,29 @@ class App extends Component {
      */
     playerSubmit = (event) => {
         event.preventDefault();
-        const name = event.target[0].value
+        const name = event.target[0].value;
+        document.getElementById("player-name-input").reset();
+        this.setState({error: ""});
         if (name === "") {
             return;
         }
 
-        // name cannot be donotopen or link gets messed up. There's probably a better way to do this
-        if(name === "donotopen") {
-            return;
-        }
-
         if (!this.namesContainValidChars(name)) {
+            this.setState({error: "Name contains invalid characters."});
             return;
         }
 
         if(this.isDuplicateName(name)) {
+            this.setState({error: "Duplicate names are not allowed."});
+
             return;
         }
 
+        if (name.length > 30) {
+            this.setState({error: "Names must not be longer than 30 characters"});
+
+            return;
+        }
         const players = this.state.players;
         this.setState({player_key: this.state.player_key + 1} );
         const key = this.state.player_key;
@@ -146,7 +154,6 @@ class App extends Component {
                                                                      change={() => this.removePlayer(key)}
                                                                      name={name}/>});
         this.setState({players: players});
-        document.getElementById("player-name-input").reset();
 
     };
 
@@ -283,6 +290,7 @@ class App extends Component {
               <form className="player_input" id={"player-name-input"} onSubmit={this.playerSubmit}>
                   <input type="text" id ={"input-field"} placeholder={"Enter player name"}/>
                   <br></br>
+                  <div className={"error"}>{this.state.error}</div>
                   <input type={"submit"} className={"player-submit"} id={"add-submit"} value={"Add"}/>
                   <button className={"small_button"} onClick={this.options}>Options</button>
 
@@ -313,34 +321,8 @@ class App extends Component {
                           <button className={"exit_button"} onClick={this.info}> x </button>
                           <div className={"rules"}>
                           <h1>Rules</h1>
-                          <h2> Lorum Ipsum</h2>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                          culpa qui officia deserunt mollit anim id est laborum
-                          <h2>Lorum Ipsum</h2>
-                          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                          laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                          architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-                          sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                          voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                          consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-                          magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam
-                          corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit
-                          qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-                          <h2>Lorum Ipsum</h2>
-                          At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                          deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
-                          similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
-                          Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-                          eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis
-                          voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis
-                          aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
-                          Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur
-                          aut perferendis doloribus asperiores repellat.
-                          <button className={"small_button"} onClick={this.info}>Done</button>
+                              <Rules />
+
                       </div>
                       </div>: null}
                   <button className={"info_button"} onClick={this.info}>?</button>

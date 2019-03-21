@@ -38,7 +38,6 @@ fun main(args: Array<String>) {
         }
 
         routing {
-
             static("static") {
                 staticRootFolder = File("react/build/static")
                 static("js") {
