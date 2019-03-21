@@ -7,6 +7,8 @@ import main.kotlin.thavalon.UpdaterPriority
 open class OldTitania : Role() {
     override val role: RoleType = RoleType.Titania
 
+    val untargetableRoles : Set<RoleType> = setOf(RoleType.Colgrevance)
+
     override fun getUpdaters(g: Game): List<Updater> {
         return listOf(getTitaniaUpdater(), getOberonPresentUpdater())
     }
@@ -26,7 +28,7 @@ open class OldTitania : Role() {
 
     // old titania targets a single random evil
     open fun getTargets(g : Game) : List<Role> {
-        return listOf(g.getEvilRoles().random())
+        return listOf(g.getEvilRoles().filter { it.role !in untargetableRoles }.random())
     }
 
     private fun updateTargets(g: Game, targets : List<Role>) : Unit {
@@ -48,7 +50,7 @@ open class OldTitania : Role() {
 class NewTitania : OldTitania() {
     // new titania targets all evil
     override fun getTargets(g: Game): List<Role> {
-        return g.getEvilRoles()
+        return g.getEvilRoles().filter { it.role !in untargetableRoles }
     }
 
     override fun updateSingleTarget(g: Game, r: Role) {
