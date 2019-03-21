@@ -4,18 +4,28 @@ body {
 
 .player_info {
     width: 90vw;
-    max-width: 300px;
+    max-width: 400px;
     margin: auto;
+
 }
 
+.description {
+    text-align: left;
+    margin: 10px 0;
+
+}
 .player_info ul {
+    display: flex;
+    flex-direction: column;
     list-style: none;
     text-align: left;
 
 }
 
 ul {
+    margin: 0;
     list-style: none;
+    padding: 0;
     text-align: left;
 }
 
@@ -25,7 +35,8 @@ ul {
 }
 
 li {
-    margin: 10px;
+    margin: 10px 0;
+    wrap: normal;
 }
 .donotopen {
     margin: 50px auto;
@@ -34,7 +45,7 @@ li {
 }
 
 .donotopen ul {
-    max-width: 200px;
+    max-width: 300px;
     text-align: left;
     margin: auto;
 }

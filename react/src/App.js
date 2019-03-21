@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 import "./css/styles.css";
 import "./PlayerTag";
 import Rules from "./Rules";
-
+import cookie from 'react-cookies'
 import "./css/PlayerTag.css";
 import PlayerTag from "./PlayerTag";
 import Options from "./Options";
@@ -313,9 +313,7 @@ class App extends Component {
                       {this.state.join_input}
                           <input type={"submit"} className={"player-submit"} id={"join-submit"} value={"Join"}/>
                       {this.state.join_error}
-
                   </form>
-
               </div> : null }
 
               <div className="info">

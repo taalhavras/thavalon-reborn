@@ -100,6 +100,10 @@ fun main(args: Array<String>) {
             get("/{id}") {
                 call.respondFile(File("react/build/index.html"))
             }
+
+            get("/{id}/{player}") {
+                call.respondFile(File("react/build/index.html"))
+            }
         }
     }
     server.start(wait = true)
