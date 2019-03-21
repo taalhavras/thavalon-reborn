@@ -235,7 +235,19 @@ class App extends Component {
     forwardToGame = (event) => {
         event.preventDefault();
         const id = event.target[0].value;
-        this.setState({join_redirect: <Redirect to={{ pathname: "/" + id}} />})
+        const url = "/isGame/" + id;
+        fetch(url, {
+            method: "GET"
+        }).then(response => {
+            return response.json();
+        }).then (data => {
+            if (data) {
+                this.setState({join_redirect: <Redirect to={{ pathname: "/" + id}} />})
+
+            } else {
+                this.setState({join_error: "Game ID not found"});
+            }
+        });
     };
 
     /**
@@ -312,7 +324,8 @@ class App extends Component {
                   <form className="player_input" onSubmit={this.forwardToGame}>
                       {this.state.join_input}
                           <input type={"submit"} className={"player-submit"} id={"join-submit"} value={"Join"}/>
-                      {this.state.join_error}
+                      <br></br>
+                      <div className="error"> {this.state.join_error} </div>
                   </form>
               </div> : null }
 
