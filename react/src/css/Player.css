@@ -3,6 +3,8 @@ body {
 }
 
 .player_info {
+    display: flex;
+    flex-direction: column;
     width: 90vw;
     max-width: 400px;
     margin: auto;
@@ -15,8 +17,7 @@ body {
 
 }
 .player_info ul {
-    display: flex;
-    flex-direction: column;
+
     list-style: none;
     text-align: left;
 
@@ -36,7 +37,6 @@ ul {
 
 li {
     margin: 10px 0;
-    wrap: normal;
 }
 .donotopen {
     margin: 50px auto;
@@ -52,4 +52,12 @@ li {
 
 #show_button {
     margin: auto;
+}
+
+.description {
+    max-width: 600px;
+    overflow-wrap: normal;
+    display: inline-block;
+    width: 400px;
+    white-space:normal;
 }

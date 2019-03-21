@@ -34,7 +34,7 @@ class Player extends Component {
                 <h2>You are {this.props.location.state.role}</h2>
                 <div className={"description"}>
                     {this.props.location.state.description.split("\n").map((i,key) => {
-                        return <div key={key}>{i}</div>;
+                        return <div key={key}>{i} <br></br></div>;
                     })}
                 </div>
                 <ul>
