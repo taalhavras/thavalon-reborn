@@ -19,7 +19,7 @@ ReactDOM.render(<BrowserRouter history={customHistory}>
     <Switch>
         <Route exact path='/' component={App} />
         <Route exact path='/:id' component={Game} />
-        <Route exact path='/:id/donotopen' component={DoNotOpen} />
+        <Route exact path='/:id/game/donotopen' component={DoNotOpen} />
 
         <Route exact path='/:id/board' component={Board} />
         <Route exact path='/:id/:name' component={Player} />
