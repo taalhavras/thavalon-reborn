@@ -9,6 +9,7 @@
 textarea, select, input, button { outline: none; }
 
 body {
+  white-space:pre;
   margin: 0;
   text-align: center;
   padding: 0;
@@ -64,7 +65,6 @@ button:hover {
 }
 
 button {
-  white-space:pre;
   font-family: Quicksand-Bold;
   vertical-align: center;
   background-color: Transparent;

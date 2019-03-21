@@ -56,6 +56,7 @@ class App extends Component {
             switches: [],
             redirect: "",
             player_key: 0,
+            join_error: "",
             error: ""
         };
 
@@ -311,6 +312,8 @@ class App extends Component {
                   <form className="player_input" onSubmit={this.forwardToGame}>
                       {this.state.join_input}
                           <input type={"submit"} className={"player-submit"} id={"join-submit"} value={"Join"}/>
+                      {this.state.join_error}
+
                   </form>
 
               </div> : null }
@@ -326,7 +329,6 @@ class App extends Component {
                       </div>
                       </div>: null}
                   <button className={"info_button"} onClick={this.info}>?</button>
-
               </div>
       </div>
 
