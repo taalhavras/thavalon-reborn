@@ -107,6 +107,11 @@ fun main(args: Array<String>) {
             get("/{id}/{player}") {
                 call.respondFile(File("react/build/index.html"))
             }
+
+            get("isGame/{id}") {
+                val id : String= call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
+                call.respond(gson.toJson(games.containsKey(id)))
+            }
         }
     }
     server.start(wait = true)

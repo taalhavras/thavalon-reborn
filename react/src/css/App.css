@@ -136,3 +136,7 @@
   max-width: 500px;
   margin: auto;
 }
+
+.error {
+  font-weight: bold;
+}
