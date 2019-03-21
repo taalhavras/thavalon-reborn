@@ -9,7 +9,8 @@ class DoNotOpen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false
+            open: false,
+            text: "Show"
         }
     }
 
@@ -31,12 +32,12 @@ class DoNotOpen extends Component {
     };
 
     open = () => {
-        this.setState({open: !this.state.open});
+        this.setState({open: !this.state.open, text: this.state.open ? "Show" : "Hide"});
     };
     render() {
         return (<div className={"donotopen"}>
             <h1> Do Not Open </h1>
-            <button className={"my_button, large_button"} id={"show_button"} onClick={this.open}>Show</button>
+            <button className={"my_button, large_button"} id={"show_button"} onClick={this.open}>{this.state.text}</button>
             {this.state.open ?
                 <ul>
                     {this.props.location.state.game.map(ele => {
