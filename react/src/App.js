@@ -103,8 +103,10 @@ class App extends Component {
      };
 
      isDuplicateName = (name) => {
+         // use trimmed name to avoid stuff like 'A     ' and '     A' being considered different names
+         name = name.trim();
          for(let i in this.state.players) {
-             if(this.state.players[i].name === name) {
+             if(this.state.players[i].name.trim() === name) {
                  return true;
              }
          }
@@ -125,7 +127,7 @@ class App extends Component {
 
         // name cannot be donotopen or link gets messed up. There's probably a better way to do this
         if(name === "donotopen") {
-            return
+            return;
         }
 
         if (!this.namesContainValidChars(name)) {
