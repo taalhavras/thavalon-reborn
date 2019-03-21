@@ -8,7 +8,16 @@ open class OldTitania : Role() {
     override val role: RoleType = RoleType.Titania
 
     override fun getUpdaters(g: Game): List<Updater> {
-        return listOf(getTitaniaUpdater())
+        return listOf(getTitaniaUpdater(), getOberonPresentUpdater())
+    }
+
+    // produces an updater that tells titania if an oberon is in the game
+    private fun getOberonPresentUpdater() : Updater {
+        return Pair({g : Game ->
+            if (g.getEvilRoles().any { it.role == RoleType.Oberon }) {
+                information.add(ThavalonInformation.AlertInformation("There is an Oberon in the game!"))
+            }
+        }, UpdaterPriority.Ten)
     }
 
     private fun getTitaniaUpdater() : Updater {
