@@ -115,10 +115,10 @@
   margin: 0;
   padding: 0;
 }
+
 .rules h1 {
   margin: 0 auto;
   color: #4f4f4f;
-
 }
 
 .info_button {
@@ -130,7 +130,6 @@
   border-radius: 50%;
   border: 1px solid white;
   background: none;
-
 }
 
 .player_tags {

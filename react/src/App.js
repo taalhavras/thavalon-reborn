@@ -263,7 +263,7 @@ class App extends Component {
      * @returns {*}
      */
   render() {
-      const array = [];
+      let array = [];
       const names = this.state.players.values();
       let next = names.next();
       while (!next.done) {

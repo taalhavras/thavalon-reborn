@@ -64,6 +64,7 @@ button:hover {
 }
 
 button {
+  white-space:pre;
   font-family: Quicksand-Bold;
   vertical-align: center;
   background-color: Transparent;

@@ -52,8 +52,8 @@
 
 
 .player_name {
-    display: inline-block;
-
+    /*display: inline-block;*/
+    white-space:pre;
     margin: auto 5px auto 1px;
 
 }
