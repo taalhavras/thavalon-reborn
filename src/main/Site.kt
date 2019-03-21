@@ -28,7 +28,10 @@ fun main(args: Array<String>) {
     val gson = Gson()
     val games : MutableMap<String, JsonArray> = HashMap()
 
+    // for heroku ktor deployment
     val port : String = System.getenv("PORT") ?: "4444"
+
+    val idLength = 6
 
     val server = embeddedServer(Netty, port = port.toInt()) {
         install(ContentNegotiation) {
@@ -60,7 +63,7 @@ fun main(args: Array<String>) {
                 val post = call.receiveText()
                 val parsed = JsonParser().parse(post).asJsonObject
                 val names = parsed["names"].asJsonArray.map { it.asString }.toMutableList()
-                val id = UUID.randomUUID().toString().substring(0, 6)
+                val id = UUID.randomUUID().toString().substring(0, idLength)
                 val g : Game = when(names.size) {
                     5 -> FivesRuleset().makeGame(names)
                     7 -> SevensRuleset().makeGame(names)
