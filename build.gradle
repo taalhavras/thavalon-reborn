@@ -28,6 +28,11 @@ repositories {
     jcenter()
 }
 
+task buildReact(type:Exec) {
+    workingDir = '.'
+    commandLine "./build_react.sh"
+}
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "io.ktor:ktor-server-netty:$ktor_version"
@@ -68,3 +73,5 @@ jar {
 //        }
 //    }.writeTo("pom.xml")
 //}
+
+//build.dependsOn buildReact
