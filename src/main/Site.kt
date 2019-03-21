@@ -48,6 +48,7 @@ fun main(args: Array<String>) {
                 static("css") {
                     files("css")
                 }
+
                 static("media") {
                     files("media")
                 }
@@ -94,7 +95,6 @@ fun main(args: Array<String>) {
             get("/game/info/{id}") {
                 println(games)
                 val id : String= call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
-                // TODO this might have to be gson.toJson(games.get(id)), not sure how sending a jsonArray will play w/frontend
                 call.respond(games.get(id) ?: throw IllegalArgumentException("BAD ID: $id"))
             }
 

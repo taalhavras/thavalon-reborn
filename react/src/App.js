@@ -118,15 +118,21 @@ class App extends Component {
      */
     playerSubmit = (event) => {
         event.preventDefault();
-        if (event.target[0].value === "") {
+        const name = event.target[0].value
+        if (name === "") {
             return;
         }
 
-        if (!this.namesContainValidChars(event.target[0].value)) {
+        // name cannot be donotopen or link gets messed up. There's probably a better way to do this
+        if(name === "donotopen") {
+            return
+        }
+
+        if (!this.namesContainValidChars(name)) {
             return;
         }
 
-        if(this.isDuplicateName(event.target[0].value)) {
+        if(this.isDuplicateName(name)) {
             return;
         }
 
@@ -134,9 +140,9 @@ class App extends Component {
         this.setState({player_key: this.state.player_key + 1} );
         const key = this.state.player_key;
 
-        players.push({key: this.state.player_key, name: event.target[0].value, value:  <PlayerTag key={this.state.player_key}
+        players.push({key: this.state.player_key, name: name, value:  <PlayerTag key={this.state.player_key}
                                                                      change={() => this.removePlayer(key)}
-                                                                     name={event.target[0].value}/>});
+                                                                     name={name}/>});
         this.setState({players: players});
         document.getElementById("player-name-input").reset();
 
