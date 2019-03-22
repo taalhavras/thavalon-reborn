@@ -13,7 +13,7 @@ class PlayerTag extends Component {
     render() {
         return ( <div className={"player-tag-wrapper"}>
                 <button className={"close_button"} onClick={this.props.change}>X</button>
-                <p className={"player_name"}>{this.props.name}</p>
+            <p className={"player_name"}><span className={"name"}> {this.props.name} </span></p>
             </div>
 
         );

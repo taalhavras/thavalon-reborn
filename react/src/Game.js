@@ -47,7 +47,7 @@ class Game extends Component {
 
         return ( <div className="names">
                 <h3>Game ID: {this.props.match.params.id} </h3>
-                <h3> Starting Player: {this.state.start}</h3>
+            <h3> Starting Player:<span className={"name"}> {this.state.start}</span> </h3>
 
                 {this.state.game.map(curr =>
                 {
@@ -55,7 +55,7 @@ class Game extends Component {
                     count++;
                     return (<Link key={count} to={{pathname: path, state: {name: curr.name, role: curr.role,
                         role_info: curr.information, description: curr.description}}}>
-                        <button className={"my_button, large_button"}>{curr.name}</button>
+                        <button className={"my_button, large_button"}><span className={"name"}>{curr.name}</span></button>
                     </Link>);
                 })}
                 <Link key ={count} to={{pathname: this.props.location.pathname + "/game/donotopen", state: {game: this.state.game}}}>
