@@ -18,15 +18,21 @@ import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import kotlinx.coroutines.sync.Mutex
 import main.kotlin.thavalon.*
 import main.kotlin.roles.*
 import java.io.File
 import java.lang.IllegalArgumentException
 import java.util.*
+import java.util.concurrent.ConcurrentMap
 
-fun main(args: Array<String>) {
+fun main() {
     val gson = Gson()
-    val games : MutableMap<String, JsonArray> = HashMap()
+    // use concurrent map for safety when multiple games are being rolled at the same time
+    // or when games are being cleared
+    val games : ConcurrentMap<String, JsonArray> = java.util.concurrent.ConcurrentHashMap()
+
+    val statsMutex : Mutex = Mutex()
 
     // for heroku ktor deployment
     val port : String = System.getenv("PORT") ?: "4444"
@@ -96,7 +102,7 @@ fun main(args: Array<String>) {
 
             get("/game/info/{id}") {
                 println(games)
-                val id : String= call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
+                val id : String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
                 call.respond(games.get(id) ?: throw IllegalArgumentException("BAD ID: $id"))
             }
 
@@ -111,6 +117,30 @@ fun main(args: Array<String>) {
             get("isGame/{id}") {
                 val id : String= call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
                 call.respond(gson.toJson(games.containsKey(id)))
+            }
+
+            post("/gameover/{id}") {
+                // get id
+                val id : String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
+                println("ENDING GAME $id")
+                // lock stats mutex
+                statsMutex.lock()
+                // now, we check to make sure the id hasn't already been deleted. If it has, we already recorded stats
+                // for it so we can just unlock and finish
+                val notDeleted = id in games
+                if(notDeleted) {
+                    // delete id from games
+                    games.remove(id)
+                    // TODO process stats!
+                    // get game result json
+//                    val post = call.receiveText()
+//                    val resultsJson = JsonParser().parse(post).asJsonObject
+                }
+                // unlock stats mutex
+                statsMutex.unlock()
+                // respond saying whether or not stats were already recorded
+                // true if id was deleted before this call was processed, false otherwise
+                call.respond(gson.toJson(!notDeleted))
             }
         }
     }

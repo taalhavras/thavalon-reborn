@@ -32,6 +32,20 @@ class Game extends Component {
         });
     };
 
+    submit_results = () => {
+        const id = this.props.match.params.id;
+        console.log("Submit Game Results");
+        const url = "/gameover/" + id;
+        fetch(url, {
+            method: "POST"
+        }).then(() => {
+            // redirect to homepage
+            window.location.href = "/";
+        }).catch(error => {
+            console.log(error);
+        });
+    };
+
 
     componentWillMount() {
         this.props.history.push("");
@@ -61,6 +75,7 @@ class Game extends Component {
                 <Link key ={count} to={{pathname: this.props.location.pathname + "/game/donotopen", state: {game: this.state.game}}}>
                     <button className={"my_button, large_button"}>Do Not Open</button>
                 </Link>
+                <button onClick={this.submit_results}>Submit Game Results</button>
             </div>
 
         );
