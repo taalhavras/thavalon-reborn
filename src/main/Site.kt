@@ -32,7 +32,7 @@ fun main() {
     // or when games are being cleared
     val games : ConcurrentMap<String, JsonArray> = java.util.concurrent.ConcurrentHashMap()
 
-    val statsMutex : Mutex = Mutex()
+    val statsMutex = Mutex()
 
     // for heroku ktor deployment
     val port : String = System.getenv("PORT") ?: "4444"
@@ -103,7 +103,14 @@ fun main() {
             get("/game/info/{id}") {
                 println(games)
                 val id : String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
-                call.respond(games.get(id) ?: throw IllegalArgumentException("BAD ID: $id"))
+                val info : JsonArray? = games.get(id)
+                // if we can't find the game id, just redirect to homepage
+                if(info == null) {
+                    // send empty array
+                    call.respond(JsonArray())
+                } else {
+                    call.respond(info)
+                }
             }
 
             get("/{id}") {
@@ -133,14 +140,15 @@ fun main() {
                     games.remove(id)
                     // TODO process stats!
                     // get game result json
-//                    val post = call.receiveText()
-//                    val resultsJson = JsonParser().parse(post).asJsonObject
+                    val post = call.receiveText()
+                    val resultsJson = JsonParser().parse(post).asJsonObject
+                    println(resultsJson)
                 }
                 // unlock stats mutex
                 statsMutex.unlock()
-                // respond saying whether or not stats were already recorded
-                // true if id was deleted before this call was processed, false otherwise
-                call.respond(gson.toJson(!notDeleted))
+                // respond saying whether or not stats were recorded
+                // true if id was not deleted before this call was processed, false otherwise
+                call.respond(gson.toJson(notDeleted))
             }
         }
     }

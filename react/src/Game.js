@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./css/Game.css";
 import { Link } from 'react-router-dom';
+import SubmitResults from "./SubmitResults";
 
 /**
  * Models a game page, with links to each player.
@@ -25,8 +26,15 @@ class Game extends Component {
             }) .then (data => {
             console.log("Response");
             console.log(data);
-            this.setState({game: data, start: data[0].name});
-            return data;
+            if(data.length === 0) {
+                // invalid id, redirect to homepage
+                window.location.href = "/";
+            } else {
+                // found id, just do lookup
+                this.setState({game: data, start: data[0].name});
+                return data;
+            }
+
         }).catch(error => {
             console.log(error);
         });
@@ -75,6 +83,7 @@ class Game extends Component {
                 <Link key ={count} to={{pathname: this.props.location.pathname + "/game/donotopen", state: {game: this.state.game}}}>
                     <button className={"my_button, large_button"}>Do Not Open</button>
                 </Link>
+                <SubmitResults id={this.props.match.params.id}/>
                 <button onClick={this.submit_results}>Submit Game Results</button>
             </div>
 
