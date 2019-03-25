@@ -12,17 +12,20 @@ import Player from './Player.js';
 
 import * as serviceWorker from './serviceWorker';
 import createBrowserHistory from "history/createBrowserHistory";
+import SubmitResults from "./SubmitResults";
 export default createBrowserHistory();
 const customHistory = createBrowserHistory();
 
 ReactDOM.render(<BrowserRouter history={customHistory}>
     <Switch>
         <Route exact path='/' component={App} />
+        <Route exact path='/submitresults' component={SubmitResults}/>
         <Route exact path='/:id' component={Game} />
         <Route exact path='/:id/game/donotopen' component={DoNotOpen} />
 
         <Route exact path='/:id/board' component={Board} />
         <Route exact path='/:id/:name' component={Player} />
+
     </Switch>
 </BrowserRouter>, document.getElementById('root'));
 

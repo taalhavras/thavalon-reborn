@@ -121,6 +121,10 @@ fun main() {
                 call.respondFile(File("react/build/index.html"))
             }
 
+            get("/submitresults") {
+                call.respondFile(File("react/build/index.html"))
+            }
+
             get("isGame/{id}") {
                 val id : String= call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
                 call.respond(gson.toJson(games.containsKey(id)))
@@ -129,7 +133,7 @@ fun main() {
             post("/gameover/{id}") {
                 // get id
                 val id : String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
-                println("ENDING GAME $id")
+                println("Ending game $id")
                 // lock stats mutex
                 statsMutex.lock()
                 // now, we check to make sure the id hasn't already been deleted. If it has, we already recorded stats
@@ -143,6 +147,8 @@ fun main() {
                     val post = call.receiveText()
                     val resultsJson = JsonParser().parse(post).asJsonObject
                     println(resultsJson)
+                } else {
+                    println("Game $id already ended")
                 }
                 // unlock stats mutex
                 statsMutex.unlock()

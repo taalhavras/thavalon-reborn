@@ -83,8 +83,9 @@ class Game extends Component {
                 <Link key ={count} to={{pathname: this.props.location.pathname + "/game/donotopen", state: {game: this.state.game}}}>
                     <button className={"my_button, large_button"}>Do Not Open</button>
                 </Link>
-                <SubmitResults id={this.props.match.params.id}/>
-                <button onClick={this.submit_results}>Submit Game Results</button>
+                <Link key={count++} to={{pathname: "/submitresults", state: {id: this.props.match.params.id}}}>
+                    <button className={"my_button, large_button"}>Submit Game Results</button>
+                </Link>
             </div>
 
         );

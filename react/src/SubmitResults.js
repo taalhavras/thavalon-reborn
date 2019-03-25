@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import "./css/Player.css";
 
+
+// different types of game ending results
+const results = ["Good Wins!", "Evil wins on missions!", "Evil wins by assassination!"];
+
 /**
  * Models a game page, with links to each player.
  */
 class SubmitResults extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            results: ["Good Wins!", "Evil wins on missions!", "Evil wins by assassination!"]
-        }
     }
 
     make_submitter = (result) => {
@@ -19,8 +20,7 @@ class SubmitResults extends Component {
     };
 
     submit_results = (result) => {
-        const id = this.props.id;
-        console.log("Submit Game Results");
+        const id = this.props.location.state.id;
         const url = "/gameover/" + id;
         fetch(url, {
             method: "POST",
@@ -43,9 +43,9 @@ class SubmitResults extends Component {
 
     render() {
         return (<div className={"submitresults"}>
-            <h1> Submit results for game {this.props.id} </h1>
+            <h1> Submit results for game {this.props.location.state.id} </h1>
                 <ul>
-                    {this.state.results.map(ele => {
+                    {results.map(ele => {
                         return <li>
                             <button onClick={this.make_submitter(ele)}>
                                 {ele}
