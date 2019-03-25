@@ -25,12 +25,16 @@ import java.io.File
 import java.lang.IllegalArgumentException
 import java.util.*
 import java.util.concurrent.ConcurrentMap
+import kotlin.collections.LinkedHashMap
 
 fun main() {
     val gson = Gson()
     // use concurrent map for safety when multiple games are being rolled at the same time
     // or when games are being cleared
-    val games : ConcurrentMap<String, JsonArray> = java.util.concurrent.ConcurrentHashMap()
+//    val games : ConcurrentMap<String, JsonArray> = java.util.concurrent.ConcurrentHashMap()
+    // use LinkedHashMap to maintain order of insertions so we can easily get most recent games. Using
+    // Collections.synchronizedMap to avoid issues with multiple threads updating the map at the same time
+    val games : MutableMap<String, JsonArray> = Collections.synchronizedMap(LinkedHashMap())
 
     val statsMutex = Mutex()
 
@@ -61,6 +65,7 @@ fun main() {
                     files("media")
                 }
             }
+
             get("/") {
                 call.respondFile(File("react/build/index.html"))
             }
@@ -101,7 +106,6 @@ fun main() {
             }
 
             get("/game/info/{id}") {
-                println(games)
                 val id : String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
                 val info : JsonArray? = games.get(id)
                 // if we can't find the game id, just redirect to homepage
@@ -126,7 +130,7 @@ fun main() {
             }
 
             get("isGame/{id}") {
-                val id : String= call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
+                val id : String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
                 call.respond(gson.toJson(games.containsKey(id)))
             }
 
@@ -155,6 +159,13 @@ fun main() {
                 // respond saying whether or not stats were recorded
                 // true if id was not deleted before this call was processed, false otherwise
                 call.respond(gson.toJson(notDeleted))
+            }
+
+            post("/currentgames") {
+                val post = call.receiveText()
+                val numGames : Int = JsonParser().parse(post).asJsonObject["numGames"].asInt
+                val recentGameIds : List<String> = games.asSequence().take(numGames).asIterable().map { it.key }
+                call.respond(gson.toJson(recentGameIds))
             }
         }
     }

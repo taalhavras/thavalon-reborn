@@ -6,7 +6,7 @@ import "./css/Player.css";
 const results = ["Good Wins!", "Evil wins on missions!", "Evil wins by assassination!"];
 
 /**
- * Models a game page, with links to each player.
+ * Shows different options for how games can end and sends results to server
  */
 class SubmitResults extends Component {
     constructor(props) {
