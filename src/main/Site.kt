@@ -164,7 +164,10 @@ fun main() {
             post("/currentgames") {
                 val post = call.receiveText()
                 val numGames : Int = JsonParser().parse(post).asJsonObject["numGames"].asInt
-                val recentGameIds : List<String> = games.asSequence().take(numGames).asIterable().map { it.key }
+                // if there are fewer than numGames games in our map, this will take all of them
+                // LinkedHashMap maintains an iteration ordering that's the same as map insertion order,
+                // so since we want the most recent games we reverse the iteration order
+                val recentGameIds : List<String> = games.asIterable().reversed().take(numGames).map { it.key }
                 call.respond(gson.toJson(recentGameIds))
             }
         }

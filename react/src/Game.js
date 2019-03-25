@@ -40,20 +40,6 @@ class Game extends Component {
         });
     };
 
-    submit_results = () => {
-        const id = this.props.match.params.id;
-        console.log("Submit Game Results");
-        const url = "/gameover/" + id;
-        fetch(url, {
-            method: "POST"
-        }).then(() => {
-            // redirect to homepage
-            window.location.href = "/";
-        }).catch(error => {
-            console.log(error);
-        });
-    };
-
 
     componentWillMount() {
         this.props.history.push("");
