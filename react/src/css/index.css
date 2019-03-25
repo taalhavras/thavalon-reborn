@@ -17,9 +17,11 @@ body {
   background-image: url("../public/excalibur_by_psdeluxe_d8a6nxy-pre.jpg");
   background-repeat: no-repeat;
   background-size: auto 120vh;
+  background-attachment: fixed;
   background-position: center top;
   min-height: 100%;
   font-family: Quicksand;
+
 
 
 }

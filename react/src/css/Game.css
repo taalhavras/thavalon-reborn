@@ -11,3 +11,13 @@
 h3 {
     margin: 5px;
 }
+
+#copy_button {
+    width: 100px;
+}
+
+#copy {
+    text-align: center;
+    width: 100px;
+    margin: 20px auto;
+}
