@@ -34,6 +34,7 @@ class DoNotOpen extends Component {
     open = () => {
         this.setState({open: !this.state.open, text: this.state.open ? "Show" : "Hide"});
     };
+
     render() {
         return (<div className={"donotopen"}>
             <h1> Do Not Open </h1>

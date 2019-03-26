@@ -233,7 +233,7 @@ abstract class DefaultEvilRole : Role() {
         return Pair(updater@{g : Game ->
             information.addAll(g.getEvilRoles()
                 // see evil team except yourself AND colgrevance
-                .filter { it.role != role && it.role != RoleType.Colgrevance }
+                .filter { it != this && it.role != RoleType.Colgrevance }
                 // convert to SingleSeenInformation
                 .map { ThavalonInformation.SingleSeenInformation(it) })
             return@updater

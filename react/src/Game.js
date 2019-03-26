@@ -3,6 +3,7 @@ import "./css/Game.css";
 import { Link } from 'react-router-dom';
 import SubmitResults from "./SubmitResults";
 
+import { CopyToClipboard}  from 'react-copy-to-clipboard';
 /**
  * Models a game page, with links to each player.
  */
@@ -49,12 +50,14 @@ class Game extends Component {
     }
 
 
-
     render() {
         let count = 0;
-
+        console.log(this.props.location);
         return ( <div className="names">
                 <h3>Game ID: {this.props.match.params.id} </h3>
+                <CopyToClipboard id={"copy"} text={window.location.href}>
+                    <button className={"small_button my_button"} id={"copy_button"}>Copy</button>
+                </CopyToClipboard>
             <h3> Starting Player:<span className={"name"}> {this.state.start}</span> </h3>
 
                 {this.state.game.map(curr =>
