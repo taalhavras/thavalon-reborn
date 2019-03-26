@@ -8,6 +8,7 @@ import cookie from 'react-cookies'
 import "./css/PlayerTag.css";
 import PlayerTag from "./PlayerTag";
 import Options from "./Options";
+import RecentGames from "./RecentGames";
 
 /**
  * The home screen for the game.
@@ -327,6 +328,8 @@ class App extends Component {
                       <br></br>
                       <div className="error"> {this.state.join_error} </div>
                   </form>
+                  <RecentGames/>
+
               </div> : null }
 
               <div className="info">

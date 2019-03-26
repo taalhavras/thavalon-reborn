@@ -18,15 +18,25 @@ import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import kotlinx.coroutines.sync.Mutex
 import main.kotlin.thavalon.*
 import main.kotlin.roles.*
 import java.io.File
 import java.lang.IllegalArgumentException
 import java.util.*
+import java.util.concurrent.ConcurrentMap
+import kotlin.collections.LinkedHashMap
 
-fun main(args: Array<String>) {
+fun main() {
     val gson = Gson()
-    val games : MutableMap<String, JsonArray> = HashMap()
+    // use concurrent map for safety when multiple games are being rolled at the same time
+    // or when games are being cleared
+//    val games : ConcurrentMap<String, JsonArray> = java.util.concurrent.ConcurrentHashMap()
+    // use LinkedHashMap to maintain order of insertions so we can easily get most recent games. Using
+    // Collections.synchronizedMap to avoid issues with multiple threads updating the map at the same time
+    val games : MutableMap<String, JsonArray> = Collections.synchronizedMap(LinkedHashMap())
+
+    val statsMutex = Mutex()
 
     // for heroku ktor deployment
     val port : String = System.getenv("PORT") ?: "4444"
@@ -55,6 +65,7 @@ fun main(args: Array<String>) {
                     files("media")
                 }
             }
+
             get("/") {
                 call.respondFile(File("react/build/index.html"))
             }
@@ -95,9 +106,15 @@ fun main(args: Array<String>) {
             }
 
             get("/game/info/{id}") {
-                println(games)
-                val id : String= call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
-                call.respond(games.get(id) ?: throw IllegalArgumentException("BAD ID: $id"))
+                val id : String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
+                val info : JsonArray? = games.get(id)
+                // if we can't find the game id, just redirect to homepage
+                if(info == null) {
+                    // send empty array
+                    call.respond(JsonArray())
+                } else {
+                    call.respond(info)
+                }
             }
 
             get("/{id}") {
@@ -108,9 +125,50 @@ fun main(args: Array<String>) {
                 call.respondFile(File("react/build/index.html"))
             }
 
+            get("/submitresults") {
+                call.respondFile(File("react/build/index.html"))
+            }
+
             get("isGame/{id}") {
-                val id : String= call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
+                val id : String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
                 call.respond(gson.toJson(games.containsKey(id)))
+            }
+
+            post("/gameover/{id}") {
+                // get id
+                val id : String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
+                println("Ending game $id")
+                // lock stats mutex
+                statsMutex.lock()
+                // now, we check to make sure the id hasn't already been deleted. If it has, we already recorded stats
+                // for it so we can just unlock and finish
+                val notDeleted = id in games
+                if(notDeleted) {
+                    // delete id from games
+                    games.remove(id)
+                    // TODO process stats!
+                    // get game result json
+                    val post = call.receiveText()
+                    val resultsJson = JsonParser().parse(post).asJsonObject
+                    println(resultsJson)
+                } else {
+                    println("Game $id already ended")
+                }
+                // unlock stats mutex
+                statsMutex.unlock()
+                // respond saying whether or not stats were recorded
+                // true if id was not deleted before this call was processed, false otherwise
+                call.respond(gson.toJson(notDeleted))
+            }
+
+            post("/currentgames") {
+                val post = call.receiveText()
+                val numGames : Int = JsonParser().parse(post).asJsonObject["numGames"].asInt
+                // if there are fewer than numGames games in our map, this will take all of them
+                // LinkedHashMap maintains an iteration ordering that's the same as map insertion order,
+                // so since we want the most recent games we reverse the iteration order
+                val recentGameIds : List<String> = games.asIterable().reversed().take(numGames).map { it.key }
+                call.respond(gson.toJson(recentGameIds))
             }
         }
     }
