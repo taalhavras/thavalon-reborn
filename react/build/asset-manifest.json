@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "main.css": "/static/css/main.38d6bd7a.chunk.css",
   "main.js": "/static/js/main.23a265d3.chunk.js",
   "main.js.map": "/static/js/main.23a265d3.chunk.js.map",
@@ -10,5 +11,18 @@
   "precache-manifest.aa3f23a1d8ff0c18c65b6923953f8185.js": "/precache-manifest.aa3f23a1d8ff0c18c65b6923953f8185.js",
   "service-worker.js": "/service-worker.js",
   "static/css/main.38d6bd7a.chunk.css.map": "/static/css/main.38d6bd7a.chunk.css.map",
+=======
+  "main.css": "/static/css/main.f8dd00b1.chunk.css",
+  "main.js": "/static/js/main.6a07e40d.chunk.js",
+  "main.js.map": "/static/js/main.6a07e40d.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.fdfcfda2.js",
+  "runtime~main.js.map": "/static/js/runtime~main.fdfcfda2.js.map",
+  "static/js/2.01e21bd2.chunk.js": "/static/js/2.01e21bd2.chunk.js",
+  "static/js/2.01e21bd2.chunk.js.map": "/static/js/2.01e21bd2.chunk.js.map",
+  "index.html": "/index.html",
+  "precache-manifest.6dbeca77793c685d744c044f2acf3f79.js": "/precache-manifest.6dbeca77793c685d744c044f2acf3f79.js",
+  "service-worker.js": "/service-worker.js",
+  "static/css/main.f8dd00b1.chunk.css.map": "/static/css/main.f8dd00b1.chunk.css.map",
+>>>>>>> bbeafe5928d4e13ed73214dcaf4744319ccaa1cc
   "static/media/index.css": "/static/media/excalibur_by_psdeluxe_d8a6nxy-pre.1950d3c1.jpg"
 }

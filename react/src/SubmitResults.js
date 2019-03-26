@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./css/Player.css";
+import Link from "react-router-dom/es/Link";
 
 
 // different types of game ending results
@@ -32,9 +33,6 @@ class SubmitResults extends Component {
             body: JSON.stringify({
                 result: result
             })
-        }).then(() => {
-            // redirect to homepage
-            window.location.href = "/";
         }).catch(error => {
             console.log(error);
         });
@@ -42,15 +40,17 @@ class SubmitResults extends Component {
 
 
     render() {
+        let count = 0;
         return (<div className={"submitresults"}>
             <h1> Submit results for game {this.props.location.state.id} </h1>
                 <ul>
                     {results.map(ele => {
-                        return <li>
-                            <button className={"my_button small_button"} onClick={this.make_submitter(ele)}>
-                                {ele}
-                            </button>
-                        </li>
+                        count ++;
+                        return <li><Link key={count} onClick={this.make_submitter(ele)} to={{pathname: "/"}}>
+                                <button className={"my_button, large_button"}>
+                                    {ele}
+                                </button>
+                            </Link></li>
                     })}
                 </ul>
         </div>);
