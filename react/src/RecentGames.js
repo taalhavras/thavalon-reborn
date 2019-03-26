@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import "./css/Player.css";
+import "./css/RecentGames.css";
 
 
 // number of games to fetch
@@ -44,7 +45,7 @@ class RecentGames extends Component {
     render() {
         let count = 0;
         return (<div className={"recentgames"}>
-                <ul>
+                <ul className={"recentgameslist"}>
                     {this.state.gameIds.map(ele => {
                         count ++;
                         const url = "/" + ele;

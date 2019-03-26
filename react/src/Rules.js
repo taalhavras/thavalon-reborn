@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import ScrollableAnchor, { configureAnchors} from 'react-scrollable-anchor';
-import * as Scroll from 'react-scroll';
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-
 import './css/App.css';
 
 
@@ -10,20 +6,10 @@ import './css/App.css';
  * Models the tag representing a player. Expects a String name prop, and a change handler.
  */
 class Rules extends Component {
-
-    componentWillMount() {
-    }
-
-        scrollToTop = (id) => {
-                scroll.scroll();
-        };
-
-
         render() {
         return (
 
             <div className={"Rules"} id={"rules"}>
-
 
 
 
@@ -95,7 +81,7 @@ class Rules extends Component {
                     and 0-1 Successful missions to make their votes on mission proposals count twice,
                     but lose the ability to be on mission teams until the 5th mission. <br></br>
 
-                Titania (7+): appears as Evil to Evil roles (except Colgrevance). <br></br>
+                Titania (7+): adds false information to one Evil player's information. <br></br>
                     {/*<ScrollableAnchor id={"evil_roles"}>  <div> </div>  </ScrollableAnchor>*/}
                 <h2>Evil Roles</h2>
                     Mordred: is hidden from Merlin. <br></br>
@@ -103,6 +89,8 @@ class Rules extends Component {
                 Morgana: appears like Merlin to Percival. <br></br>
 
                 Maelagant: may play Reversal cards while on missions. <br></br>
+
+                Oberon: adds false information to one Good player.
 
                 Agravaine (8+): must play Fails; may declare after having been on a successful mission to cause it to Fail instead. <br></br>
 
