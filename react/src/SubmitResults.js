@@ -47,7 +47,7 @@ class SubmitResults extends Component {
                 <ul>
                     {results.map(ele => {
                         return <li>
-                            <button onClick={this.make_submitter(ele)}>
+                            <button className={"my_button small_button"} onClick={this.make_submitter(ele)}>
                                 {ele}
                             </button>
                         </li>
