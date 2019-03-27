@@ -23,11 +23,16 @@ import main.kotlin.thavalon.*
 import main.kotlin.roles.*
 import java.io.File
 import java.lang.IllegalArgumentException
+import java.sql.DriverManager
 import java.util.*
 import java.util.concurrent.ConcurrentMap
 import kotlin.collections.LinkedHashMap
 
 fun main() {
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    val conn = DriverManager.getConnection(
+        "jdbc:mysql://thavalon.crzfhuz2u0ow.us-east-2.rds.amazonaws.com:3306/thavalon_reborn","thavalon_reborn","thavalon")
+
     val gson = Gson()
     // use concurrent map for safety when multiple games are being rolled at the same time
     // or when games are being cleared
@@ -146,10 +151,17 @@ fun main() {
                 if(notDeleted) {
                     // delete id from games
                     games.remove(id)
+
                     // TODO process stats!
                     // get game result json
                     val post = call.receiveText()
                     val resultsJson = JsonParser().parse(post).asJsonObject
+                    val result = resultsJson["result"].toString()
+                    val prep = conn.prepareStatement("INSERT INTO games VALUES (?, ?)")
+                    prep.setString(1, id)
+                    prep.setString(2, result)
+                    prep.executeUpdate()
+                    prep.close()
                     println(resultsJson)
                 } else {
                     println("Game $id already ended")
