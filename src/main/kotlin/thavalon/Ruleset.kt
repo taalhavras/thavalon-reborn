@@ -89,20 +89,25 @@ class DuplicateRolesRuleset(goodRoles: List<RoleCreator>, evilRoles: List<RoleCr
  * typealias for functions that create roles. We use these instead of passing in role objects
  * because for games that allow duplicates it's convenient to be able to mint fresh objects easily
  */
-
 typealias RoleCreator = () -> Role
+
+/**
+ * Some common role options for building rulesets
+ */
+
+val standardEvil : List<RoleCreator> = listOf(::Mordred, ::Morgana, ::Maelagant, ::Oberon)
 
 /**
  * Standard rulesets for 5, 7, 8, and 10 player games
  */
 class FivesRuleset : Ruleset(listOf(::Merlin, ::NewPercival, ::Guinevere, ::Tristan, ::Iseult, ::Lancelot),
-    listOf(::Mordred, ::Morgana, ::Maelagant, ::Oberon))
+    standardEvil)
 
 class SevensRuleset : Ruleset(listOf(::Merlin, ::NewPercival, ::Guinevere, ::Tristan, ::Iseult, ::OldTitania, ::Arthur),
-    listOf(::Mordred, ::Morgana, ::Maelagant, ::Oberon))
+    standardEvil)
 
 class EightsRuleset : Ruleset(listOf(::Merlin, ::NewPercival, ::Guinevere, ::Tristan, ::Iseult, ::OldTitania, ::Arthur),
-    listOf(::Mordred, ::Morgana, ::Maelagant, ::Oberon))
+   standardEvil.plusElement(::Agravaine))
 
 class TensRuleset : Ruleset(listOf(::Merlin, ::NewPercival, ::Guinevere, ::Tristan, ::Iseult, ::OldTitania, ::Arthur),
-    listOf(::Mordred, ::Morgana, ::Maelagant, ::Oberon))
+    standardEvil.plus(listOf(::Agravaine, ::Colgrevance)))
