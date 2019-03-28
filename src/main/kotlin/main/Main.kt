@@ -9,10 +9,10 @@ import main.kotlin.thavalon.Game
     }
 
     fun main() {
-        oberonTitaniaGame()
+//        oberonTitaniaGame()
 //    doubleMordredGame()
 //    noInfoGwen()
-//    fivesGame()
+    fivesGame()
     }
 
     fun oberonTitaniaGame() {
