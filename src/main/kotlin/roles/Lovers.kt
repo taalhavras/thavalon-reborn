@@ -28,10 +28,22 @@ open class Lover(override val role : RoleType) : Role() {
         return if(role == RoleType.Tristan) RoleType.Iseult else RoleType.Tristan
     }
 
+    /**
+     * The lovers have different adjectives for each other! Yay for flavor!
+     */
+    fun getLoverAdjective() : String {
+        // tristan is seen as luxurious, iseult as luscious
+        return if (getOtherLover() == RoleType.Tristan) {
+            "luxurious"
+        } else {
+            "luscious"
+        }
+    }
+
     override fun prepareInformation(): MutableMap<String, List<String>> {
         val m = super.prepareInformation()
 
-        m["seen"] = m["seen"]!!.map { "You see $it as your luxurious lover ${getOtherLover().role}" }
+        m["seen"] = m["seen"]!!.map { "You see $it as your ${getLoverAdjective()} lover ${getOtherLover().role}" }
         return m
     }
 }

@@ -204,7 +204,7 @@ abstract class Role {
     }
 
     override fun toString(): String {
-        return "$role \n ${player.name} \n $information\n"
+        return "$role \n $player \n $information\n"
     }
 
     /**
