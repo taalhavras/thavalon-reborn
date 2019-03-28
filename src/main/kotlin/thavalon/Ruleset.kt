@@ -76,12 +76,9 @@ open class Ruleset(val goodRoles : List<RoleCreator>, val evilRoles : List<RoleC
  */
 class DuplicateRolesRuleset(goodRoles: List<RoleCreator>, evilRoles: List<RoleCreator>) : Ruleset(goodRoles, evilRoles) {
     override fun drawRoles(choices: List<RoleCreator>, num: Int): List<Role> {
-        val l : MutableList<Role> = ArrayList()
-        for (c in 0 until num) {
-            // choose each role randomly with replacement, thus allowing duplicates
-            l.add(choices.random().invoke())
-        }
-        return l
+        // return num randomly chosen roles from choices. Since we are using choices.random,
+        // we can choose the same value multiple times and thus allow duplicates
+        return (0 until num).map { choices.random().invoke() }
     }
 }
 
@@ -97,17 +94,17 @@ typealias RoleCreator = () -> Role
 
 val standardEvil : List<RoleCreator> = listOf(::Mordred, ::Morgana, ::Maelagant, ::Oberon)
 
+val standardGood : List<RoleCreator> = listOf(::Merlin, ::NewPercival, ::Guinevere, ::Tristan, ::Iseult, ::Lancelot)
+
+val extendedGood : List<RoleCreator> = standardGood.plus(listOf(::OldTitania, ::Arthur))
+
 /**
  * Standard rulesets for 5, 7, 8, and 10 player games
  */
-class FivesRuleset : Ruleset(listOf(::Merlin, ::NewPercival, ::Guinevere, ::Tristan, ::Iseult, ::Lancelot),
-    standardEvil)
+class FivesRuleset : Ruleset(standardGood, standardEvil)
 
-class SevensRuleset : Ruleset(listOf(::Merlin, ::NewPercival, ::Guinevere, ::Tristan, ::Iseult, ::OldTitania, ::Arthur),
-    standardEvil)
+class SevensRuleset : Ruleset(extendedGood, standardEvil)
 
-class EightsRuleset : Ruleset(listOf(::Merlin, ::NewPercival, ::Guinevere, ::Tristan, ::Iseult, ::OldTitania, ::Arthur),
-   standardEvil.plusElement(::Agravaine))
+class EightsRuleset : Ruleset(extendedGood, standardEvil.plusElement(::Agravaine))
 
-class TensRuleset : Ruleset(listOf(::Merlin, ::NewPercival, ::Guinevere, ::Tristan, ::Iseult, ::OldTitania, ::Arthur),
-    standardEvil.plus(listOf(::Agravaine, ::Colgrevance)))
+class TensRuleset : Ruleset(extendedGood, standardEvil.plus(listOf(::Agravaine, ::Colgrevance)))
