@@ -29,6 +29,7 @@ import java.util.concurrent.ConcurrentMap
 import kotlin.collections.LinkedHashMap
 
 fun main() {
+    //connects to mysql database
     Class.forName("com.mysql.cj.jdbc.Driver");
     val conn = DriverManager.getConnection(
         "jdbc:mysql://thavalon.crzfhuz2u0ow.us-east-2.rds.amazonaws.com:3306/thavalon_reborn","thavalon_reborn","thavalon")
@@ -157,7 +158,9 @@ fun main() {
                     val post = call.receiveText()
                     val resultsJson = JsonParser().parse(post).asJsonObject
                     val result = resultsJson["result"].toString()
+                    //prepares mysql statement
                     val prep = conn.prepareStatement("INSERT INTO games VALUES (?, ?)")
+                    //sets the mysql para
                     prep.setString(1, id)
                     prep.setString(2, result)
                     prep.executeUpdate()
