@@ -13,7 +13,9 @@ class Game extends Component {
         super(props);
         this.state = {
             game: [],
-            start: ""
+            start: "",
+            donotopen: ""
+
         }}
 
     render_game = () => {
@@ -32,7 +34,9 @@ class Game extends Component {
                 window.location.href = "/";
             } else {
                 // found id, just do lookup
-                this.setState({game: data, start: data[0].name});
+                this.setState({game: data, start: data[0].name, donotopen:  <Link to={{pathname: this.props.location.pathname + "/game/donotopen", state: {game: this.state.game}}}>
+                        <button className={"my_button, large_button"}>Do Not Open</button>
+                    </Link>});
                 return data;
             }
 
@@ -69,9 +73,7 @@ class Game extends Component {
                         <button className={"my_button, large_button"}><span className={"name"}>{curr.name}</span></button>
                     </Link>);
                 })}
-                <Link key ={count} to={{pathname: this.props.location.pathname + "/game/donotopen", state: {game: this.state.game}}}>
-                    <button className={"my_button, large_button"}>Do Not Open</button>
-                </Link>
+                {this.state.donotopen}
                 <Link key={count++} to={{pathname: "/submitresults", state: {id: this.props.match.params.id}}}>
                     <button className={"my_button, large_button"}>Submit Game Results</button>
                 </Link>
