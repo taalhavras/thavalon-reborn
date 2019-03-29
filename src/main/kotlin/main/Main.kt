@@ -3,16 +3,21 @@ package main.kotlin.main
 import main.kotlin.roles.*
 import main.kotlin.thavalon.FivesRuleset
 import main.kotlin.thavalon.Game
+import main.kotlin.thavalon.makeCustomRuleset
 
-    fun Main() {
-        main()
-    }
-
-    fun main() {
+fun main() {
+    testCustomGame()
 //        oberonTitaniaGame()
 //    doubleMordredGame()
 //    noInfoGwen()
-    fivesGame()
+//    fivesGame()
+    }
+
+    fun testCustomGame() {
+        val roles : List<String> = listOf("Mordred", "Morgana", "Oberon", "LoneTristan", "LoneIseult", "Percival", "Merlin", "Lancelot")
+        val players: MutableList<String> = listOf("Raghu", "Grace", "Kevin", "Josh", "Julius", "May", "George").toMutableList()
+        val r = makeCustomRuleset(roles, false)
+        print(r.makeGame(players))
     }
 
     fun oberonTitaniaGame() {
@@ -38,7 +43,7 @@ import main.kotlin.thavalon.Game
     fun noInfoGwen() {
         val players: MutableList<String> = listOf("Raghu", "Grace", "Kevin", "May", "George")
                 .toMutableList()
-        val roles: List<Role> = listOf(Mordred(), Maelagant(), LoneTristan(), OldPercival(), Guinevere())
+        val roles: List<Role> = listOf(Mordred(), Maelagant(), LoneTristan(), LonePercival(), Guinevere())
         val g: Game = Game(roles, players)
         assert(g.setUp())
         print(g)

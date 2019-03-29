@@ -5,9 +5,9 @@ import main.kotlin.thavalon.Updater
 import main.kotlin.thavalon.UpdaterPriority
 
 /**
- * Old percival implementation. Doesn't care if they don't see anyone
+ * Lone percival implementation. Doesn't care if they don't see anyone
  */
-open class OldPercival : Role() {
+open class LonePercival : Role() {
     override val role: RoleType = RoleType.Percival
 
     val seen : Set<RoleType> = setOf(RoleType.Morgana, RoleType.Merlin)
@@ -39,7 +39,7 @@ open class OldPercival : Role() {
 /**
  * New Percival implementation, must see at least one role
  */
-class NewPercival : OldPercival() {
+class Percival : LonePercival() {
     override fun gameOk(g: Game): Boolean {
         return g.rolesInGame.any {seenByPercival(it)}
     }
