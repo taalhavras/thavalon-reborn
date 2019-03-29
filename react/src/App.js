@@ -23,13 +23,15 @@ class App extends Component {
         super(props);
         const roles =  [
             {key: "Arthur", value: true},
-            {key: "Classic Arthur", value: false},
+            {key: "Galahad", value: false},
             {key: "Lancelot", value: true},
             {key: "Percival", value: true},
+            {key: "Lone Percival", value: false},
             {key: "Guinevere", value: true},
             {key: "Merlin", value: true},
             {key: "Titania", value: true},
             {key: "Nimue", value: false},
+            {key: "Gawain", value: false},
             {key: "Lovers", value: true},
             {key: "Lone Lovers", value: false},
             {key: "Mordred", value: true},
@@ -37,7 +39,7 @@ class App extends Component {
             {key: "Maleagant", value: true},
             {key: "Oberon", value: true},
             {key: "Agravaine", value: true},
-            {key: "Colgravance", value: true},
+            {key: "Colgrevance", value: true},
 
 
         ];

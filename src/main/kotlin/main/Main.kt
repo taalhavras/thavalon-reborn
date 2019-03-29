@@ -16,14 +16,14 @@ fun main() {
     fun testCustomGame() {
         val roles : List<String> = listOf("Mordred", "Morgana", "Oberon", "LoneTristan", "LoneIseult", "Percival", "Merlin", "Lancelot")
         val players: MutableList<String> = listOf("Raghu", "Grace", "Kevin", "Josh", "Julius", "May", "George").toMutableList()
-        val r = makeCustomRuleset(roles, false)
+        val r = makeCustomRuleset(roles, true)
         print(r.makeGame(players))
     }
 
     fun oberonTitaniaGame() {
         val players: MutableList<String> = listOf("Raghu", "Grace", "Kevin", "Josh", "Julius", "May", "George")
                 .toMutableList()
-        val roles: List<Role> = listOf(Oberon(), Maelagant(), Mordred(), Guinevere(), OldTitania(),
+        val roles: List<Role> = listOf(Oberon(), Maelagant(), Mordred(), Guinevere(), Titania(),
                 Merlin(), Lancelot())
         val g: Game = Game(roles, players)
         assert(g.setUp())

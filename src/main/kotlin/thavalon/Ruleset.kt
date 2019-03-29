@@ -116,7 +116,7 @@ val standardEvil : List<RoleCreator> = listOf(::Mordred, ::Morgana, ::Maelagant,
 
 val standardGood : List<RoleCreator> = listOf(::Merlin, ::Percival, ::Guinevere, ::Tristan, ::Iseult, ::Lancelot)
 
-val extendedGood : List<RoleCreator> = standardGood.plus(listOf(::OldTitania, ::Arthur))
+val extendedGood : List<RoleCreator> = standardGood.plus(listOf(::Titania, ::Arthur))
 
 /**
  * Standard rulesets for 5, 7, 8, and 10 player games
