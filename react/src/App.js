@@ -290,17 +290,16 @@ class App extends Component {
       <div className="lobby">
           {this.state.redirect}
           {this.state.join_redirect}
-        <h1>
+                  <Options options={this.state.roles} display={this.state.options} submit={this.options} />
+\        <h1>
           THavalon
         </h1>
             <button className={"large_button"} onClick={this.showInputs}>
               Create Game
           </button>
+
           {this.state.input ?
               <div>
-                  {this.state.options ?
-                  <div className={"options"}><Options options={this.state.roles} submit={this.options} />
-                  </div> : null}
               <form className="player_input" id={"player-name-input"} onSubmit={this.playerSubmit}>
                   <input type="text" id ={"input-field"} placeholder={"Enter player name"}/>
                   <br></br>
