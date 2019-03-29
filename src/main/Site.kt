@@ -1,8 +1,5 @@
 package main
-import com.google.gson.Gson
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
+import com.google.gson.*
 import io.ktor.application.call;
 import io.ktor.application.install
 import io.ktor.http.content.files
@@ -74,14 +71,27 @@ fun main() {
                 val post = call.receiveText()
                 val parsed = JsonParser().parse(post).asJsonObject
                 val names = parsed["names"].asJsonArray.map { it.asString }.toMutableList()
+                val custom : JsonElement? = parsed["custom"]
                 val id = UUID.randomUUID().toString().substring(0, idLength)
-                val g : Game = when(names.size) {
-                    5 -> FivesRuleset().makeGame(names)
-                    7 -> SevensRuleset().makeGame(names)
-                    8 -> EightsRuleset().makeGame(names)
-                    10 -> TensRuleset().makeGame(names)
-                    else -> throw IllegalArgumentException("BAD NAMES: $names")
+                val rules : Ruleset = if(custom != null) {
+                    val roles : List<String> = custom.asJsonObject.entrySet()
+                        .filter { it.value.asBoolean} // get key value pairs that are requested to be present
+                        .map { it.key } // get names of requested roles
+                    println(roles)
+                    // figure out if duplicates are allowed
+                    val duplicatesAllowed = parsed["duplicates"].asBoolean
+                    // construct custom ruleset
+                    makeCustomRuleset(roles, duplicatesAllowed)
+                } else {
+                    when(names.size) {
+                        5 -> FivesRuleset()
+                        7 -> SevensRuleset()
+                        8 -> EightsRuleset()
+                        10 -> TensRuleset()
+                        else -> throw IllegalArgumentException("BAD NAMES: $names")
+                    }
                 }
+                val g : Game = rules.makeGame(names)
 
                 // construct json for player info
                 val players = JsonArray()
