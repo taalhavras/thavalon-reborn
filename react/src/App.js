@@ -67,7 +67,29 @@ class App extends Component {
      * Shows the options panel.
      */
     options = () => {
+
         this.setState({options: !this.state.options})
+
+
+    };
+
+    /**
+     * Hides the options panel and collects the data to be stored in state.
+     * Passed to the options comoponent as a prop.
+     * @param event
+     */
+    optionsSubmit = (event) => {
+        event.preventDefault();
+        let options = this.state.roles;
+        for (let i = 0; i < event.target.length; i++) {
+
+            options[event.target[i].name] = event.target[i].checked;
+
+        }
+
+        this.setState({options: !this.state.options, roles: options});
+        console.log(this.state.roles);
+
 
     };
 
@@ -268,11 +290,6 @@ class App extends Component {
 
 
 
-    options_change = (key) => {
-        const roles = this.state.roles;
-        roles[key] = !roles[key];
-        this.setState({roles: roles});
-    };
 
     /**
      * Renders the app.
@@ -290,7 +307,7 @@ class App extends Component {
       <div className="lobby">
           {this.state.redirect}
           {this.state.join_redirect}
-                  <Options options={this.state.roles} display={this.state.options} submit={this.options} />
+                  <Options options={this.state.roles} display={this.state.options} submit={this.optionsSubmit} />
 \        <h1>
           THavalon
         </h1>

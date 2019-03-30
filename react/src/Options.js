@@ -14,13 +14,13 @@ class Options extends Component {
         super(props);
         let count = 0;
         this.state = ({
-        form: <form className={"option_form"} onSubmit={this.onSubmit}>
+        form: <form className={"option_form"} onSubmit={(event) => this.props.submit(event)}>
             <div className={"checks"}>
                 {this.props.options.map(function (element) {
                     count++;
                     return (<div key={count} className={"option_ele"}>
                         <label className="label">
-                            <input className={"check slider"} type={"checkbox"} defaultChecked={element.value}/>
+                            <input className={"check slider"} type={"checkbox"} name={element.key} defaultChecked={element.value}/>
                             {element.key}
                         </label>
                     </div>);
@@ -37,7 +37,7 @@ class Options extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        this.props.submit();
+        this.props.submit(event);
     };
     render() {
         let count = 0;
