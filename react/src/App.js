@@ -311,19 +311,19 @@ class App extends Component {
 
             return (
                 <div>
-                    <button onClick={this.postToGame} className={"large_button"}>
+                    <button onClick={this.postToGame} className={"large_button start_button"}>
                         Start Game
                     </button>
-                    <button onClick={this.postToCustomGame} className={"large_button"}>
+                    <button onClick={this.postToCustomGame} className={"large_button start_button"}>
                         Start Custom Game
                     </button>
                 </div>
            );
         } else {
             return (
-                <div>
-                    <button className={"invalid_start"}>Start Game</button>
-                    <button className={"invalid_start"}>Start Custom Game</button>
+                <div className={"start_button_div"}>
+                    <button className={"invalid_start start_button"}>Start Game</button>
+                    <button className={"invalid_start start_button"}>Start Custom Game</button>
                 </div>)
 
         }

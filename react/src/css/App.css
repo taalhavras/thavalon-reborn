@@ -141,6 +141,10 @@
   font-weight: bold;
 }
 
+.start_button_div {
+  width: 300px;
+  margin: 0 auto;
+}
 
 .join {
   margin-bottom: 50px;
