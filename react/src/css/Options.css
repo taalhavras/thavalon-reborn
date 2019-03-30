@@ -4,7 +4,14 @@
     min-width: 300px;
     max-width: 600px;
     overflow: auto;
+}
 
+.options {
+    align-items: center;
+    background-color: white;
+    min-width: 300px;
+    max-width: 600px;
+    overflow: auto;
 }
 .option_form {
     height: 100%;
