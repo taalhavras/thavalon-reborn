@@ -81,9 +81,9 @@ class App extends Component {
     optionsSubmit = (event) => {
         event.preventDefault();
         let options = this.state.roles;
-        for (let i = 0; i < event.target.length; i++) {
+        for (let i = 0; i < event.target.length-1; i++) {
 
-            options[event.target[i].name] = event.target[i].checked;
+            options[i] = {key: event.target[i].name, value: event.target[i].checked};
 
         }
 
