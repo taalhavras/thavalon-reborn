@@ -24,6 +24,9 @@ open class Ruleset(val goodRoles : List<RoleCreator>, val evilRoles : List<RoleC
      */
     open fun drawRoles(choices : List<RoleCreator>, num : Int) : List<Role> {
         // we want a random sublist without replacement (no duplicates unless the input contained duplicates)
+        if(num > choices.size) {
+            throw IllegalArgumentException("Not enough roles")
+        }
         return choices.shuffled().subList(0, num).map { it.invoke() }
     }
 
@@ -36,10 +39,6 @@ open class Ruleset(val goodRoles : List<RoleCreator>, val evilRoles : List<RoleC
         val ratio : Pair<Int, Int> = getRatio(numPlayers) ?: throw IllegalArgumentException("Bad game ratio")
         val numGood : Int = ratio.first
         val numBad : Int = ratio.second
-
-        if(goodRoles.size < numGood || evilRoles.size < numBad) {
-            throw IllegalArgumentException("Game didn't have enough roles")
-        }
 
         // randomly draw the appropriate number of roles
         val roles : List<Role> = drawRoles(goodRoles, numGood).plus(drawRoles(evilRoles, numBad))
