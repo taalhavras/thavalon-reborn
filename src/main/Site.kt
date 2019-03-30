@@ -38,7 +38,7 @@ fun main() {
 //    val games : ConcurrentMap<String, JsonArray> = java.util.concurrent.ConcurrentHashMap()
     // use LinkedHashMap to maintain order of insertions so we can easily get most recent games. Using
     // Collections.synchronizedMap to avoid issues with multiple threads updating the map at the same time
-    val games: MutableMap<String, JsonArray> = Collections.synchronizedMap(LinkedHashMap())
+    val games: MutableMap<String, Pair<JsonArray, Boolean>> = Collections.synchronizedMap(LinkedHashMap())
 
     val statsMutex = Mutex()
 
@@ -76,6 +76,7 @@ fun main() {
 
             post("/names") {
                 val response = JsonObject()
+                var isCustom = false;
                 try {
                     val post = call.receiveText()
                     val parsed = JsonParser().parse(post).asJsonObject
@@ -83,6 +84,7 @@ fun main() {
                     val custom: JsonElement? = parsed["custom"]
                     val id = UUID.randomUUID().toString().substring(0, idLength)
                     val rules: Ruleset = if (custom != null) {
+                        isCustom = true
                         val roles: List<String> = custom.asJsonObject.entrySet()
                             .filter { it.value.asBoolean } // get key value pairs that are requested to be present
                             .map { it.key } // get names of requested roles
@@ -113,12 +115,13 @@ fun main() {
                         player.addProperty("role", r.role.role.toString())
                         player.addProperty("description", r.getDescription())
                         player.addProperty("information", gson.toJson(r.prepareInformation()))
+                        player.addProperty("allegiance", r.role.alignment.toString())
                         // add player to players json array
                         players.add(player)
                     }
                     println(g)
                     // put player info into map with id we generated
-                    games.put(id, players)
+                    games.put(id, Pair(players, isCustom))
                     response.addProperty("id", id)
                 } catch (e : IllegalArgumentException) {
                     // if we get an error creating the game, send message back to frontend
@@ -129,7 +132,7 @@ fun main() {
 
             get("/game/info/{id}") {
                 val id: String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
-                val info: JsonArray? = games.get(id)
+                val info: JsonArray? = games.get(id)?.first
                 // if we can't find the game id, just redirect to homepage
                 if (info == null) {
                     // send empty array
@@ -166,8 +169,7 @@ fun main() {
                 // for it so we can just unlock and finish
                 val notDeleted = id in games
                 if (notDeleted) {
-                    // delete id from games
-                    games.remove(id)
+                    val custom = games[id]!!.second
 
                     // TODO process stats!
                     // get game result json
@@ -175,13 +177,28 @@ fun main() {
                     val resultsJson = JsonParser().parse(post).asJsonObject
                     val result = resultsJson["result"].toString()
                     //prepares mysql statement
-                    val prep = conn.prepareStatement("INSERT INTO games VALUES (?, ?)")
+                    val prep = conn.prepareStatement("INSERT INTO games VALUES (?, ?, ?)")
                     //sets the mysql para
                     prep.setString(1, id)
                     prep.setString(2, result)
+                    prep.setBoolean(3, custom)
                     prep.executeUpdate()
                     prep.close()
                     println(resultsJson)
+                    val playerStat = conn.prepareStatement("INSERT INTO players VALUES (?, ?, ?, ?)")
+                    for (e in games[id]!!.first) {
+                        playerStat.setString(1, id)
+                        playerStat.setString(2, e.asJsonObject["name"].asString)
+                        playerStat.setString(3, e.asJsonObject["role"].asString)
+                        playerStat.setString(4, e.asJsonObject["allegiance"].asString)
+                        playerStat.executeUpdate()
+
+                    }
+                    playerStat.close()
+
+
+                    // delete id from games
+                    games.remove(id)
                 } else {
                     println("Game $id already ended")
                 }
