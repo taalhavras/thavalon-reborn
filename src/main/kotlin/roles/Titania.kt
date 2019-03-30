@@ -4,7 +4,7 @@ import main.kotlin.thavalon.Game
 import main.kotlin.thavalon.Updater
 import main.kotlin.thavalon.UpdaterPriority
 
-open class OldTitania : Role() {
+open class Titania : Role() {
     override val role: RoleType = RoleType.Titania
 
     val untargetableRoles : Set<RoleType> = setOf(RoleType.Colgrevance)
@@ -47,7 +47,7 @@ open class OldTitania : Role() {
     }
 }
 
-class NewTitania : OldTitania() {
+class NewTitania : Titania() {
     // new titania targets all evil
     override fun getTargets(g: Game): List<Role> {
         return g.getEvilRoles().filter { it.role !in untargetableRoles }

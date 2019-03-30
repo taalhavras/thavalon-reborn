@@ -10,18 +10,24 @@ open class Lover(override val role : RoleType) : Role() {
         return listOf(getLoverUpdater())
     }
 
-    fun getLoverUpdater() : Updater {
+    private fun getLoverUpdater() : Updater {
         return Pair(updater@{g : Game ->
-            information.add(getLoverInformation(g))
+            information.addAll(getLoverInformation(g))
             return@updater
         }, UpdaterPriority.Ten)
     }
 
-    fun getLoverInformation(g : Game) : ThavalonInformation {
-        val lusciousLover : RoleType = getOtherLover()
-        val otherLover : Role = g.getGoodRoles().find { it.role == lusciousLover } ?:
-            return ThavalonInformation.AlertInformation("You are a sad and lonely lover")
-        return ThavalonInformation.SingleSeenInformation(otherLover)
+    /**
+     * Gets the information for all other lovers you would see in a game. For example, if we have a Tristan
+     * and 2 Iseults, the Tristan would see BOTH Iseults while they would each just see Tristan
+     */
+    private fun getLoverInformation(g : Game) : List<ThavalonInformation> {
+        val targetLover : RoleType = getOtherLover()
+        val otherLovers : List<Role> = g.getGoodRoles().filter { it.role == targetLover }
+        if(otherLovers.isEmpty()) {
+            return listOf(ThavalonInformation.AlertInformation("You are a sad and lonely lover"))
+        }
+        return otherLovers.map { ThavalonInformation.SingleSeenInformation(it) }
     }
 
     fun getOtherLover() : RoleType {
@@ -31,7 +37,7 @@ open class Lover(override val role : RoleType) : Role() {
     /**
      * The lovers have different adjectives for each other! Yay for flavor!
      */
-    fun getLoverAdjective() : String {
+    private fun getLoverAdjective() : String {
         // tristan is seen as luxurious, iseult as luscious
         return if (getOtherLover() == RoleType.Tristan) {
             "luxurious"

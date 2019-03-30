@@ -1,7 +1,8 @@
 package main.kotlin.thavalon
 
 import main.kotlin.roles.*
-import java.lang.IllegalArgumentException
+import kotlin.IllegalArgumentException
+import kotlin.reflect.full.primaryConstructor
 
 /**
  * Base class for Thavalon rulesets
@@ -23,6 +24,9 @@ open class Ruleset(val goodRoles : List<RoleCreator>, val evilRoles : List<RoleC
      */
     open fun drawRoles(choices : List<RoleCreator>, num : Int) : List<Role> {
         // we want a random sublist without replacement (no duplicates unless the input contained duplicates)
+        if(num > choices.size) {
+            throw IllegalArgumentException("Not enough roles")
+        }
         return choices.shuffled().subList(0, num).map { it.invoke() }
     }
 
@@ -35,10 +39,6 @@ open class Ruleset(val goodRoles : List<RoleCreator>, val evilRoles : List<RoleC
         val ratio : Pair<Int, Int> = getRatio(numPlayers) ?: throw IllegalArgumentException("Bad game ratio")
         val numGood : Int = ratio.first
         val numBad : Int = ratio.second
-
-        if(goodRoles.size < numGood || evilRoles.size < numBad) {
-            throw IllegalArgumentException("Game didn't have enough roles")
-        }
 
         // randomly draw the appropriate number of roles
         val roles : List<Role> = drawRoles(goodRoles, numGood).plus(drawRoles(evilRoles, numBad))
@@ -83,6 +83,28 @@ class DuplicateRolesRuleset(goodRoles: List<RoleCreator>, evilRoles: List<RoleCr
 }
 
 /**
+ * Function to take in a list of role strings from the frontend and produce a ruleset
+ */
+fun makeCustomRuleset(roles : List<String>, duplicates : Boolean): Ruleset {
+    // prefix for role class names
+    val rolePackage = "main.kotlin.roles."
+    // concat into class names
+    val classNames = roles.map { rolePackage + it }
+    // create role creators using reflection
+    val customRoles : List<RoleCreator> = classNames.map { Class.forName(it).kotlin.primaryConstructor } as List<RoleCreator>
+    // separate into good and evil based on the alignment of the produced roles
+    val (goodRoles, evilRoles) = customRoles.partition { it.invoke().role.alignment == Alignment.Good }
+    if(goodRoles.isEmpty() || evilRoles.isEmpty()) {
+        throw IllegalArgumentException("not enough good or evil roles")
+    }
+    return if (duplicates) {
+        DuplicateRolesRuleset(goodRoles, evilRoles)
+    } else {
+        Ruleset(goodRoles, evilRoles)
+    }
+}
+
+/**
  * typealias for functions that create roles. We use these instead of passing in role objects
  * because for games that allow duplicates it's convenient to be able to mint fresh objects easily
  */
@@ -94,9 +116,9 @@ typealias RoleCreator = () -> Role
 
 val standardEvil : List<RoleCreator> = listOf(::Mordred, ::Morgana, ::Maelagant, ::Oberon)
 
-val standardGood : List<RoleCreator> = listOf(::Merlin, ::NewPercival, ::Guinevere, ::Tristan, ::Iseult, ::Lancelot)
+val standardGood : List<RoleCreator> = listOf(::Merlin, ::Percival, ::Guinevere, ::Tristan, ::Iseult, ::Lancelot)
 
-val extendedGood : List<RoleCreator> = standardGood.plus(listOf(::OldTitania, ::Arthur))
+val extendedGood : List<RoleCreator> = standardGood.plus(listOf(::Titania, ::Arthur))
 
 /**
  * Standard rulesets for 5, 7, 8, and 10 player games

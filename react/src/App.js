@@ -4,7 +4,6 @@ import {Redirect} from 'react-router-dom';
 import "./css/styles.css";
 import "./PlayerTag";
 import Rules from "./Rules";
-import cookie from 'react-cookies'
 import "./css/PlayerTag.css";
 import PlayerTag from "./PlayerTag";
 import Options from "./Options";
@@ -23,21 +22,24 @@ class App extends Component {
         super(props);
         const roles =  [
             {key: "Arthur", value: true},
-            {key: "Classic Arthur", value: false},
+            {key: "Galahad", value: false},
             {key: "Lancelot", value: true},
             {key: "Percival", value: true},
+            {key: "Lone Percival", value: false},
             {key: "Guinevere", value: true},
             {key: "Merlin", value: true},
             {key: "Titania", value: true},
             {key: "Nimue", value: false},
+            {key: "Gawain", value: false},
             {key: "Lovers", value: true},
             {key: "Lone Lovers", value: false},
             {key: "Mordred", value: true},
             {key: "Morgana", value: true},
-            {key: "Maleagant", value: true},
+            {key: "Maelagant", value: true},
             {key: "Oberon", value: true},
             {key: "Agravaine", value: true},
-            {key: "Colgravance", value: true},
+            {key: "Colgrevance", value: true},
+            {key: "Duplicate Roles", value: false}
 
 
         ];
@@ -216,18 +218,85 @@ class App extends Component {
             })
         }).then(response => {
             return response.json();
-
         }).then(data => {
             console.log(data);
-            const redirect =
-               <Redirect to={{ pathname: "/" + data}} />;
-                       this.setState({redirect: redirect});
+            if(data.hasOwnProperty("error")) {
+                // error, report to user
+                this.setState({error: data["error"]});
+            } else {
+                // no error
+                const redirect = <Redirect to={{ pathname: "/" + data["id"]}} />;
+                this.setState({redirect: redirect});
+            }
+
         }).catch(error => {
                 console.log(error);
             });
     };
 
 
+    /**
+     * Redirects to a new custom game on submit of the Create Game form.
+     */
+     postToCustomGame = () => {
+        console.log("posting");
+        // construct custom info to post
+        let customBody = {};
+        for(let i in this.state.roles) {
+            let elt = this.state.roles[i];
+            customBody[elt.key] = elt.value;
+        }
+
+        let duplicates = customBody["Duplicate Roles"];
+        // remove key from copy so that the only info in the json is role related
+        delete customBody["Duplicate Roles"];
+        // parse role keys that need to be changed
+        if(customBody["Lone Percival"]) {
+           delete customBody["Lone Percival"];
+           customBody["LonePercival"] = true;
+        }
+        if(customBody["Lone Lovers"]) {
+           delete customBody["Lone Lovers"];
+           customBody["LoneTristan"] = true;
+           customBody["LoneIseult"] = true;
+        }
+        if(customBody["Lovers"]) {
+            delete customBody["Lovers"];
+            customBody["Tristan"] = true;
+            customBody["Iseult"] = true;
+        }
+        console.log("CUSTOM ROLE INFO:");
+        console.log(customBody);
+
+        fetch('/names', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+
+            },
+            body: JSON.stringify({
+                names: this.names(),
+                custom: customBody,
+                duplicates: duplicates
+            })
+        }).then(response => {
+            return response.json();
+
+        }).then(data => {
+            console.log(data);
+            if(data.hasOwnProperty("error")) {
+                // error, report to user
+                this.setState({error: data["error"]});
+            } else {
+                // no error
+                const redirect = <Redirect to={{ pathname: "/" + data["id"]}} />;
+                this.setState({redirect: redirect});
+            }
+        }).catch(error => {
+                console.log(error);
+            });
+    };
 
 
     /**
@@ -241,12 +310,21 @@ class App extends Component {
             || this.state.players.length === 10)) {
 
             return (
-                <button onClick={this.postToGame} className={"large_button"}>
-                    Start Game
-                </button>
+                <div>
+                    <button onClick={this.postToGame} className={"large_button"}>
+                        Start Game
+                    </button>
+                    <button onClick={this.postToCustomGame} className={"large_button"}>
+                        Start Custom Game
+                    </button>
+                </div>
            );
         } else {
-            return (<button className={"invalid_start"}>Start Game</button>)
+            return (
+                <div>
+                    <button className={"invalid_start"}>Start Game</button>
+                    <button className={"invalid_start"}>Start Custom Game</button>
+                </div>)
 
         }
     };
