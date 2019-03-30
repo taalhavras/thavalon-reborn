@@ -1,12 +1,13 @@
 package main.kotlin.thavalon
 
 import main.kotlin.roles.*
-import java.lang.IllegalArgumentException
+import kotlin.IllegalArgumentException
+import kotlin.reflect.full.primaryConstructor
 
 /**
  * Base class for Thavalon rulesets
  */
-open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
+open class Ruleset(val goodRoles : List<RoleCreator>, val evilRoles : List<RoleCreator>) {
     // number of times to reroll before giving up
     private val NUM_REROLLS = 100
 
@@ -18,6 +19,16 @@ open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
         return makeGameHelper(players, NUM_REROLLS)
     }
 
+    /**
+     * Specifies how roles will be drawn. Should randomize
+     */
+    open fun drawRoles(choices : List<RoleCreator>, num : Int) : List<Role> {
+        // we want a random sublist without replacement (no duplicates unless the input contained duplicates)
+        if(num > choices.size) {
+            throw IllegalArgumentException("Not enough roles")
+        }
+        return choices.shuffled().subList(0, num).map { it.invoke() }
+    }
 
     /**
      * Helper for making games that caps the recursion limit (in case some invalid gamestate is presented we
@@ -29,13 +40,8 @@ open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
         val numGood : Int = ratio.first
         val numBad : Int = ratio.second
 
-        if(goodRoles.size < numGood || evilRoles.size < numBad) {
-            throw IllegalArgumentException("Game didn't have enough roles")
-        }
-
         // randomly draw the appropriate number of roles
-        val roles : List<Role> = goodRoles.shuffled().subList(0, numGood)
-            .plus(evilRoles.shuffled().subList(0, numBad))
+        val roles : List<Role> = drawRoles(goodRoles, numGood).plus(drawRoles(evilRoles, numBad))
 
         val game : Game = Game(roles, players)
 
@@ -66,16 +72,61 @@ open class Ruleset(val goodRoles : List<Role>, val evilRoles : List<Role>) {
 }
 
 /**
+ * Ruleset that allows duplicate roles
+ */
+class DuplicateRolesRuleset(goodRoles: List<RoleCreator>, evilRoles: List<RoleCreator>) : Ruleset(goodRoles, evilRoles) {
+    override fun drawRoles(choices: List<RoleCreator>, num: Int): List<Role> {
+        // return num randomly chosen roles from choices. Since we are using choices.random,
+        // we can choose the same value multiple times and thus allow duplicates
+        return (0 until num).map { choices.random().invoke() }
+    }
+}
+
+/**
+ * Function to take in a list of role strings from the frontend and produce a ruleset
+ */
+fun makeCustomRuleset(roles : List<String>, duplicates : Boolean): Ruleset {
+    // prefix for role class names
+    val rolePackage = "main.kotlin.roles."
+    // concat into class names
+    val classNames = roles.map { rolePackage + it }
+    // create role creators using reflection
+    val customRoles : List<RoleCreator> = classNames.map { Class.forName(it).kotlin.primaryConstructor } as List<RoleCreator>
+    // separate into good and evil based on the alignment of the produced roles
+    val (goodRoles, evilRoles) = customRoles.partition { it.invoke().role.alignment == Alignment.Good }
+    if(goodRoles.isEmpty() || evilRoles.isEmpty()) {
+        throw IllegalArgumentException("not enough good or evil roles")
+    }
+    return if (duplicates) {
+        DuplicateRolesRuleset(goodRoles, evilRoles)
+    } else {
+        Ruleset(goodRoles, evilRoles)
+    }
+}
+
+/**
+ * typealias for functions that create roles. We use these instead of passing in role objects
+ * because for games that allow duplicates it's convenient to be able to mint fresh objects easily
+ */
+typealias RoleCreator = () -> Role
+
+/**
+ * Some common role options for building rulesets
+ */
+
+val standardEvil : List<RoleCreator> = listOf(::Mordred, ::Morgana, ::Maelagant, ::Oberon)
+
+val standardGood : List<RoleCreator> = listOf(::Merlin, ::Percival, ::Guinevere, ::Tristan, ::Iseult, ::Lancelot)
+
+val extendedGood : List<RoleCreator> = standardGood.plus(listOf(::Titania, ::Arthur))
+
+/**
  * Standard rulesets for 5, 7, 8, and 10 player games
  */
-class FivesRuleset : Ruleset(listOf(Merlin(), NewPercival(), Guinevere(), Tristan(), Iseult(), Lancelot()),
-    listOf(Mordred(), Morgana(), Maelagant(), Oberon()))
+class FivesRuleset : Ruleset(standardGood, standardEvil)
 
-class SevensRuleset : Ruleset(listOf(Merlin(), NewPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
-    listOf(Mordred(), Morgana(), Maelagant(), Oberon()))
+class SevensRuleset : Ruleset(extendedGood, standardEvil)
 
-class EightsRuleset : Ruleset(listOf(Merlin(), NewPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
-    listOf(Mordred(), Morgana(), Maelagant(), Oberon(), Agravaine()))
+class EightsRuleset : Ruleset(extendedGood, standardEvil.plusElement(::Agravaine))
 
-class TensRuleset : Ruleset(listOf(Merlin(), NewPercival(), Guinevere(), Tristan(), Iseult(), OldTitania(), Arthur()),
-    listOf(Mordred(), Morgana(), Maelagant(), Oberon(), Agravaine(), Colgrevance()))
+class TensRuleset : Ruleset(extendedGood, standardEvil.plus(listOf(::Agravaine, ::Colgrevance)))
