@@ -218,12 +218,17 @@ class App extends Component {
             })
         }).then(response => {
             return response.json();
-
         }).then(data => {
             console.log(data);
-            const redirect =
-               <Redirect to={{ pathname: "/" + data}} />;
-                       this.setState({redirect: redirect});
+            if(data.hasOwnProperty("error")) {
+                // error, report to user
+                this.setState({error: data["error"]});
+            } else {
+                // no error
+                const redirect = <Redirect to={{ pathname: "/" + data["id"]}} />;
+                this.setState({redirect: redirect});
+            }
+
         }).catch(error => {
                 console.log(error);
             });
@@ -280,9 +285,14 @@ class App extends Component {
 
         }).then(data => {
             console.log(data);
-            const redirect =
-               <Redirect to={{ pathname: "/" + data}} />;
-                       this.setState({redirect: redirect});
+            if(data.hasOwnProperty("error")) {
+                // error, report to user
+                this.setState({error: data["error"]});
+            } else {
+                // no error
+                const redirect = <Redirect to={{ pathname: "/" + data["id"]}} />;
+                this.setState({redirect: redirect});
+            }
         }).catch(error => {
                 console.log(error);
             });

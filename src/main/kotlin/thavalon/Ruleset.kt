@@ -1,7 +1,7 @@
 package main.kotlin.thavalon
 
 import main.kotlin.roles.*
-import java.lang.IllegalArgumentException
+import kotlin.IllegalArgumentException
 import kotlin.reflect.full.primaryConstructor
 
 /**
@@ -94,6 +94,9 @@ fun makeCustomRuleset(roles : List<String>, duplicates : Boolean): Ruleset {
     val customRoles : List<RoleCreator> = classNames.map { Class.forName(it).kotlin.primaryConstructor } as List<RoleCreator>
     // separate into good and evil based on the alignment of the produced roles
     val (goodRoles, evilRoles) = customRoles.partition { it.invoke().role.alignment == Alignment.Good }
+    if(goodRoles.isEmpty() || evilRoles.isEmpty()) {
+        throw IllegalArgumentException("not enough good or evil roles")
+    }
     return if (duplicates) {
         DuplicateRolesRuleset(goodRoles, evilRoles)
     } else {
