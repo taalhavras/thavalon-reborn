@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/static/media/Quicksand_Book.dd2da1d8.otf"
   },
   {
-    "revision": "e42ffba1b13f59c3cb28",
+    "revision": "845c2c77c0184699ad54",
     "url": "/static/css/main.532ac344.chunk.css"
   },
   {
@@ -12,16 +12,16 @@ self.__precacheManifest = [
     "url": "/static/js/runtime~main.fdfcfda2.js"
   },
   {
-    "revision": "c0b8a6ad01149f9f5a6c",
-    "url": "/static/js/2.c0b8a6ad.chunk.js"
+    "revision": "9537bda9d813f580e28a",
+    "url": "/static/js/2.9537bda9.chunk.js"
   },
   {
     "revision": "0dae96901b999a3ce66c7fa728b78158",
     "url": "/static/media/Yataghan-Regular.0dae9690.otf"
   },
   {
-    "revision": "e42ffba1b13f59c3cb28",
-    "url": "/static/js/main.e42ffba1.chunk.js"
+    "revision": "845c2c77c0184699ad54",
+    "url": "/static/js/main.845c2c77.chunk.js"
   },
   {
     "revision": "c3bf00e585782373e1b601c07b513d85",
@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "/static/media/Enchanted-Land.4cc44563.otf"
   },
   {
-    "revision": "7e5c2150279a042cecf592686d480898",
+    "revision": "15ea69dfdd07d1806d542a365b99bf5b",
     "url": "/index.html"
   }
 ];
