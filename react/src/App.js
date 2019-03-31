@@ -90,7 +90,6 @@ class App extends Component {
         }
 
         this.setState({options: !this.state.options, roles: options});
-        console.log(this.state.roles);
 
 
     };
@@ -205,7 +204,6 @@ class App extends Component {
      * Redirects to a new game on submit of the Create Game form.
      */
      postToGame = () => {
-        console.log("posting");
         fetch('/names', {
             method: 'POST',
             headers: {
@@ -219,7 +217,6 @@ class App extends Component {
         }).then(response => {
             return response.json();
         }).then(data => {
-            console.log(data);
             if(data.hasOwnProperty("error")) {
                 // error, report to user
                 this.setState({error: data["error"]});
@@ -239,7 +236,6 @@ class App extends Component {
      * Redirects to a new custom game on submit of the Create Game form.
      */
      postToCustomGame = () => {
-        console.log("posting");
         // construct custom info to post
         let customBody = {};
         for(let i in this.state.roles) {
@@ -265,8 +261,7 @@ class App extends Component {
             customBody["Tristan"] = true;
             customBody["Iseult"] = true;
         }
-        console.log("CUSTOM ROLE INFO:");
-        console.log(customBody);
+
 
         fetch('/names', {
             method: 'POST',
@@ -284,7 +279,6 @@ class App extends Component {
             return response.json();
 
         }).then(data => {
-            console.log(data);
             if(data.hasOwnProperty("error")) {
                 // error, report to user
                 this.setState({error: data["error"]});
@@ -386,7 +380,7 @@ class App extends Component {
           {this.state.redirect}
           {this.state.join_redirect}
                   <Options options={this.state.roles} display={this.state.options} submit={this.optionsSubmit} />
-\        <h1>
+       <h1>
           THavalon
         </h1>
             <button className={"large_button"} onClick={this.showInputs}>

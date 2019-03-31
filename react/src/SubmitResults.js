@@ -12,9 +12,6 @@ const dontRecord = "Don't Record Results!";
  * Shows different options for how games can end and sends results to server
  */
 class SubmitResults extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     make_submitter = (result) => {
         return () => {

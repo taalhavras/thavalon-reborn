@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import "./css/Player.css";
-import { Link } from 'react-router-dom';
 
 /**
  * Models a game page, with links to each player.
@@ -14,6 +13,11 @@ class DoNotOpen extends Component {
         }
     }
 
+    /**
+     * Parses the information array for each player.
+     * @param ele
+     * @returns {*[]}
+     */
     parseInfo = (ele) => {
         const info = JSON.parse(ele);
         console.log(info);
@@ -25,7 +29,7 @@ class DoNotOpen extends Component {
         console.log(res);
 
         return res.flat().map(ele => {
-            return <span>{ele} </span>
+            return <div>{ele}</div>
             }
         );
 
@@ -40,9 +44,9 @@ class DoNotOpen extends Component {
             <h1> Do Not Open </h1>
             <button className={"my_button, large_button"} id={"show_button"} onClick={this.open}>{this.state.text}</button>
             {this.state.open ?
-                <ul>
+                <ul className={"donotopen_list"}>
                     {this.props.location.state.game.map(ele => {
-                        return <li>{ele.name}: {ele.role}, seeing: {this.parseInfo(ele.information)}</li>
+                        return <li><span className={"name"}>{ele.name}</span> is {ele.role}, seeing: {this.parseInfo(ele.information)}</li>
                     })}
                 </ul> : null
                 }

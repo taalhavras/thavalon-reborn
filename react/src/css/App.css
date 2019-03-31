@@ -16,6 +16,7 @@
 }
 
 
+
 #join-submit {
   height: 38px;
   width: 50px;
@@ -86,6 +87,7 @@
   border: 10px solid #4f4f4f;
 }
 .rules {
+  line-height: 1.4;
   margin: 0;
   padding: 20px;
   text-align: left;
@@ -93,7 +95,7 @@
   color: #4f4f4f;
   overflow-y: scroll;
   overflow-x: auto;
-  height: 90vh;
+  height: 80vh;
   width: 80vw;
   max-width: 600px;
 
@@ -146,6 +148,25 @@
   margin: 0 auto;
 }
 
+.
 .join {
   margin-bottom: 50px;
+}
+
+em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+.roles-list li {
+  margin-bottom: 20px;
+}
+
+.italics {
+  font-style: italic;
+}
+.break {
+  margin-bottom: 10px;
+  margin-top: 10px;
+
 }

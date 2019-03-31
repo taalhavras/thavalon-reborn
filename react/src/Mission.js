@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import './css/App.css';
 import './css/Player.css';
 
-/**
- * Models the player page. Expects three props: name, which is the name of the player, role, which is
- * the role the game has assigned the player, and role_info, which is the information and text associated
- * with the role.
-
- */
 class Mission extends Component {
     constructor(props) {
         super(props);

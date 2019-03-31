@@ -66,35 +66,54 @@ class Rules extends Component {
 
                 {/*<ScrollableAnchor id={"good_roles"}> <div> </div>  </ScrollableAnchor>*/}
 
+                    <h2> Roles </h2>
+                    <div className={"italics"}>Note: by default the following roles are included in the game,
+                            with no duplicates or Lone Lovers
+                            <div className={"break"}> 5 players: Lancelot, Merlin, the Lovers, Percival, Guinevere, Mordred, Morgana, Maelagant, Oberon </div>
+                            <div className={"break"}> 7 players: add Titania and Arthur</div>
+                            <div className={"break"}> 8 players: add Agravaine </div>
+                            <div className={"break"}> 10 players: add Colgrevance </div>
+
+
+
+
+                    </div>
+
                 <h2>Good Roles</h2>
-                Merlin: sees all players that are either Evil (except Mordred) or are Lancelot; can be Assassinated. <br></br>
 
-                Percival: sees Merlin and Morgana, but cannot distinguish which role each seen player has. <br></br>
+                    <ul className={"roles-list"}>
+                            <li> <em> Arthur: </em> knows which Good roles are present in the game. </li>
+                            <li> <em>Galahad: </em> Can declare after two failed missions. Then may conduct a 'night phase' where they request
+                                    two good roles, who then reveal themselves to Galahad only.</li>
+                            <li> <em> Gawain: </em> Sees two pairs of players, one pair is on the same team, one is on opposite teams.
+                            </li>
+                            <li> <em> Guinevere: </em> Sees two rumors in the form of "A sees B" where A and B are players, one of which
+                                    is true, one of which is a lie.
+                            </li>
+                            <li> <em> Lancelot: </em> may play reverses while on missions; appears evil to Merlin. </li>
+                            <li> <em> The Lovers (Tristan and Iseult): </em> see each other,
+                                    always appear together (unless Lone Lovers is enabled),
+                                    and can be assassinated as a pair. </li>
+                            <li> <em> Merlin: </em> sees all players that are either evil
+                                    (except Mordred) or are Lancelot, can be assassinated.</li>
+                            <li> <em> Nimue: </em> knows which roles are in the game; can be Assassinated. </li>
+                            <li> <em> Percival: </em> sees both Merlin and Morgana,
+                                    but cannot distinguish which role each seen player has. </li>
+                            <li> <em> Titania:</em> adds false information to one Evil player's information.
+                            </li>
+                    </ul>
 
-                Tristan and Iseult: see each other; always appear together; can be Assassinated as a pair. <br></br>
-
-                Lancelot: may play Reversal cards while on missions; appears Evil to Merlin. <br></br>
-
-                Nimue (5) : knows which roles are in the game; can be Assassinated. <br></br>
-
-                Arthur (7+): knows which Good roles are present; may declare after 2 Failed
-                    and 0-1 Successful missions to make their votes on mission proposals count twice,
-                    but lose the ability to be on mission teams until the 5th mission. <br></br>
-
-                Titania (7+): adds false information to one Evil player's information. <br></br>
-                    {/*<ScrollableAnchor id={"evil_roles"}>  <div> </div>  </ScrollableAnchor>*/}
                 <h2>Evil Roles</h2>
-                    Mordred: is hidden from Merlin. <br></br>
-
-                Morgana: appears like Merlin to Percival. <br></br>
-
-                Maelagant: may play Reversal cards while on missions. <br></br>
-
-                Oberon: adds false information to one Good player.
-
-                Agravaine (8+): must play Fails; may declare after having been on a successful mission to cause it to Fail instead. <br></br>
-
-                Colgrevance (10): is hidden from other Evil roles; knows which player has each Evil role. <br></br>
+                    <ul className={"roles-list"}>
+                    <li> <em> Mordred:</em> is hidden from Merlin.</li>
+                    <li> <em> Morgana: </em> appears like Merlin to Percival. </li>
+                    <li> <em> Maelagant:</em> may play Reversal cards while on missions.</li>
+                    <li> <em> Oberon: </em> adds false information to one Good player. </li>
+                    <li> <em> Agravaine: </em> must play Fails; may declare after having been on a successful mission to cause it to Fail instead.
+                    </li>
+                    <li> <em> Colgrevance </em> is hidden from other Evil roles; knows which player has each Evil role.
+                    </li>
+                    </ul>
 
 
 
