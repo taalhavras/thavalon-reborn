@@ -186,14 +186,15 @@ fun main() {
                     prep.close()
                     println(resultsJson)
                     val playerStat = conn.prepareStatement("INSERT INTO players VALUES (?, ?, ?, ?)")
+
                     for (e in games[id]!!.first) {
                         playerStat.setString(1, id)
                         playerStat.setString(2, e.asJsonObject["name"].asString)
                         playerStat.setString(3, e.asJsonObject["role"].asString)
                         playerStat.setString(4, e.asJsonObject["allegiance"].asString)
                         playerStat.executeUpdate()
-
                     }
+
                     playerStat.close()
 
 

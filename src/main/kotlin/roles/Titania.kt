@@ -61,3 +61,18 @@ class NewTitania : Titania() {
         r.information.add(ThavalonInformation.AlertInformation("You have been Titania'd!"))
     }
 }
+
+class TargetsAllTitania : Titania() {
+    // targets all
+    override fun getTargets(g: Game): List<Role> {
+        return g.getEvilRoles().filter { it.role !in untargetableRoles }
+    }
+
+    override fun updateSingleTarget(g: Game, r: Role) {
+        assert(r.role.alignment == Alignment.Evil)
+        // add random good member to all evil
+        r.information.add(ThavalonInformation.SingleSeenInformation(g.getGoodRoles().random()))
+        // inform r that they have been titania'd
+        r.information.add(ThavalonInformation.AlertInformation("You have been Titania'd!"))
+    }
+}

@@ -23,15 +23,11 @@ class Merlin : Role() {
         }, UpdaterPriority.Ten)
     }
 
-    private fun getSeen(g : Game) : MutableList<Role> {
+    private fun getSeen(g : Game) : List<Role> {
         // merlin cannot see mordred
         val seen : MutableList<Role> = g.getEvilRoles().filter { it.role != RoleType.Mordred }.toMutableList()
-        // try to find lances if we can, if we cannot we just return the evil role list minus mordred
+        // try to find lances if we can, and add them all. If this returns an empty list (no lances) nothing will be added
         val lances : List<Role> = g.getGoodRoles().filter { it.role == RoleType.Lancelot }
-        if(lances.isEmpty()) {
-            return seen
-        }
-        // we found lance(s), so add them
         seen.addAll(lances)
         return seen
     }

@@ -35,7 +35,7 @@ class Gawain : Role() {
     private fun getSameTeamPair(g : Game) : ThavalonInformation.PairSeenInformation? {
         // randomly decide if we are looking at good or evil roles
         val rolesToChooseFrom = if(Random.nextBoolean()) {
-            g.getGoodRoles().filter { it != this }.toMutableList()
+            g.getGoodRoles().filter { it != this }.filter { it.role !in unseeableRoles }.toMutableList()
         } else {
             g.getEvilRoles().filter { it.role !in unseeableRoles }.toMutableList()
         }
@@ -52,7 +52,7 @@ class Gawain : Role() {
         // try to get a pair, if there aren't any valid seeable roles for either the good or either team, return null
         return try {
             // get random good role from game that isn't us
-            val goodRole: Role = g.getGoodRoles().filter { it != this }.random()
+            val goodRole: Role = g.getGoodRoles().filter { it != this }.filter { it.role !in unseeableRoles }.random()
             // get random evil role that isn't mordred
             val evilRole: Role = g.getEvilRoles().filter { it.role !in unseeableRoles }.random()
 
