@@ -41,9 +41,14 @@ li {
 }
 
 .donotopen ul {
-    max-width: 300px;
+    padding-top: 20px;
+    width: 80vw;
     text-align: left;
     margin: auto;
+}
+
+.donotopen li {
+    margin-bottom: 20px;
 }
 
 #show_button {
