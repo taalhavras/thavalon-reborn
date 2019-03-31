@@ -310,7 +310,7 @@ class App extends Component {
             || this.state.players.length === 10)) {
 
             return (
-                <div>
+                <div className={"start_button_div"}>
                     <button onClick={this.postToGame} className={"large_button start_button"}>
                         Start Game
                     </button>
