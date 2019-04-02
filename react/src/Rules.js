@@ -29,7 +29,7 @@ class Rules extends Component {
 
                 If there is one fail card played, even if all the rest of the cards are successes, the mission fails. If a reverse card
                 is played, the result of the mission is reversed (e.g. a failing mission will become a passing mission, or vise verse).
-                Only Lancelot and Maelagant can play reverse cards.
+                Only Lancelot and Maelegant can play reverse cards.
 
                 Good wins if they pass three missions, and survive assasination. Evil wins if they fail three missions.
 
@@ -69,7 +69,7 @@ class Rules extends Component {
                     <h2> Roles </h2>
                     <div className={"italics"}>Note: by default the following roles are included in the game,
                             with no duplicates or Lone Lovers
-                            <div className={"break"}> 5 players: Lancelot, Merlin, the Lovers, Percival, Guinevere, Mordred, Morgana, Maelagant, Oberon </div>
+                            <div className={"break"}> 5 players: Lancelot, Merlin, the Lovers, Percival, Guinevere, Mordred, Morgana, Maelegant, Oberon </div>
                             <div className={"break"}> 7 players: add Titania and Arthur</div>
                             <div className={"break"}> 8 players: add Agravaine </div>
                             <div className={"break"}> 10 players: add Colgrevance </div>
@@ -107,7 +107,7 @@ class Rules extends Component {
                     <ul className={"roles-list"}>
                     <li> <em> Mordred:</em> is hidden from Merlin.</li>
                     <li> <em> Morgana: </em> appears like Merlin to Percival. </li>
-                    <li> <em> Maelagant:</em> may play Reversal cards while on missions.</li>
+                    <li> <em> Maelegant:</em> may play Reversal cards while on missions.</li>
                     <li> <em> Oberon: </em> adds false information to one Good player. </li>
                     <li> <em> Agravaine: </em> must play Fails; may declare after having been on a successful mission to cause it to Fail instead.
                     </li>

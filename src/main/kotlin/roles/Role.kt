@@ -29,7 +29,7 @@ enum class RoleEnum {
 
     Mordred,
     Morgana,
-    Maelagant,
+    Maelegant,
     Oberon,
     Agravaine,
     Colgrevance,
@@ -55,7 +55,7 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
 
     object Mordred : RoleType(RoleEnum.Mordred, Alignment.Evil)
     object Morgana : RoleType(RoleEnum.Morgana, Alignment.Evil)
-    object Maelagant : RoleType(RoleEnum.Maelagant, Alignment.Evil)
+    object Maelegant : RoleType(RoleEnum.Maelegant, Alignment.Evil)
     object Oberon : RoleType(RoleEnum.Oberon, Alignment.Evil)
     object Agravaine : RoleType(RoleEnum.Agravaine, Alignment.Evil)
     object Colgrevance : RoleType(RoleEnum.Colgrevance, Alignment.Evil)

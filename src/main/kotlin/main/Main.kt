@@ -23,7 +23,7 @@ fun main() {
     fun oberonTitaniaGame() {
         val players: MutableList<String> = listOf("Raghu", "Grace", "Kevin", "Josh", "Julius", "May", "George")
                 .toMutableList()
-        val roles: List<Role> = listOf(Oberon(), Maelagant(), Mordred(), Guinevere(), Titania(),
+        val roles: List<Role> = listOf(Oberon(), Maelegant(), Mordred(), Guinevere(), Titania(),
                 Merlin(), Lancelot())
         val g: Game = Game(roles, players)
         assert(g.setUp())
@@ -43,7 +43,7 @@ fun main() {
     fun noInfoGwen() {
         val players: MutableList<String> = listOf("Raghu", "Grace", "Kevin", "May", "George")
                 .toMutableList()
-        val roles: List<Role> = listOf(Mordred(), Maelagant(), LoneTristan(), LonePercival(), Guinevere())
+        val roles: List<Role> = listOf(Mordred(), Maelegant(), LoneTristan(), LonePercival(), Guinevere())
         val g: Game = Game(roles, players)
         assert(g.setUp())
         print(g)

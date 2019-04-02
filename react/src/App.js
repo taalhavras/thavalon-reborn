@@ -35,7 +35,7 @@ class App extends Component {
             {key: "Lone Lovers", value: false},
             {key: "Mordred", value: true},
             {key: "Morgana", value: true},
-            {key: "Maelagant", value: true},
+            {key: "Maelegant", value: true},
             {key: "Oberon", value: true},
             {key: "Agravaine", value: true},
             {key: "Colgrevance", value: true},
