@@ -114,7 +114,7 @@ typealias RoleCreator = () -> Role
  * Some common role options for building rulesets
  */
 
-val standardEvil : List<RoleCreator> = listOf(::Mordred, ::Morgana, ::Maelagant, ::Oberon)
+val standardEvil : List<RoleCreator> = listOf(::Mordred, ::Morgana, ::Maelegant, ::Oberon)
 
 val standardGood : List<RoleCreator> = listOf(::Merlin, ::Percival, ::Guinevere, ::Tristan, ::Iseult, ::Lancelot)
 

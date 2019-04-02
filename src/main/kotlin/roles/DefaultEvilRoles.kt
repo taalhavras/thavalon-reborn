@@ -12,8 +12,8 @@ class Morgana : DefaultEvilRole() {
     override val role: RoleType = RoleType.Morgana
 }
 
-class Maelagant : DefaultEvilRole() {
-    override val role: RoleType = RoleType.Maelagant
+class Maelegant : DefaultEvilRole() {
+    override val role: RoleType = RoleType.Maelegant
     override fun getDescription(): String {
         return super.getDescription() +  "\nAbility: Reversal\nYou can play reverses" +
                 " on missions. A reverse inverts the result of a mission: A successful mission will fail and" +
