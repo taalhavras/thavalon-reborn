@@ -28,7 +28,13 @@ open class Titania : Role() {
 
     // old titania targets a single random evil
     open fun getTargets(g : Game) : List<Role> {
-        return listOf(g.getEvilRoles().filter { it.role !in untargetableRoles }.random())
+        val targets : List<Role> = g.getEvilRoles().filter { it.role !in untargetableRoles }
+        // if there are no targetable evil, then we just return an empty list
+        if(targets.isEmpty()) {
+            return targets
+        }
+        // otherwise, we select a random member of the evil team to target
+        return listOf(targets.random())
     }
 
     private fun updateTargets(g: Game, targets : List<Role>) : Unit {
