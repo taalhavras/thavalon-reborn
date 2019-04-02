@@ -26,22 +26,28 @@ class Oberon : DefaultEvilRole() {
         return Pair({g : Game -> obfuscateInformation(g, getTarget(g))}, UpdaterPriority.One)
     }
 
-    private fun getTarget(g : Game) : Role {
+    private fun getTarget(g : Game) : Role? {
         val goodTeam : MutableList<Role> = g.getGoodRoles()
         // set of roles oberon can target
         val targetableRoles : Set<RoleType> = singleSeenTargets.plus(pairSeenTargets).plus(rolePresentTargets)
 
-        goodTeam.shuffle()
-        // find first targetable member of good team
-        return goodTeam.first {
-            it.role in targetableRoles
+        // get potential targets
+        val potentialTargets : List<Role> = goodTeam.filter { it.role in targetableRoles }
+        if (potentialTargets.isEmpty()) {
+            // no oberonable targets in game
+            return null
         }
+        return potentialTargets.random()
     }
 
     /**
      * Takes in a game and a target, and obfuscates a piece of target's information
      */
-    private fun obfuscateInformation(g: Game, target : Role) : Unit {
+    private fun obfuscateInformation(g: Game, target : Role?) : Unit {
+        // if target is null, then do nothing
+        if(target == null) {
+            return
+        }
         assert(target.role.alignment == Alignment.Good)
 
         // obfuscate information based on what kind of target we have
