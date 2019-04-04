@@ -425,7 +425,6 @@ class App extends Component {
                       <div className={"rules_wrapper"}>
                           <button className={"exit_button"} onClick={this.info}> x </button>
                           <div className={"rules"}>
-                          <h1>Rules</h1>
                               <Rules />
 
                       </div>

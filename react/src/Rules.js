@@ -10,6 +10,7 @@ class Rules extends Component {
         return (
 
             <div className={"Rules"} id={"rules"}>
+                <h1>Rules</h1>
 
 
 
