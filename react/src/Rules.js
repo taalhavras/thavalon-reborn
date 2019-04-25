@@ -115,8 +115,7 @@ class Rules extends Component {
                     <li> <em> Colgrevance </em> is hidden from other Evil roles; knows which player has each Evil role.
                     </li>
                     </ul>
-
-
+                
 
             </div>);
     }

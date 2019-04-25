@@ -64,6 +64,8 @@ class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {
         val updaters : MutableList<Updater> = ArrayList()
         // collect all updaters
         rolesInGame.forEach { updaters.addAll(it.getUpdaters(this)) }
+        // add hijack updater
+        updaters.add(getHijackUpdater())
         // sort them in descending order by their priority
         updaters.sortByDescending { it.second }
         // apply them all in order
@@ -74,6 +76,16 @@ class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {
         rolesInGame.forEach { it.information.shuffle() }
     }
 
+    private fun getHijackUpdater(): Updater {
+        return Pair({g : Game ->
+            val cantHijack : Set<RoleType> = setOf(RoleType.Mordred, RoleType.Colgrevance)
+            val potentialHijackers = g.getEvilRoles().filter { it.role !in cantHijack }
+            if(potentialHijackers.isNotEmpty()) {
+                potentialHijackers.random().information.
+                    add(ThavalonInformation.AlertInformation("You have Hijack!"))
+            }
+        }, UpdaterPriority.One)
+    }
     /**
      * Assigns all players to roles
      */
@@ -86,7 +98,7 @@ class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {
     }
 
     /**
-     * after constructing a game, call this to fill in information
+     * after constructing a game, call this to I in information
      * @return a boolean indicating success. If false is returned, the game was somehow invalid
      */
     fun setUp() : Boolean {
