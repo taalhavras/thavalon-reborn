@@ -32,20 +32,28 @@ class Gawain : Role() {
         }, UpdaterPriority.Ten)
     }
 
-    private fun getSameTeamPair(g : Game) : ThavalonInformation.PairSeenInformation? {
-        // randomly decide if we are looking at good or evil roles
-        val rolesToChooseFrom = if(Random.nextBoolean()) {
-            g.getGoodRoles().filter { it != this }.filter { it.role !in unseeableRoles }.toMutableList()
-        } else {
-            g.getEvilRoles().filter { it.role !in unseeableRoles }.toMutableList()
-        }
-        if (rolesToChooseFrom.size < 2) {
+    private fun getSameTeamPair(roles : List<Role>) : ThavalonInformation.PairSeenInformation? {
+        val candidateRoles : List<Role> = roles
+            .filter { it != this }
+            .filter { it.role !in unseeableRoles }
+            .shuffled()
+        if(candidateRoles.size < 2) {
             return null
         }
-        // shuffle roles
-        rolesToChooseFrom.shuffle()
-        // return new PairSeenInformation based on first two entries in shuffled list
-        return ThavalonInformation.PairSeenInformation(rolesToChooseFrom[0], rolesToChooseFrom[1])
+        return ThavalonInformation.PairSeenInformation(candidateRoles[0], candidateRoles[1])
+    }
+
+    private fun getSameTeamPair(g : Game) : ThavalonInformation.PairSeenInformation? {
+        // randomly decide if we are looking at good or evil roles
+        // in both cases, if we fail to find a pair for that alignment, we try the
+        // other alignment
+        return if(Random.nextBoolean()) {
+            // try a good pair first, try evil if it fails
+            getSameTeamPair(g.getGoodRoles()) ?: getSameTeamPair(g.getEvilRoles())
+        } else {
+            // try an evil pair first, try good if it fails
+            getSameTeamPair(g.getEvilRoles()) ?: getSameTeamPair(g.getGoodRoles())
+        }
     }
 
     private fun getDifferentTeamPair(g : Game) : ThavalonInformation.PairSeenInformation? {
