@@ -77,7 +77,11 @@ class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {
     }
 
     private fun getHijackUpdater(): Updater {
-        return Pair({g : Game ->
+        return Pair(updater@{g : Game ->
+            if(g.rolesInGame.size <= 5) {
+                // hijack not present in games with 5 or fewer players
+                return@updater
+            }
             val cantHijack : Set<RoleType> = setOf(RoleType.Mordred, RoleType.Colgrevance)
             val potentialHijackers = g.getEvilRoles().filter { it.role !in cantHijack }
             if(potentialHijackers.isNotEmpty()) {

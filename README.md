@@ -12,3 +12,5 @@ method. This method returns a list of updaters, which consist of a function that
 that says when the function should be applied relative to other updaters (higher priorities go first). When the game is created,
 all updaters for all roles are collected, sorted, and applied in order to fill in all information for the current game. For the
 exact details on how this works, see Role.kt and Game.kt.
+
+
