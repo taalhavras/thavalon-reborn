@@ -95,11 +95,20 @@ button {
 
 input[type=submit]{
   font-family: Quicksand-Bold;
-
+  margin: 10px;
+  outline: none;
+  border: none;
+  height: 30px;
 }
 
+input[type=submit]:hover {
+  cursor: pointer;
+
+}
 input[type=text]{
   font-size: 16px;
+  display: block;
+  margin: 10px auto;
   font-family: Quicksand;
 
 }

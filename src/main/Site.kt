@@ -11,11 +11,19 @@ import io.ktor.response.respond
 import io.ktor.response.respondFile
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
+import io.ktor.http.cio.websocket.CloseReason
+import io.ktor.http.cio.websocket.Frame
+import io.ktor.http.cio.websocket.readText
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.websocket.WebSockets
+import io.ktor.websocket.webSocket
+import io.netty.handler.codec.MessageToByteEncoder
+import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.channels.mapNotNull
 import kotlinx.coroutines.sync.Mutex
 import main.kotlin.thavalon.*
 import main.kotlin.roles.*
@@ -25,6 +33,15 @@ import java.sql.DriverManager
 import java.util.*
 import java.util.concurrent.ConcurrentMap
 import kotlin.collections.LinkedHashMap
+
+
+enum class MessageType {
+    // client to server
+    CREATE_LOBBY, JOIN_LOBBY, REMOVE_PLAYER, LEAVE_LOBBY, DELETE_LOBBY,
+    // server to client
+    NEW_PLAYER, PLAYER_REMOVED, LOBBY_DELETED
+}
+
 
 fun main() {
     //connects to mysql database
@@ -50,12 +67,17 @@ fun main() {
 
     val idLength = 6
 
+
+
     val server = embeddedServer(Netty, port = port.toInt()) {
         install(ContentNegotiation) {
             gson {
 
             }
         }
+
+        install(WebSockets)
+
 
         routing {
             static("static") {
@@ -70,6 +92,27 @@ fun main() {
 
                 static("media") {
                     files("media")
+                }
+            }
+
+            webSocket("/socket") {
+                println("New client connected")
+                outgoing.send(Frame.Text("Connected"))
+
+                incoming.mapNotNull { it as? Frame.Text }.consumeEach { frame ->
+                    val text = frame.readText()
+                    val parsed = JsonParser().parse(text).asJsonObject
+                    val type = MessageType.valueOf(parsed.get("type").asString)
+                    when (type) {
+                        MessageType.CREATE_LOBBY -> println("Create lobby received")
+                        MessageType.JOIN_LOBBY -> println("Join lobby received")
+                        MessageType.LEAVE_LOBBY -> println("Leave lobby received")
+                        MessageType.DELETE_LOBBY -> println("Delete lobby received")
+                        MessageType.REMOVE_PLAYER -> println("Remove player recieved")
+                        else -> println("Invalid message type")
+                    }
+                    println("Recieved ${text} from client");
+                    outgoing.send(Frame.Text("YOU SAID $text"))
                 }
             }
 

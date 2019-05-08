@@ -426,7 +426,6 @@ class App extends Component {
                           <button className={"exit_button"} onClick={this.info}> x </button>
                           <div className={"rules"}>
                               <Rules />
-
                       </div>
                       </div>: null}
                   <button className={"info_button"} onClick={this.info}>?</button>
