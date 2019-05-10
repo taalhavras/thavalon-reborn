@@ -28,11 +28,11 @@ class Guinevere : Role() {
     private fun getAllPairSeenInformation(g : Game) : List<ThavalonInformation.PairSeenInformation> {
         return g.rolesInGame
             .filter { it.role !in unseeableRoles } // filter out roles we cannot see
-            .map { it.information.seen // map over role's seen information
+            .map { r : Role -> r.information.seen // map over role's seen information
                 .filter { i : ThavalonInformation.SingleSeenInformation -> // filter out seen information that includes unseeable roles
                     i.seen.role !in unseeableRoles }
                 .map { i : ThavalonInformation.SingleSeenInformation ->
-                ThavalonInformation.PairSeenInformation(it, i.seen) } // transform each singleSeenInfo to an PairSeen information
+                ThavalonInformation.PairSeenInformation(r, i.seen) } // transform each singleSeenInfo to an PairSeen information
             }.flatten() // collapse list
     }
 

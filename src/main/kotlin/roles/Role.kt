@@ -110,6 +110,7 @@ sealed class ThavalonInformation {
             return "${seen.player} is ${seen.role.role}"
         }
     }
+
 }
 
 /**

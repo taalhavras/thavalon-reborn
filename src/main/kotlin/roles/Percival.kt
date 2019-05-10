@@ -25,7 +25,7 @@ open class LonePercival : Role() {
             this.information.addAll(g.rolesInGame.filter { seenByPercival(it)}
                 .map { ThavalonInformation.SingleSeenInformation(it)})
             return@updater
-        }, UpdaterPriority.Nine)
+        }, UpdaterPriority.Ten)
     }
 
     override fun prepareInformation(): MutableMap<String, List<String>> {
