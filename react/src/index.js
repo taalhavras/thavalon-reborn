@@ -8,7 +8,7 @@ import Game from './Game.js';
 import Board from './Board.js';
 import DoNotOpen from './DoNotOpen.js';
 
-import Lobby from './Lobby.js';
+import Lobby from './Live.js';
 
 import Player from './Player.js';
 
@@ -21,7 +21,7 @@ console.log(socket);
 ReactDOM.render(<BrowserRouter>
     <Switch>
         <Route exact path='/' component={App} />
-        <Route exact path='/live' component={Lobby} />
+        <Route exact path='/live/:id' component={Lobby} />
 
         <Route exact path='/submitresults' component={SubmitResults}/>
         <Route exact path='/:id' component={Game} />

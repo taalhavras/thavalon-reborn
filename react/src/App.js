@@ -8,6 +8,7 @@ import "./css/PlayerTag.css";
 import PlayerTag from "./PlayerTag";
 import Options from "./Options";
 import RecentGames from "./RecentGames";
+import Live from "./Live.js";
 
 /**
  * The home screen for the game.
@@ -59,6 +60,7 @@ class App extends Component {
             switches: [],
             redirect: "",
             player_key: 0,
+            isLiveGame: false,
             join_error: "",
             error: ""
         };
@@ -383,6 +385,9 @@ class App extends Component {
        <h1>
           THavalon
         </h1>
+          <input type="checkbox" value={this.state.isLiveGame} name="live" onChange={() => {this.setState({isLiveGame: !this.state.isLiveGame})}}/>
+          {this.state.isLiveGame ? <Live/> :
+          <div>
             <button className={"large_button"} onClick={this.showInputs}>
               Create Game
           </button>
@@ -430,6 +435,7 @@ class App extends Component {
                       </div>: null}
                   <button className={"info_button"} onClick={this.info}>?</button>
               </div>
+          </div>}
       </div>
 
     );

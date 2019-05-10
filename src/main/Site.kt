@@ -1,6 +1,7 @@
 package main
 
 import com.google.gson.*
+import io.ktor.application.ApplicationCallPipeline
 import io.ktor.application.call;
 import io.ktor.application.install
 import io.ktor.http.content.files
@@ -11,14 +12,17 @@ import io.ktor.response.respond
 import io.ktor.response.respondFile
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
-import io.ktor.http.cio.websocket.CloseReason
-import io.ktor.http.cio.websocket.Frame
-import io.ktor.http.cio.websocket.readText
+import io.ktor.http.cio.websocket.*
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.sessions.Sessions
+import io.ktor.sessions.cookie
+import io.ktor.sessions.*
+import io.ktor.util.generateNonce
+import io.ktor.websocket.DefaultWebSocketServerSession
 import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
 import io.netty.handler.codec.MessageToByteEncoder
@@ -31,7 +35,9 @@ import java.io.File
 import java.lang.IllegalArgumentException
 import java.sql.DriverManager
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
+import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
 
 
@@ -39,9 +45,22 @@ enum class MessageType {
     // client to server
     CREATE_LOBBY, JOIN_LOBBY, REMOVE_PLAYER, LEAVE_LOBBY, DELETE_LOBBY,
     // server to client
-    NEW_PLAYER, PLAYER_REMOVED, LOBBY_DELETED
+    NEW_PLAYER, PLAYER_REMOVED, LOBBY_DELETED, LOBBY_CREATED, LOBBY_JOINED
 }
 
+
+data class UserSession(val id: String, var name: String, var socket: DefaultWebSocketServerSession?)
+
+val sessionMap: ConcurrentMap<String, Lobby> = ConcurrentHashMap()
+val idLength = 4
+
+fun getID() : String {
+   return UUID.randomUUID().toString().substring(0, idLength)
+}
+
+// members will include the owner, but it's useful to have access to just them
+// to validate owner specific operations.
+data class Lobby(val owner: UserSession, val members: MutableList<UserSession>)
 
 fun main() {
     //connects to mysql database
@@ -65,7 +84,6 @@ fun main() {
     // for heroku ktor deployment
     val port: String = System.getenv("PORT") ?: "4444"
 
-    val idLength = 6
 
 
 
@@ -78,6 +96,15 @@ fun main() {
 
         install(WebSockets)
 
+        install(Sessions) {
+            cookie<UserSession>("SESSION")
+        }
+
+        intercept(ApplicationCallPipeline.Features) {
+            if (call.sessions.get<UserSession>() == null) {
+                call.sessions.set(UserSession(generateNonce(), "", null))
+            }
+        }
 
         routing {
             static("static") {
@@ -96,23 +123,64 @@ fun main() {
             }
 
             webSocket("/socket") {
+                val session = call.sessions.get<UserSession>()!!
+
                 println("New client connected")
-                outgoing.send(Frame.Text("Connected"))
 
                 incoming.mapNotNull { it as? Frame.Text }.consumeEach { frame ->
                     val text = frame.readText()
                     val parsed = JsonParser().parse(text).asJsonObject
                     val type = MessageType.valueOf(parsed.get("type").asString)
+
                     when (type) {
-                        MessageType.CREATE_LOBBY -> println("Create lobby received")
-                        MessageType.JOIN_LOBBY -> println("Join lobby received")
+                        MessageType.CREATE_LOBBY -> {
+                            println("Create lobby received")
+                            val id = getID()
+                            session.name = parsed.get("name").asString
+                            session.socket = this
+
+                            sessionMap[id] = Lobby(session, ArrayList())
+
+                            val toSend: JsonObject = JsonObject()
+                            toSend.addProperty("type", MessageType.LOBBY_CREATED.toString())
+                            toSend.addProperty("name", session.name)
+                            toSend.addProperty("id", id)
+                            outgoing.send(Frame.Text(toSend.toString()))
+                        }
+                        MessageType.JOIN_LOBBY -> {
+                            val id = parsed.get("id").asString
+
+                            val toSend: JsonObject = JsonObject()
+                            val name  = parsed.get("name").asString
+                            session.name = name
+                            toSend.addProperty("type", MessageType.LOBBY_JOINED.toString())
+                            if (id !in sessionMap) {
+                                toSend.addProperty("error", "Invalid Lobby ID")
+                            } else if (sessionMap[id]!!.members.any { it.name == name }) {
+                                toSend.addProperty("error", "Player with that name in lobby")
+                            } else {
+                                val toAll = JsonObject()
+                                toAll.addProperty("type", MessageType.NEW_PLAYER.toString())
+                                toAll.addProperty("name", name)
+                                // send new player name to all existing lobby members
+                                sessionMap[id]!!.members.forEach { it.socket!!.send(Frame.Text(toAll.toString()))}
+                                // add new member's session
+                                sessionMap[id]!!.members.add(session)
+                                // now send new member an array of all names in lobby, including themselves.
+                                val names = JsonArray()
+                                sessionMap[id]!!.members.forEach { names.add(it.name) }
+                                toSend.addProperty("names", names.toString())
+
+                            }
+                            outgoing.send(Frame.Text(toSend.toString()))
+                        }
+
+
                         MessageType.LEAVE_LOBBY -> println("Leave lobby received")
                         MessageType.DELETE_LOBBY -> println("Delete lobby received")
                         MessageType.REMOVE_PLAYER -> println("Remove player recieved")
                         else -> println("Invalid message type")
                     }
-                    println("Recieved ${text} from client");
-                    outgoing.send(Frame.Text("YOU SAID $text"))
                 }
             }
 
@@ -128,7 +196,7 @@ fun main() {
                     val parsed = JsonParser().parse(post).asJsonObject
                     val names = parsed["names"].asJsonArray.map { it.asString }.toMutableList()
                     val custom: JsonElement? = parsed["custom"]
-                    val id = UUID.randomUUID().toString().substring(0, idLength)
+                    val id = getID()
                     val rules: Ruleset = if (custom != null) {
                         isCustom = true
                         val roles: List<String> = custom.asJsonObject.entrySet()

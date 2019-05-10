@@ -1,20 +1,60 @@
 import React, { Component } from 'react';
 import './css/App.css';
-import { socket } from "./index.js"
+import { socket } from "./index.js";
+import { Redirect } from 'react-router-dom';
 
 /**
  * Models the tag representing a player. Expects a String name prop, and a change handler.
  */
-class Lobby extends Component {
+class Live extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            creator: this.props.creator,
-            names: [this.props.creator.name]
+            joinValid: false,
+            lobbyCreateError: "",
+            lobbyJoinError: "",
+            redirect: ""
         }
     }
 
+    onJoinSubmit = (event) => {
+        event.preventDefault();
+        if (event.target[0].value.length !== 4) {
+            this.setState({lobbyJoinError: "Please enter a game id of length 4"});
+            return;
+        }
+
+        if (event.target[1].value === "") {
+            this.setState({lobbyJoinError: "Please enter a name"});
+            return;
+        }
+
+        const toSend = {
+            type: "JOIN_LOBBY",
+            id: event.target[0].value,
+            name: event.target[1].value
+        };
+
+
+        socket.send(JSON.stringify(toSend));
+
+    };
+
+    onLobbyCreateSubmit = (event) => {
+        event.preventDefault();
+
+        if (event.target[0].value === "") {
+            this.setState({lobbyCreateError: "Please enter a name"});
+        }
+
+        const toSend = {
+            type: "CREATE_LOBBY",
+            name: event.target[0].value
+        };
+
+        socket.send(JSON.stringify(toSend));
+    };
 
     componentDidMount() {
 
@@ -34,10 +74,14 @@ class Lobby extends Component {
                 case "LOBBY_CREATED":
                     console.log("lobby created");
                     console.log(parsed.id);
-                    this.setState({lobbyID: parsed.id});
+                    let path = this.props.location.pathname + "/live/" + parsed.id;
+                    this.setState({redirect: <Redirect to={{pathname: path, state: {creator: parsed.name,
+                                id: parsed.id}}}/>});
                     break;
                 case "LOBBY_JOINED":
                     console.log("lobby joined");
+                    path = this.props.location.pathname + "/live/" + parsed.id;
+                    this.setState({redirect: <Redirect to={{pathname: path}}/>});
                     break;
                 default:
                     console.log("message type not recognized");
@@ -48,7 +92,8 @@ class Lobby extends Component {
     }
 
     render() {
-        return ( <div className={"Lobby"}>
+        return ( <div className={"Live"}>
+                {this.state.redirect}
                 <form className={"lobby-join-form"} onSubmit={this.onJoinSubmit}>
                     <input className={"lobby-input"} type={"text"} placeholder={"Enter game code"} autoComplete={"off"}/>
                     <input className={"lobby-input"} type={"text"} placeholder={"Enter name"} autoComplete={"off"}/>
@@ -66,4 +111,4 @@ class Lobby extends Component {
     }
 }
 
-export default Lobby;
+export default Live;
