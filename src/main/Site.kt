@@ -139,7 +139,7 @@ fun main() {
                             session.name = parsed.get("name").asString
                             session.socket = this
 
-                            sessionMap[id] = Lobby(session, ArrayList())
+                            sessionMap[id] = Lobby(session, listOf(session).toMutableList())
 
                             val toSend: JsonObject = JsonObject()
                             toSend.addProperty("type", MessageType.LOBBY_CREATED.toString())
@@ -172,6 +172,7 @@ fun main() {
                                 toSend.addProperty("names", names.toString())
 
                             }
+                            println(toSend)
                             outgoing.send(Frame.Text(toSend.toString()))
                         }
 
