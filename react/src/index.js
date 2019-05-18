@@ -1,15 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './css/index.css';
 import App from './App';
-import "./css/styles.css";
+import "./css/index.scss";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Game from './Game.js';
 import Board from './Board.js';
 import DoNotOpen from './DoNotOpen.js';
-
-import Lobby from './Live.js';
-
+import Lobby from './Lobby.js';
 import Player from './Player.js';
 
 import * as serviceWorker from './serviceWorker';

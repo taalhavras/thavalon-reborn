@@ -49,7 +49,7 @@ enum class MessageType {
 }
 
 
-data class UserSession(val id: String, var name: String, var socket: DefaultWebSocketServerSession?)
+data class THavalonUserSession(val id: String, var name: String, var mySocket: DefaultWebSocketSession?)
 
 val sessionMap: ConcurrentMap<String, Lobby> = ConcurrentHashMap()
 val idLength = 4
@@ -60,7 +60,7 @@ fun getID() : String {
 
 // members will include the owner, but it's useful to have access to just them
 // to validate owner specific operations.
-data class Lobby(val owner: UserSession, val members: MutableList<UserSession>)
+class Lobby(val owner: THavalonUserSession, val members: MutableList<THavalonUserSession>)
 
 fun main() {
     //connects to mysql database
@@ -97,12 +97,12 @@ fun main() {
         install(WebSockets)
 
         install(Sessions) {
-            cookie<UserSession>("SESSION")
+            cookie<THavalonUserSession>("SESSION")
         }
 
         intercept(ApplicationCallPipeline.Features) {
-            if (call.sessions.get<UserSession>() == null) {
-                call.sessions.set(UserSession(generateNonce(), "", null))
+            if (call.sessions.get<THavalonUserSession>() == null) {
+                call.sessions.set(THavalonUserSession(generateNonce(), "", null))
             }
         }
 
@@ -123,7 +123,7 @@ fun main() {
             }
 
             webSocket("/socket") {
-                val session = call.sessions.get<UserSession>()!!
+                val session = call.sessions.get<THavalonUserSession>()!!
 
                 println("New client connected")
 
@@ -137,7 +137,7 @@ fun main() {
                             println("Create lobby received")
                             val id = getID()
                             session.name = parsed.get("name").asString
-                            session.socket = this
+//                            session.socket = this
 
                             sessionMap[id] = Lobby(session, listOf(session).toMutableList())
 
@@ -163,7 +163,7 @@ fun main() {
                                 toAll.addProperty("type", MessageType.NEW_PLAYER.toString())
                                 toAll.addProperty("name", name)
                                 // send new player name to all existing lobby members
-                                sessionMap[id]!!.members.forEach { it.socket!!.send(Frame.Text(toAll.toString()))}
+//                                sessionMap[id]!!.members.forEach { it.socket!!.send(Frame.Text(toAll.toString()))}
                                 // add new member's session
                                 sessionMap[id]!!.members.add(session)
                                 // now send new member an array of all names in lobby, including themselves.

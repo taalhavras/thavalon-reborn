@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './css/App.css';
-import './css/Options.css';
+import './css/App.scss';
+import './css/Options.scss';
 
 
 /**

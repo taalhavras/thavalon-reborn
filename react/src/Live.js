@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './css/App.css';
+import './css/Live.scss';
 import { socket } from "./index.js";
 import { Redirect } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ class Live extends Component {
 
     constructor(props) {
         super(props);
+        console.log(this);
         this.state = {
             joinValid: false,
             lobbyCreateError: "",
@@ -74,13 +75,15 @@ class Live extends Component {
                 case "LOBBY_CREATED":
                     console.log("lobby created");
                     console.log(parsed.id);
-                    let path = this.props.location.pathname + "/live/" + parsed.id;
+
+                    let path = "/live/" + parsed.id;
                     this.setState({redirect: <Redirect to={{pathname: path, state: {creator: parsed.name,
                                 id: parsed.id}}}/>});
                     break;
                 case "LOBBY_JOINED":
                     console.log("lobby joined");
-                    path = this.props.location.pathname + "/live/" + parsed.id;
+                    console.log(this);
+                    path = "/live/" + parsed.id;
                     this.setState({redirect: <Redirect to={{pathname: path}}/>});
                     break;
                 default:
@@ -94,15 +97,15 @@ class Live extends Component {
     render() {
         return ( <div className={"Live"}>
                 {this.state.redirect}
-                <form className={"lobby-join-form"} onSubmit={this.onJoinSubmit}>
+                <form className={"lobby-form"} onSubmit={this.onJoinSubmit}>
                     <input className={"lobby-input"} type={"text"} placeholder={"Enter game code"} autoComplete={"off"}/>
                     <input className={"lobby-input"} type={"text"} placeholder={"Enter name"} autoComplete={"off"}/>
-                    <input className={"lobby-submit"} type={"submit"} value={"Join Game"}/>
+                    <input id={"join-game-submit"} className={"live-button large-button"} type={"submit"} value={"Join Game"}/>
                 </form>
 
-                <form className={"lobby-create-form"} onSubmit={this.onLobbyCreateSubmit}>
+                <form className={"lobby-form"} onSubmit={this.onLobbyCreateSubmit}>
                     <input className={"lobby-input"} type={"text"} placeholder={"Enter name"} autoComplete={"off"}/>
-                    <input className={"lobby-submit"} type={"submit"} value={"Create New Game"}/>
+                    <input id={"new-game-submit"} className={"live-button large-button"} type={"submit"} value={"Create New Game"}/>
                 </form>
 
             </div>

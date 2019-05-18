@@ -1,0 +1,68 @@
+body {
+  color: white;
+}
+
+.player_info {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  max-width: 400px;
+  margin: auto;
+
+}
+
+.description {
+  margin: 10px auto;
+
+}
+.player_info ul {
+
+  list-style: none;
+
+}
+
+ul {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+
+.player_title {
+  font-family: Cardinal;
+  font-size: 30pt;
+}
+
+
+.donotopen {
+  margin: 50px auto;
+  text-align: center;
+  font-weight: bold;
+}
+
+.donotopen ul {
+  padding-top: 20px;
+  width: 80vw;
+  max-width: 500px;
+  text-align: center;
+  margin: auto;
+}
+
+.donotopen li {
+  margin-bottom: 20px;
+}
+
+
+#show_button {
+  margin: auto;
+}
+
+.description {
+  max-width: 600px;
+  overflow-wrap: normal;
+  display: inline-block;
+  width: 400px;
+  white-space:normal;
+}
+
+
+

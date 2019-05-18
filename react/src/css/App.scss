@@ -1,0 +1,35 @@
+.info_button {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background: none;
+}
+
+
+#exit_button {
+  outline: none;
+  border: none;
+  position: absolute;
+  box-shadow: none;
+  text-shadow: none;
+  top: 5px;
+  font-size: 24pt;
+  left: 95%;
+  color: grey;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.live {
+  margin: 10px;
+}

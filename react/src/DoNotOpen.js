@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./css/Player.css";
+import "./css/Player.scss";
 
 /**
  * Models a game page, with links to each player.

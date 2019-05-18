@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import "./css/Player.css";
-import "./css/RecentGames.css";
+import "./css/Player.scss";
 
 
 // number of games to fetch

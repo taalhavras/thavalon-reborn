@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./css/Player.css";
+import "./css/Player.scss";
 import Link from "react-router-dom/es/Link";
 
 

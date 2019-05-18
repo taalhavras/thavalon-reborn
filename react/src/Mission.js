@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './css/App.css';
-import './css/Player.css';
+import './css/App.scss';
+import './css/Player.scss';
 
 class Mission extends Component {
     constructor(props) {

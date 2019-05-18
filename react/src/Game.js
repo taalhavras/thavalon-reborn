@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./css/Game.css";
+import "./css/Game.scss";
 import { Link } from 'react-router-dom';
 import SubmitResults from "./SubmitResults";
 

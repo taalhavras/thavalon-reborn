@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './css/App.css';
+import './css/App.scss';
 import { socket } from "./index.js"
 
 /**
@@ -9,9 +9,11 @@ class Lobby extends Component {
 
     constructor(props) {
         super(props);
+        console.log("lobby");
+
         this.state = {
             creator: this.props.creator,
-            names: [this.props.creator.name]
+            names : [this.props.creator.name]
         }
     }
 
@@ -47,19 +49,36 @@ class Lobby extends Component {
         });
     }
 
+    removePlayer = (name) => {
+        const names = this.state.names.filter(ele => ele !== name);
+        this.setState({names: names});
+        socket.send(
+            JSON.stringify({
+                type: "REMOVE_PLAYER",
+                name: name
+            })
+        )
+    };
+
     render() {
-        return ( <div className={"Lobby"}>
-                <form className={"lobby-join-form"} onSubmit={this.onJoinSubmit}>
-                    <input className={"lobby-input"} type={"text"} placeholder={"Enter game code"} autoComplete={"off"}/>
-                    <input className={"lobby-input"} type={"text"} placeholder={"Enter name"} autoComplete={"off"}/>
-                    <input className={"lobby-submit"} type={"submit"} value={"Join Game"}/>
-                </form>
+        console.log("lobby");
+        return (
+            <div className={"Lobby"}>
+                <h1>Lobby {this.props.match.params.id}</h1>
+                {this.props.isCreator ?
+                    <div id={"lobby-owner-view"}>
+                        {this.state.names.map(ele => {
+                            return <div className={"live-player-tag"}> {ele}</div>
+                        })}
 
-                <form className={"lobby-create-form"} onSubmit={this.onLobbyCreateSubmit}>
-                    <input className={"lobby-input"} type={"text"} placeholder={"Enter name"} autoComplete={"off"}/>
-                    <input className={"lobby-submit"} type={"submit"} value={"Create New Game"}/>
-                </form>
 
+                </div>:
+                    <div id={"lobby-view"}>
+                        {this.state.names.map(ele => {
+                            return <div className={"live-player-tag"}> {ele}</div>
+                        })}
+
+                    </div>}
             </div>
 
         );
