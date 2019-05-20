@@ -4,6 +4,7 @@ import Standard from "./Standard"
 import Switch from 'react-switch'
 import Live from "./Live.js";
 import Rules from "./Rules";
+import {Redirect} from "react-router-dom";
 
 /**
  * The home screen for the game.
@@ -30,6 +31,7 @@ class App extends Component {
   render() {
       return (
       <div className="App">
+          <Redirect to={{ pathname: "/board", state: {numPlayers: 5}}} />
           <h1> THavalon </h1>
           <div className={"live"}>Live game?</div>
           <div className={"switch"}>

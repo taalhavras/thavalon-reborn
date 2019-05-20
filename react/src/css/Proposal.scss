@@ -1,0 +1,76 @@
+
+.Proposal {
+  display: flex;
+  flex-direction: column;
+}
+.player-list {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  margin: auto;
+}
+
+.proposal-player {
+  font-family: Quicksand-Bold;
+  vertical-align: center;
+  background-color: Transparent;
+  outline:none;
+  border-radius:30px;
+  width: 100px;
+  color: white;
+  height: 50px;
+  background-color: #4f4f4f;
+  display: flex;
+  font-weight: bold;
+  text-shadow: 2px 3px 3px rgba(0,0,0, .25);
+  box-shadow: 2px 3px 3px rgba(0,0,0, .25);
+  margin: 20px;
+}
+
+.player-wrapper {
+  margin: auto;
+}
+
+.proposal-player:hover {
+  cursor: pointer;
+  box-shadow:0 0 3px 2px #68c7ff;
+
+}
+
+.selected {
+  box-shadow:0 0 3px 2px #68c7ff;
+
+}
+
+.player-text {
+  margin: auto;
+}
+
+#proposal-confirm {
+  color: #4f4f4f;
+  border: 1px solid #4f4f4f;
+}
+
+#proposal-confirm:hover {
+
+}
+
+.proposal-list {
+  font-size: 20pt;
+  font-weight: bold;
+  margin: 30px;
+
+}
+
+.proposal-vote {
+  width: 100px;
+  margin: 30px 20px;
+  padding: 5px;
+  color: #4f4f4f;
+  font-size: 50pt;
+  text-shadow: none;
+  box-shadow: none;
+}
+.proposal-vote:hover {
+  border: none;
+  color: #3a3a3a;
+}

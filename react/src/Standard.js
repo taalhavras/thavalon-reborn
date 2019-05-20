@@ -298,7 +298,7 @@ class Standard extends Component {
             || this.state.players.length === 10)) {
 
             return (
-                <div className={"start-button-div"}>
+                <div className={"start-button-        <Route exact path='/:id/board' component={Board} />\ndiv"}>
                     <button onClick={this.postToGame} className={"large_button start_button"}>
                         Start Game
                     </button>

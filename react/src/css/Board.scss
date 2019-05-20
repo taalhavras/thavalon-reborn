@@ -1,0 +1,139 @@
+.missions {
+  display: flex;
+  margin: 25vh auto;
+
+}
+
+.name {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.name:hover {
+  color: lightgrey;
+  cursor: pointer;
+}
+
+
+.proposal-order {
+  position: absolute;
+  width: 500px;
+  left: 100vw;
+  margin-left: -550px;
+  top: 0;
+  text-align: right;
+
+}
+.Board {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+}
+
+
+.mission {
+  margin: 30px;
+  height: 100px;
+  width: 100px;
+
+  border: 3px solid white;
+  font-size: 36pt;
+  border-radius: 50%;
+
+  display: flex;
+
+}
+
+
+
+.mission:hover {
+  color: lightgrey;
+  border: 3px solid lightgrey;
+  cursor: pointer;
+}
+
+.num {
+  margin: auto;
+}
+
+.unsent {
+  background: transparent;
+
+}
+
+.passed {
+  background: #76b269;
+}
+
+.failed {
+  background: #e55d4e;
+}
+
+.PlayerList {
+  font-weight: bold;
+  display: flex;
+  border: 1px solid white;
+  margin-top: 10px;
+  border-radius: 10px;
+  text-align: center;
+
+}
+
+.player-list-ele {
+  font-weight: bold;
+  margin: 15px;
+}
+
+.selected-list {
+  color: hotpink;
+}
+.propose-button {
+  margin: 10px;
+}
+
+.propose-button:hover {
+}
+
+.mission-info {
+  margin-bottom: 10px;
+}
+
+.pop-up {
+  width: 400px;
+  height: 400px;
+  background: white;
+  color: #4f4f4f;
+  position: absolute;
+  top: 50px;
+  left: 50vw;
+  margin-left: -200px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px #000000;
+}
+
+.player-title {
+  font-size: 24pt;
+  font-weight: bold;
+  margin-top: 40px;
+}
+.close-button {
+  position: absolute;
+  top: 10px;
+  left: 360px;
+  z-index: 20;
+  font-size: 16pt;
+  border: none;
+  color: #4f4f4f;
+  box-shadow: none;
+  text-shadow: none;
+
+}
+
+.close-button:hover {
+  color: #3a3a3a;
+  border: none;
+}

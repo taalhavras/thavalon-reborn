@@ -1,36 +1,32 @@
 import React, { Component } from 'react';
-import './css/App.scss';
-import './css/Player.scss';
+import "./css/Board.scss"
+import {csv} from "./ProposalVoting";
 
 class Mission extends Component {
+
     constructor(props) {
         super(props);
-        this.state = {
-            pass: null,
-            color: "grey",
-            text: this.props.num
-        }
+
     }
 
-    toggle = () => {
-        console.log(this.state.pass);
-     if (this.state.pass === null) {
-         this.setState({pass: true, color: "green", text: "Pass"});
-     } else if (this.state.pass === true) {
-         this.setState({pass: false, color: "red", text: "Fail"});
-     } else {
-         this.setState({pass: null, color: "grey", text: this.props.num});
-
-     }
-    };
     render() {
         return (
-            <div className={"Mission"}>
-                <button style={{background: this.state.color}} onClick={this.toggle}>{this.state.text}</button>
-            </div>
+            <div className={"Mission pop-up"}>
+                <button className={"close-button"} onClick={this.props.close}><i className="fas fa-times"></i> </button>
+                <h2>Mission {this.props.num}</h2>
+                <div className={"mission-info"}>On mission: {csv(this.props.onMission)}</div>
+                <div className={"mission-info"}>Result: {this.props.result} </div>
+                <div className={"mission-info"}>Cards played: {csv(this.props.cardsPlayed)}</div>
 
+                <div className={"mission-info"}>Proposed by: {this.props.proposedBy} </div>
+                <div className={"mission-info"}>Voted For: {csv(this.props.votedFor)} </div>
+                <div className={"mission-info"}>Voted Against: {csv(this.props.votedAgainst)} </div>
+
+
+            </div>
         );
     }
 }
+
 
 export default Mission;
