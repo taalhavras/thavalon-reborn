@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./css/Voting.scss"
+import "./css/Board.scss"
 
 
 class Voting extends Component {
@@ -39,6 +40,7 @@ class Voting extends Component {
         return (
 
             <div className={"Voting"}>
+                <button className={"close-button"}><i className="fas fa-times"></i></button>
                 <div className={"card-wrapper"}>
                 <div className={passClasses} onClick={this.togglePass} >
                     <div className={"card-content"}> Pass </div>

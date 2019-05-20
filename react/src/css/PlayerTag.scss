@@ -4,14 +4,13 @@
   white-space: nowrap;
   color: white;
   background-color: Transparent;
-  flex-basis: auto; /* default value */
-  flex-grow: 1;
   height: 35px;
   text-align: center;
   vertical-align: center;
   border: 1px solid white;
   border-radius: 20px;
-  margin: 10px;
+  margin: 10px auto;
+  max-width: 100px;
 
 }
 
@@ -45,7 +44,6 @@
 
 
 }
-
 
 
 .player_name {

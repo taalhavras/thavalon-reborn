@@ -31,7 +31,6 @@ class App extends Component {
   render() {
       return (
       <div className="App">
-          <Redirect to={{ pathname: "/board", state: {numPlayers: 5}}} />
           <h1> THavalon </h1>
           <div className={"live"}>Live game?</div>
           <div className={"switch"}>

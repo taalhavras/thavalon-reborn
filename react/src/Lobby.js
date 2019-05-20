@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './css/App.scss';
 import { socket } from "./index.js"
+import PlayerTag from "./PlayerTag";
+import Options from "./Options";
 
 /**
  * Models the tag representing a player. Expects a String name prop, and a change handler.
@@ -9,11 +11,36 @@ class Lobby extends Component {
 
     constructor(props) {
         super(props);
+        console.log(this.props.location.state);
         console.log("lobby");
+        const roles =  [
+            {key: "Arthur", value: true},
+            {key: "Galahad", value: false},
+            {key: "Lancelot", value: true},
+            {key: "Percival", value: true},
+            {key: "Lone Percival", value: false},
+            {key: "Guinevere", value: true},
+            {key: "Merlin", value: true},
+            {key: "Titania", value: true},
+            {key: "Nimue", value: false},
+            {key: "Gawain", value: false},
+            {key: "Lovers", value: true},
+            {key: "Lone Lovers", value: false},
+            {key: "Mordred", value: true},
+            {key: "Morgana", value: true},
+            {key: "Maelegant", value: true},
+            {key: "Oberon", value: true},
+            {key: "Agravaine", value: true},
+            {key: "Colgrevance", value: true},
+            {key: "Duplicate Roles", value: false}
+
+
+        ];
 
         this.state = {
-            creator: this.props.creator,
-            names : [this.props.creator.name]
+            names: JSON.parse(this.props.location.state.names),
+            showOptions: false,
+            roles: roles
         }
     }
 
@@ -30,19 +57,8 @@ class Lobby extends Component {
                 case "REMOVE_PLAYER":
                     console.log("remove player");
                     break;
-                case "LOBBY_DELETED":
-                    console.log("delete lobby");
-                    break;
-                case "LOBBY_CREATED":
-                    console.log("lobby created");
-                    console.log(parsed.id);
-                    this.setState({lobbyID: parsed.id});
-                    break;
-                case "LOBBY_JOINED":
-                    console.log("lobby joined");
-                    break;
                 default:
-                    console.log("message type not recognized");
+                    break;
             }
 
             // socket.send(JSON.stringify("message recieved"));
@@ -60,23 +76,43 @@ class Lobby extends Component {
         )
     };
 
+    optionsSubmit = () => {
+
+    };
+
     render() {
         console.log("lobby");
         return (
             <div className={"Lobby"}>
+                <Options options={this.state.roles} display={this.state.showOptions} submit={this.optionsSubmit}/>
+
                 <h1>Lobby {this.props.match.params.id}</h1>
-                {this.props.isCreator ?
+                {this.props.location.state.isCreator ?
                     <div id={"lobby-owner-view"}>
+                        <h2>Players in Lobby</h2>
+                        <div className={"player-tag-container"}>
                         {this.state.names.map(ele => {
-                            return <div className={"live-player-tag"}> {ele}</div>
+                            return <PlayerTag name={ele} change={() => this.removePlayer(ele)}/>
                         })}
+                        </div>
+                        <button  className={"large-button lobby-button"} onClick={() => {this.setState({showOptions: !this.state.showOptions})}}>Game options</button>
+
+                        <button className={"large-button lobby-button"}>Destroy Lobby</button>
+
+                        <button className={"large-button lobby-button"}>Start Game</button>
 
 
-                </div>:
+
+                    </div>:
                     <div id={"lobby-view"}>
+                        <h2>Players in Lobby</h2>
+                        <div className={"player-tag-container"}>
+
                         {this.state.names.map(ele => {
                             return <div className={"live-player-tag"}> {ele}</div>
                         })}
+                        </div>
+                        <button className={"large-button lobby-button"}>Leave Lobby</button>
 
                     </div>}
             </div>
