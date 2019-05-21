@@ -48,7 +48,7 @@ enum class MessageType {
 }
 
 
-data class THavalonUserSession(val id: String, var name: String, var mySocket: DefaultWebSocketSession?)
+data class THavalonUserSession(val id: String, var name: String, var socket: DefaultWebSocketSession?)
 
 val sessionMap: ConcurrentMap<String, Lobby> = ConcurrentHashMap()
 val idLength = 4
@@ -217,6 +217,7 @@ fun main() {
                                 val toAll = JsonObject()
                                 toAll.addProperty("type", MessageType.NEW_PLAYER.toString())
                                 toAll.addProperty("name", name)
+
                                 // send new player name to all existing lobby members
 //                                sessionMap[id]!!.members.forEach { it.socket!!.send(Frame.Text(toAll.toString()))}
                                 // add new member's session

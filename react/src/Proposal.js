@@ -41,5 +41,4 @@ class Proposal extends Component {
         );
     }
 }
-
 export default Proposal;

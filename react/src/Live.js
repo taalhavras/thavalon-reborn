@@ -15,7 +15,8 @@ class Live extends Component {
             joinValid: false,
             lobbyCreateError: "",
             lobbyJoinError: "",
-            redirect: ""
+            redirect: "",
+            id: ""
         }
     }
 
@@ -31,12 +32,14 @@ class Live extends Component {
             return;
         }
 
+
         const toSend = {
             type: "JOIN_LOBBY",
             id: event.target[0].value,
             name: event.target[1].value
         };
 
+        this.setState({id: event.target[0].value})
 
         socket.send(JSON.stringify(toSend));
 
@@ -74,17 +77,17 @@ class Live extends Component {
                     break;
                 case "LOBBY_CREATED":
                     console.log("lobby created");
-                    console.log(parsed.id);
 
-                    let path = "/live/" + parsed.id;
+                    let path = "/live/" +parsed.id;
                     this.setState({redirect: <Redirect to={{pathname: path, state: {creator: parsed.name,
-                                id: parsed.id}}}/>});
+                                id: parsed.id, isCreator: true, names: [parsed.name]}}}/>});
                     break;
                 case "LOBBY_JOINED":
                     console.log("lobby joined");
-                    console.log(this);
-                    path = "/live/" + parsed.id;
-                    this.setState({redirect: <Redirect to={{pathname: path}}/>});
+                    console.log(parsed);
+                    path = "/live/" + this.state.id;
+                    console.log(parsed.names);
+                    this.setState({redirect: <Redirect to={{pathname: path, state: {names: parsed.names}}}/>});
                     break;
                 default:
                     console.log("message type not recognized");

@@ -33,3 +33,42 @@
 .live {
   margin: 10px;
 }
+
+ #lobby-view, #lobby-owner-view{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.lobby-button {
+  margin: 10px auto;
+}
+
+.lobby-small-button {
+  margin: 10px auto;
+  height: 50px;
+  width: 100px;
+  font-weight: normal;
+  font-size: 10pt;
+
+}
+
+.player-tag-container {
+  display: flex;
+  width: 80vw;
+  max-width: 600px;
+  flex-wrap: wrap-reverse;
+  margin: auto;
+}
+
+.live-player-tag {
+  font-weight:bold;
+  height: 30px;
+  border: 2px solid white;
+  color: white;
+  display: inline-block;
+  padding: 10px 10px 0 10px ;
+  vertical-align: center;
+  border-radius: 20px;
+  margin: 30px auto;
+}
