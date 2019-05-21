@@ -87,7 +87,7 @@ class Live extends Component {
                     console.log(parsed);
                     path = "/live/" + this.state.id;
                     console.log(parsed.names);
-                    this.setState({redirect: <Redirect to={{pathname: path, state: {names: parsed.names}}}/>});
+                    this.setState({redirect: <Redirect to={{pathname: path, state: {names: JSON.parse(parsed.names)}}}/>});
                     break;
                 default:
                     console.log("message type not recognized");

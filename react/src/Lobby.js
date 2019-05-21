@@ -38,7 +38,7 @@ class Lobby extends Component {
         ];
 
         this.state = {
-            names: JSON.parse(this.props.location.state.names),
+            names: this.props.location.state.names,
             showOptions: false,
             roles: roles
         }
@@ -53,6 +53,7 @@ class Lobby extends Component {
                 case "NEW_PLAYER":
                     console.log("new player");
                     console.log(parsed.name);
+                    this.setState({names: this.state.names.concat(parsed.name)});
                     break;
                 case "REMOVE_PLAYER":
                     console.log("remove player");
@@ -82,6 +83,7 @@ class Lobby extends Component {
 
     render() {
         console.log("lobby");
+        console.log(this.state);
         return (
             <div className={"Lobby"}>
                 <Options options={this.state.roles} display={this.state.showOptions} submit={this.optionsSubmit}/>

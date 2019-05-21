@@ -192,7 +192,7 @@ fun main() {
                             println("Create lobby received")
                             val id = getID()
                             session.name = parsed.get("name").asString
-//                            session.socket = this
+                            session.socket = this
 
                             sessionMap[id] = Lobby(session, listOf(session).toMutableList())
 
@@ -202,6 +202,7 @@ fun main() {
                             toSend.addProperty("id", id)
                             outgoing.send(Frame.Text(toSend.toString()))
                         }
+
                         MessageType.JOIN_LOBBY -> {
                             val id = parsed.get("id").asString
 
@@ -219,13 +220,13 @@ fun main() {
                                 toAll.addProperty("name", name)
 
                                 // send new player name to all existing lobby members
-//                                sessionMap[id]!!.members.forEach { it.socket!!.send(Frame.Text(toAll.toString()))}
+                                sessionMap[id]!!.members.forEach { it.socket!!.send(Frame.Text(toAll.toString()))}
                                 // add new member's session
                                 sessionMap[id]!!.members.add(session)
                                 // now send new member an array of all names in lobby, including themselves.
                                 val names = JsonArray()
                                 sessionMap[id]!!.members.forEach { names.add(it.name) }
-                                toSend.addProperty("names", names.toString())
+                                toSend.addProperty("names", gson.toJson(names))
 
                             }
                             println(toSend)
@@ -246,7 +247,7 @@ fun main() {
                             val (response, roleInfo, isCustom) = rollGame(names, custom, duplicates)
                             if (response.has("error")) {
                                 // something went wrong, alert lobby owner
-                                lobby.owner.mySocket!!.send(response.toString())
+                                lobby.owner.socket!!.send(response.toString())
                             } else {
                                 // game was successfully rolled, store info on rolled game
                                 // in server map and then send redirects to all players
@@ -254,7 +255,7 @@ fun main() {
 
                                 // now we can send redirects
                                 response.addProperty("type", MessageType.GAME_STARTED.toString())
-                                lobby.members.forEach { it.mySocket!!.send(response.toString()) }
+                                lobby.members.forEach { it.socket!!.send(response.toString()) }
                             }
                         }
 
@@ -274,9 +275,10 @@ fun main() {
             post("/names") {
                 val post = call.receiveText()
                 val parsed = JsonParser().parse(post).asJsonObject
+                println(parsed)
                 val names = parsed["names"].asJsonArray.map { it.asString }.toMutableList()
                 val custom: JsonElement? = parsed["custom"]
-                val duplicates = parsed["duplicates"].asBoolean
+                val duplicates = parsed.has("duplicates")
                 val rolled = rollGame(names, custom, duplicates)
                 val response = rolled.first
                 val players = rolled.second
