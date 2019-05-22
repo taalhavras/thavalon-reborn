@@ -91,6 +91,7 @@ class Live extends Component {
                     break;
                 default:
                     console.log("message type not recognized");
+                    console.log(parsed);
             }
 
             // socket.send(JSON.stringify("message recieved"));

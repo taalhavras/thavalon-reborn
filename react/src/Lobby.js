@@ -3,6 +3,7 @@ import './css/App.scss';
 import { socket } from "./index.js"
 import PlayerTag from "./PlayerTag";
 import Options from "./Options";
+import {Redirect} from "react-router-dom";
 
 /**
  * Models the tag representing a player. Expects a String name prop, and a change handler.
@@ -40,7 +41,8 @@ class Lobby extends Component {
         this.state = {
             names: this.props.location.state.names,
             showOptions: false,
-            roles: roles
+            roles: roles,
+            redirect: ""
         }
     }
 
@@ -55,8 +57,13 @@ class Lobby extends Component {
                     console.log(parsed.name);
                     this.setState({names: this.state.names.concat(parsed.name)});
                     break;
-                case "REMOVE_PLAYER":
+                case "PLAYER_REMOVED":
                     console.log("remove player");
+                    this.removePlayer(parsed.name);
+                    break;
+                case "SELF_REMOVED":
+                    // this player in question has been removed
+                    this.setState({redirect: <Redirect to="/"/>});
                     break;
                 default:
                     break;
@@ -66,15 +73,20 @@ class Lobby extends Component {
         });
     }
 
+    onRemoveHandler = (name) => {
+        this.removePlayer(name);
+         socket.send(
+            JSON.stringify({
+                type: "REMOVE_PLAYER",
+                name: name,
+                id: this.props.match.params.id
+            })
+        )
+    };
+
     removePlayer = (name) => {
         const names = this.state.names.filter(ele => ele !== name);
         this.setState({names: names});
-        socket.send(
-            JSON.stringify({
-                type: "REMOVE_PLAYER",
-                name: name
-            })
-        )
     };
 
     optionsSubmit = () => {
@@ -86,6 +98,7 @@ class Lobby extends Component {
         console.log(this.state);
         return (
             <div className={"Lobby"}>
+                {this.state.redirect}
                 <Options options={this.state.roles} display={this.state.showOptions} submit={this.optionsSubmit}/>
 
                 <h1>Lobby {this.props.match.params.id}</h1>
@@ -94,7 +107,7 @@ class Lobby extends Component {
                         <h2>Players in Lobby</h2>
                         <div className={"player-tag-container"}>
                         {this.state.names.map(ele => {
-                            return <PlayerTag name={ele} change={() => this.removePlayer(ele)}/>
+                            return <PlayerTag name={ele} change={() => this.onRemoveHandler(ele)}/>
                         })}
                         </div>
                         <button  className={"large-button lobby-button"} onClick={() => {this.setState({showOptions: !this.state.showOptions})}}>Game options</button>

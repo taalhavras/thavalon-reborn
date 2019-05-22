@@ -40,11 +40,9 @@ import kotlin.collections.LinkedHashMap
 
 enum class MessageType {
     // client to server
-    CREATE_LOBBY,
-    JOIN_LOBBY, REMOVE_PLAYER, LEAVE_LOBBY, DELETE_LOBBY, START_GAME,
+    CREATE_LOBBY, JOIN_LOBBY, REMOVE_PLAYER, LEAVE_LOBBY, DELETE_LOBBY, START_GAME,
     // server to client
-    NEW_PLAYER,
-    PLAYER_REMOVED, LOBBY_DELETED, LOBBY_CREATED, LOBBY_JOINED, GAME_STARTED
+    NEW_PLAYER, PLAYER_REMOVED, SELF_REMOVED, LOBBY_DELETED, LOBBY_CREATED, LOBBY_JOINED, GAME_STARTED
 }
 
 
@@ -209,6 +207,7 @@ fun main() {
                             val toSend: JsonObject = JsonObject()
                             val name = parsed.get("name").asString
                             session.name = name
+                            session.socket = this
                             toSend.addProperty("type", MessageType.LOBBY_JOINED.toString())
                             if (id !in sessionMap) {
                                 toSend.addProperty("error", "Invalid Lobby ID")
@@ -262,7 +261,38 @@ fun main() {
 
                         MessageType.LEAVE_LOBBY -> println("Leave lobby received")
                         MessageType.DELETE_LOBBY -> println("Delete lobby received")
-                        MessageType.REMOVE_PLAYER -> println("Remove player recieved")
+                        MessageType.REMOVE_PLAYER -> {
+                            println("Remove player received")
+                            val id = parsed.get("id").asString
+                            val nameToRemove = parsed.get("name").asString
+                            val lobby = sessionMap[id]!!
+
+                            // the lobby creator has already gotten rid of this member,
+                            // but we need to tell everyone else. Furthermore, the evicted person needs
+                            // to get a different message reflecting the fact that they've been kicked.
+                            // they should be redirected to the homescreen
+
+                            // players who need to be alerted about the removal
+                            val toAlertAboutRemoval = lobby.members
+                                .filter { it != lobby.owner && it.name != nameToRemove}
+                            // this player has been removed
+                            val removedPlayer = lobby.members.find { it.name == nameToRemove }!!
+
+                            // delete the member from the lobby's members
+                            lobby.members.remove(removedPlayer)
+
+                            // TODO send all messages
+                            // TODO Maybe abstract some of the message logic so it can be reused for when players leave?
+                            // actually, can players even leave on their own?
+                            val toAll = JsonObject()
+                            toAll.addProperty("type", MessageType.PLAYER_REMOVED.toString())
+                            toAll.addProperty("name", nameToRemove)
+                            toAlertAboutRemoval.forEach { it.socket!!.send(toAll.toString()) }
+
+                            val toRemoved = JsonObject()
+                            toRemoved.addProperty("type", MessageType.SELF_REMOVED.toString())
+                            removedPlayer.socket!!.send(toRemoved.toString())
+                        }
                         else -> println("Invalid message type")
                     }
                 }
