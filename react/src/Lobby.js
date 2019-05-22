@@ -63,6 +63,7 @@ class Lobby extends Component {
                     break;
                 case "SELF_REMOVED":
                     // this player in question has been removed
+                    console.log("self removed");
                     this.setState({redirect: <Redirect to="/"/>});
                     break;
                 default:
@@ -74,11 +75,26 @@ class Lobby extends Component {
     }
 
     onRemoveHandler = (name) => {
-        this.removePlayer(name);
-         socket.send(
+        if(name === this.props.location.state.creator) {
+            // lobby owner tried to remove themselves, delete lobby
+            this.deleteLobby()
+        } else {
+            this.removePlayer(name);
+            socket.send(
+                JSON.stringify({
+                    type: "REMOVE_PLAYER",
+                    name: name,
+                    id: this.props.match.params.id
+                })
+            )
+        }
+
+    };
+
+    deleteLobby = () => {
+        socket.send(
             JSON.stringify({
-                type: "REMOVE_PLAYER",
-                name: name,
+                type: "DELETE_LOBBY",
                 id: this.props.match.params.id
             })
         )
@@ -96,6 +112,7 @@ class Lobby extends Component {
     render() {
         console.log("lobby");
         console.log(this.state);
+        console.log(this.props);
         return (
             <div className={"Lobby"}>
                 {this.state.redirect}
@@ -112,7 +129,7 @@ class Lobby extends Component {
                         </div>
                         <button  className={"large-button lobby-button"} onClick={() => {this.setState({showOptions: !this.state.showOptions})}}>Game options</button>
 
-                        <button className={"large-button lobby-button"}>Destroy Lobby</button>
+                        <button className={"large-button lobby-button"} onClick={this.deleteLobby}>Destroy Lobby</button>
 
                         <button className={"large-button lobby-button"}>Start Game</button>
 

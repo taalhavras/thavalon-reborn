@@ -201,6 +201,20 @@ fun main() {
                             outgoing.send(Frame.Text(toSend.toString()))
                         }
 
+                        MessageType.DELETE_LOBBY -> {
+                            // lobby has been shut down by the host
+                            val id = parsed.get("id").asString
+
+                            // now send message to everyone in the lobby
+                            val toAll = JsonObject()
+                            toAll.addProperty("type", MessageType.SELF_REMOVED.toString())
+                            val lobby = sessionMap[id]!!
+                            lobby.members.forEach { it.socket!!.send(toAll.toString()) }
+
+                            // finally, remove the lobby from the map
+                            sessionMap.remove(id)
+                        }
+
                         MessageType.JOIN_LOBBY -> {
                             val id = parsed.get("id").asString
 
