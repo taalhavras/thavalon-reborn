@@ -274,7 +274,6 @@ fun main() {
 
 
                         MessageType.LEAVE_LOBBY -> println("Leave lobby received")
-                        MessageType.DELETE_LOBBY -> println("Delete lobby received")
                         MessageType.REMOVE_PLAYER -> {
                             println("Remove player received")
                             val id = parsed.get("id").asString

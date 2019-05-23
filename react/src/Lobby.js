@@ -42,7 +42,8 @@ class Lobby extends Component {
             names: this.props.location.state.names,
             showOptions: false,
             roles: roles,
-            redirect: ""
+            redirect: "",
+            error: ""
         }
     }
 
@@ -109,6 +110,18 @@ class Lobby extends Component {
 
     };
 
+     /**
+     * Redirects to a new game (not custom)
+     */
+    postToGame = () => {
+        let startGameData = {
+            type: "START_GAME",
+            id: this.props.match.params.id,
+            names: this.state.names
+        };
+        socket.send(JSON.stringify(startGameData));
+    };
+
     render() {
         console.log("lobby");
         console.log(this.state);
@@ -131,7 +144,7 @@ class Lobby extends Component {
 
                         <button className={"large-button lobby-button"} onClick={this.deleteLobby}>Destroy Lobby</button>
 
-                        <button className={"large-button lobby-button"}>Start Game</button>
+                        <button className={"large-button lobby-button"} onClick={this.postToGame}>Start Game</button>
 
 
 
@@ -147,6 +160,7 @@ class Lobby extends Component {
                         <button className={"large-button lobby-button"}>Leave Lobby</button>
 
                     </div>}
+                 <div className={"error"}>{this.state.error}</div>
             </div>
 
         );
