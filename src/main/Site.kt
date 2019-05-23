@@ -42,7 +42,8 @@ enum class MessageType {
     // client to server
     CREATE_LOBBY, JOIN_LOBBY, REMOVE_PLAYER, LEAVE_LOBBY, DELETE_LOBBY, START_GAME,
     // server to client
-    NEW_PLAYER, PLAYER_REMOVED, SELF_REMOVED, LOBBY_DELETED, LOBBY_CREATED, LOBBY_JOINED, GAME_STARTED
+    NEW_PLAYER, PLAYER_REMOVED, SELF_REMOVED, LOBBY_DELETED, LOBBY_CREATED, LOBBY_JOINED, GAME_STARTED,
+    ERROR
 }
 
 
@@ -60,11 +61,12 @@ fun getID(): String {
  * a responseJson containing the id of the new game, a JsonArray with all the game info, and a
  * boolean flag indicating whether or not the game was created using custom rules.
  */
-fun rollGame(names: MutableList<String>, customInfo: JsonElement?, duplicatesAllowed: Boolean)
+fun rollGame(names: MutableList<String>, customInfo: JsonElement?, duplicates: JsonElement?)
         : Triple<JsonObject, JsonArray, Boolean> {
     val response = JsonObject()
     val gson = Gson()
     var isCustom = false
+    val duplicatesAllowed = if(duplicates != null) duplicates.asBoolean else false
     val players = JsonArray()
     try {
         val id = getID()
@@ -252,7 +254,7 @@ fun main() {
                             val id = parsed.get("id").asString
                             // get custom info
                             val custom: JsonElement? = parsed.get("custom")
-                            val duplicates = parsed.get("duplicates").asBoolean
+                            val duplicates = parsed.get("duplicates")
                             val lobby = sessionMap[id]!!
                             // get names from lobby
                             val names: MutableList<String> = lobby.members.map { it.name }.toMutableList()
@@ -260,6 +262,7 @@ fun main() {
                             val (response, roleInfo, isCustom) = rollGame(names, custom, duplicates)
                             if (response.has("error")) {
                                 // something went wrong, alert lobby owner
+                                response.addProperty("type", MessageType.ERROR.toString())
                                 lobby.owner.socket!!.send(response.toString())
                             } else {
                                 // game was successfully rolled, store info on rolled game
@@ -321,7 +324,7 @@ fun main() {
                 println(parsed)
                 val names = parsed["names"].asJsonArray.map { it.asString }.toMutableList()
                 val custom: JsonElement? = parsed["custom"]
-                val duplicates = parsed.has("duplicates")
+                val duplicates = parsed["duplicates"]
                 val rolled = rollGame(names, custom, duplicates)
                 val response = rolled.first
                 val players = rolled.second

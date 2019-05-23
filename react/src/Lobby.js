@@ -67,6 +67,10 @@ class Lobby extends Component {
                     console.log("self removed");
                     this.setState({redirect: <Redirect to="/"/>});
                     break;
+                case "ERROR":
+                    console.log("error");
+                    this.setState({error: parsed.error});
+                    break;
                 default:
                     break;
             }
