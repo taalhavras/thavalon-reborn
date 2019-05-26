@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./css/Game.scss";
+
 import { Link } from 'react-router-dom';
 import SubmitResults from "./SubmitResults";
 
@@ -56,9 +57,9 @@ class Game extends Component {
         return ( <div className="names">
                 <h3>Game ID: {this.props.match.params.id} </h3>
                 <CopyToClipboard id={"copy"} text={window.location.href}>
-                    <button className={"small_button my_button"} id={"copy_button"}>Copy</button>
+                    <button className={"small-button"} id={"copy_button"}>Copy</button>
                 </CopyToClipboard>
-            <h3> Starting Player:<span className={"name"}> {this.state.start}</span> </h3>
+                <h3> Starting Player: {this.state.start} </h3>
 
                 {this.state.game.map(curr =>
                 {
@@ -66,14 +67,14 @@ class Game extends Component {
                     count++;
                     return (<Link key={count} to={{pathname: path, state: {name: curr.name, role: curr.role,
                         role_info: curr.information, description: curr.description}}}>
-                        <button className={"my_button, large_button"}><span className={"name"}>{curr.name}</span></button>
+                        <button className={"large-button"}><span>{curr.name}</span></button>
                     </Link>);
                 })}
                 <Link to={{pathname: this.props.location.pathname + "/game/donotopen", state: {game: this.state.game}}}>
-                        <button className={"my_button, large_button"}>Do Not Open</button>
+                    <button className={"large-button"}>Do Not Open</button>
                 </Link>
                 <Link to={{pathname: "/submitresults", state: {id: this.props.match.params.id}}}>
-                    <button className={"my_button, large_button"}>Submit Game Results</button>
+                    <button className={"large-button"}>Submit Game Results</button>
                 </Link>
             </div>
 

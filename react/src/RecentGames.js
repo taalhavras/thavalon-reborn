@@ -49,8 +49,8 @@ class RecentGames extends Component {
                         count ++;
                         const url = "/" + ele;
                         return <li><Link key={count} to={{pathname: url}}>
-                            <button className={"my_button, large_button"}>
-                                <span className={"name"}>{ele}</span>
+                            <button className={"large-button"}>
+                                {ele}
                             </button>
                         </Link></li>
                     })}

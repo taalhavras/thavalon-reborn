@@ -13,3 +13,15 @@
   flex-direction: column;
 
 }
+
+.invalid-start {
+  color: lightgrey;
+  border: 1px solid lightgrey;
+
+}
+
+.invalid-start:hover {
+  cursor: default;
+  color: lightgrey;
+  border: 1px solid lightgrey;
+}
