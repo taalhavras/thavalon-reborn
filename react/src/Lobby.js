@@ -12,6 +12,7 @@ class Lobby extends Component {
 
     constructor(props) {
         super(props);
+        console.log(props);
         console.log(this.props.location.state);
         console.log("lobby");
         const roles =  [
@@ -66,6 +67,11 @@ class Lobby extends Component {
                     // this player in question has been removed
                     console.log("self removed");
                     this.setState({redirect: <Redirect to="/"/>});
+                    break;
+                case "GAME_STARTED":
+                    // game is rolled, redirect to board
+                    console.log("game started");
+                    this.setState({redirect: <Redirect to={"/" + parsed.id + "/board"}/>});
                     break;
                 case "ERROR":
                     console.log("error");

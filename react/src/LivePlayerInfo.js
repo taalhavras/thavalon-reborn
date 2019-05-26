@@ -6,7 +6,12 @@ class LivePlayerInfo extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {info: ""};
+        this.state =  {
+             name: this.props.name,
+             role: this.props.role,
+             role_info: this.props.role_info,
+             description: this.props.description
+        };
     }
 
     parseInfo = () => {
@@ -26,8 +31,10 @@ class LivePlayerInfo extends Component {
         return ( <div className={"LivePlayerInfo pop-up"}>
                 <button className={"close-button"} onClick={this.props.close}>
                     <i className="fas fa-times"></i></button>
-                <h2 className={"player-title"}>You are Lancelot</h2>
+                <h2 className={"player-title"}>You are {this.state.role}</h2>
                 <div className={"description"}>
+                    {this.state.description}
+                    {this.parseInfo(this.state.role_info)}
                 </div>
                 <ul>
                 </ul>
