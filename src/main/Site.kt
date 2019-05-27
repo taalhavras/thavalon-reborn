@@ -27,6 +27,7 @@ import io.ktor.websocket.webSocket
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.channels.mapNotNull
 import kotlinx.coroutines.sync.Mutex
+import main.kotlin.livegame.LiveGame
 import main.kotlin.thavalon.*
 import main.kotlin.roles.*
 import java.io.File
@@ -39,20 +40,48 @@ import kotlin.collections.LinkedHashMap
 
 
 enum class MessageType {
-    // client to server
+    ERROR,
+    // client to server lobby
     CREATE_LOBBY, JOIN_LOBBY, REMOVE_PLAYER, LEAVE_LOBBY, DELETE_LOBBY, START_GAME,
-    // server to client
-    NEW_PLAYER, PLAYER_REMOVED, SELF_REMOVED, LOBBY_DELETED, LOBBY_CREATED, LOBBY_JOINED, GAME_STARTED
+    // server to client lobby
+    NEW_PLAYER, PLAYER_REMOVED, SELF_REMOVED, LOBBY_DELETED, LOBBY_CREATED, LOBBY_JOINED, GAME_STARTED,
+    // server to client livegame
+    MISSION_ONE_PROPOSAL, MISSION_ONE_VOTING, MISSION_PROPOSAL, MISSION_VOTING, PLAY_CARD, USE_HIJACK,
+    USE_AGRAVAINE_DECLARATION,
+    // client to server livegame
+    MISSION_ONE_PROPOSAL_RESPONSE, MISSION_ONE_VOTING_RESPONSE, MISSION_PROPOSAL_RESPONSE, MISSION_VOTING_RESPONSE,
+    CARD_PLAYED, HIJACK_USED, AGRAVAINE_DECLARED
 }
 
 
 data class THavalonUserSession(val id: String, var name: String, var socket: DefaultWebSocketSession?)
 
-val sessionMap: ConcurrentMap<String, Lobby> = ConcurrentHashMap()
+// maps lobby ids to current lobbies
+val lobbyMap: ConcurrentMap<String, Lobby> = ConcurrentHashMap()
 val idLength = 4
+val gson = Gson()
 
 fun getID(): String {
     return UUID.randomUUID().toString().substring(0, idLength)
+}
+
+fun jsonifyGame(g: Game): JsonArray {
+    val players = JsonArray()
+    // construct json for player info
+    // Iterate through roles in game in a random order. This is because the starting player is defined to
+    // be the first player in the players array, so we want a random one.
+    for (r: Role in g.rolesInGame.shuffled()) {
+        // construct json for individual player
+        val player = JsonObject()
+        player.addProperty("name", r.player.name)
+        player.addProperty("role", r.role.role.toString())
+        player.addProperty("description", r.getDescription())
+        player.addProperty("information", gson.toJson(r.prepareInformation()))
+        player.addProperty("allegiance", r.role.alignment.toString())
+        // add player to players json array
+        players.add(player)
+    }
+    return players
 }
 
 /**
@@ -60,12 +89,14 @@ fun getID(): String {
  * a responseJson containing the id of the new game, a JsonArray with all the game info, and a
  * boolean flag indicating whether or not the game was created using custom rules.
  */
-fun rollGame(names: MutableList<String>, customInfo: JsonElement?, duplicatesAllowed: Boolean)
-        : Triple<JsonObject, JsonArray, Boolean> {
+fun rollGame(names: MutableList<String>, customInfo: JsonElement?, duplicates: JsonElement?)
+        : Triple<JsonObject, Game?, Boolean> {
     val response = JsonObject()
     val gson = Gson()
     var isCustom = false
+    val duplicatesAllowed = duplicates?.asBoolean ?: false
     val players = JsonArray()
+    var g : Game? = null
     try {
         val id = getID()
         val rules: Ruleset = if (customInfo != null) {
@@ -82,32 +113,19 @@ fun rollGame(names: MutableList<String>, customInfo: JsonElement?, duplicatesAll
                 7 -> SevensRuleset()
                 8 -> EightsRuleset()
                 10 -> TensRuleset()
-                else -> throw IllegalArgumentException("BAD NAMES: $names")
+                else -> throw IllegalArgumentException(
+                    "Invalid number of players! Only games of 5, 7, 8, " +
+                            "and 10 players are currently supported"
+                )
             }
         }
-        val g: Game = rules.makeGame(names)
-
-        // construct json for player info
-        // Iterate through roles in game in a random order. This is because the starting player is defined to
-        // be the first player in the players array, so we want a random one.
-        for (r: Role in g.rolesInGame.shuffled()) {
-            // construct json for individual player
-            val player = JsonObject()
-            player.addProperty("name", r.player.name)
-            player.addProperty("role", r.role.role.toString())
-            player.addProperty("description", r.getDescription())
-            player.addProperty("information", gson.toJson(r.prepareInformation()))
-            player.addProperty("allegiance", r.role.alignment.toString())
-            // add player to players json array
-            players.add(player)
-        }
-        println(g)
+        g = rules.makeGame(names)
         response.addProperty("id", id)
     } catch (e: IllegalArgumentException) {
         // if we get an error creating the game, send message back to frontend
         response.addProperty("error", e.message)
     }
-    return Triple(response, players, isCustom)
+    return Triple(response, g, isCustom)
 }
 
 // members will include the owner, but it's useful to have access to just them
@@ -132,7 +150,7 @@ fun main() {
     val staticGames: MutableMap<String, Pair<JsonArray, Boolean>> = Collections.synchronizedMap(LinkedHashMap())
 
     // stores games being played via the app instead of in person
-    val remoteGames: MutableMap<String, JsonArray> = java.util.concurrent.ConcurrentHashMap()
+    val remoteGames: MutableMap<String, LiveGame> = java.util.concurrent.ConcurrentHashMap()
 
     val statsMutex = Mutex()
 
@@ -192,7 +210,7 @@ fun main() {
                             session.name = parsed.get("name").asString
                             session.socket = this
 
-                            sessionMap[id] = Lobby(session, listOf(session).toMutableList())
+                            lobbyMap[id] = Lobby(session, listOf(session).toMutableList())
 
                             val toSend: JsonObject = JsonObject()
                             toSend.addProperty("type", MessageType.LOBBY_CREATED.toString())
@@ -208,11 +226,11 @@ fun main() {
                             // now send message to everyone in the lobby
                             val toAll = JsonObject()
                             toAll.addProperty("type", MessageType.SELF_REMOVED.toString())
-                            val lobby = sessionMap[id]!!
+                            val lobby = lobbyMap[id]!!
                             lobby.members.forEach { it.socket!!.send(toAll.toString()) }
 
                             // finally, remove the lobby from the map
-                            sessionMap.remove(id)
+                            lobbyMap.remove(id)
                         }
 
                         MessageType.JOIN_LOBBY -> {
@@ -223,9 +241,9 @@ fun main() {
                             session.name = name
                             session.socket = this
                             toSend.addProperty("type", MessageType.LOBBY_JOINED.toString())
-                            if (id !in sessionMap) {
+                            if (id !in lobbyMap) {
                                 toSend.addProperty("error", "Invalid Lobby ID")
-                            } else if (sessionMap[id]!!.members.any { it.name == name }) {
+                            } else if (lobbyMap[id]!!.members.any { it.name == name }) {
                                 toSend.addProperty("error", "Player with that name in lobby")
                             } else {
                                 val toAll = JsonObject()
@@ -233,12 +251,12 @@ fun main() {
                                 toAll.addProperty("name", name)
 
                                 // send new player name to all existing lobby members
-                                sessionMap[id]!!.members.forEach { it.socket!!.send(Frame.Text(toAll.toString()))}
+                                lobbyMap[id]!!.members.forEach { it.socket!!.send(Frame.Text(toAll.toString())) }
                                 // add new member's session
-                                sessionMap[id]!!.members.add(session)
+                                lobbyMap[id]!!.members.add(session)
                                 // now send new member an array of all names in lobby, including themselves.
                                 val names = JsonArray()
-                                sessionMap[id]!!.members.forEach { names.add(it.name) }
+                                lobbyMap[id]!!.members.forEach { names.add(it.name) }
                                 toSend.addProperty("names", gson.toJson(names))
 
                             }
@@ -252,19 +270,26 @@ fun main() {
                             val id = parsed.get("id").asString
                             // get custom info
                             val custom: JsonElement? = parsed.get("custom")
-                            val duplicates = parsed.get("duplicates").asBoolean
-                            val lobby = sessionMap[id]!!
+                            val duplicates = parsed.get("duplicates")
+                            val lobby = lobbyMap[id]!!
                             // get names from lobby
                             val names: MutableList<String> = lobby.members.map { it.name }.toMutableList()
                             // attempt to roll game
-                            val (response, roleInfo, isCustom) = rollGame(names, custom, duplicates)
-                            if (response.has("error")) {
+                            val (response, game, isCustom) = rollGame(names, custom, duplicates)
+                            if (response.has("error") || game == null) {
                                 // something went wrong, alert lobby owner
+                                response.addProperty("type", MessageType.ERROR.toString())
                                 lobby.owner.socket!!.send(response.toString())
                             } else {
                                 // game was successfully rolled, store info on rolled game
                                 // in server map and then send redirects to all players
-                                remoteGames.put(id, roleInfo)
+
+                                // note: Key by the id generated when the game is rolled, NOT the lobby id
+                                // TODO consider changing this later but it's fine for now. There isn't a real
+                                // benefit to the ids being the same except for this part maybe being clearer?
+                                // but is it even?
+                                val lg = LiveGame(game, jsonifyGame(game), lobby.members)
+                                remoteGames.put(response.get("id").asString, lg)
 
                                 // now we can send redirects
                                 response.addProperty("type", MessageType.GAME_STARTED.toString())
@@ -274,12 +299,11 @@ fun main() {
 
 
                         MessageType.LEAVE_LOBBY -> println("Leave lobby received")
-                        MessageType.DELETE_LOBBY -> println("Delete lobby received")
                         MessageType.REMOVE_PLAYER -> {
                             println("Remove player received")
                             val id = parsed.get("id").asString
                             val nameToRemove = parsed.get("name").asString
-                            val lobby = sessionMap[id]!!
+                            val lobby = lobbyMap[id]!!
 
                             // the lobby creator has already gotten rid of this member,
                             // but we need to tell everyone else. Furthermore, the evicted person needs
@@ -288,7 +312,7 @@ fun main() {
 
                             // players who need to be alerted about the removal
                             val toAlertAboutRemoval = lobby.members
-                                .filter { it != lobby.owner && it.name != nameToRemove}
+                                .filter { it != lobby.owner && it.name != nameToRemove }
                             // this player has been removed
                             val removedPlayer = lobby.members.find { it.name == nameToRemove }!!
 
@@ -322,12 +346,10 @@ fun main() {
                 println(parsed)
                 val names = parsed["names"].asJsonArray.map { it.asString }.toMutableList()
                 val custom: JsonElement? = parsed["custom"]
-                val duplicates = parsed.has("duplicates")
-                val rolled = rollGame(names, custom, duplicates)
-                val response = rolled.first
-                val players = rolled.second
-                val isCustom = rolled.third
-                if (!response.has("error")) {
+                val duplicates = parsed["duplicates"]
+                val (response : JsonObject, game : Game?, isCustom : Boolean) = rollGame(names, custom, duplicates)
+                if (!response.has("error") && game != null) {
+                    val players : JsonArray = jsonifyGame(game)
                     staticGames.put(response["id"].asString, Pair(players, isCustom))
                 }
 
@@ -336,18 +358,14 @@ fun main() {
 
             get("/game/info/{id}") {
                 val id: String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
-                val isRemote = "remote" in call.parameters
-                val info = if (!isRemote) {
-                    staticGames.get(id)?.first
-                } else {
-                    remoteGames.get(id)
+
+                val response = when (id) {
+                    in staticGames -> staticGames.get(id)?.first
+                    in remoteGames -> remoteGames.get(id)
+                    else -> JsonArray()
                 }
-                if (info == null) {
-                    // send empty array
-                    call.respond(JsonArray())
-                } else {
-                    call.respond(info)
-                }
+
+                call.respond(response!!)
             }
 
             get("/{id}") {

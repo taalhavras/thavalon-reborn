@@ -196,10 +196,7 @@ class Standard extends Component {
 
     };
 
-    /**
-     * Redirects to a new game on submit of the Create Game form.
-     */
-    postToGame = () => {
+    sendGamePost = (obj) => {
         fetch('/names', {
             method: 'POST',
             headers: {
@@ -207,9 +204,7 @@ class Standard extends Component {
                 'Content-Type': 'application/json',
 
             },
-            body: JSON.stringify({
-                names: this.names()
-            })
+            body: JSON.stringify(obj)
         }).then(response => {
             return response.json();
         }).then(data => {
@@ -225,6 +220,14 @@ class Standard extends Component {
         }).catch(error => {
             console.log(error);
         });
+    };
+
+    /**
+     * Redirects to a new game on submit of the Create Game form.
+     */
+    postToGame = () => {
+        let obj = {names: this.names()};
+        this.sendGamePost(obj);
     };
 
 
@@ -258,34 +261,13 @@ class Standard extends Component {
             customBody["Iseult"] = true;
         }
 
+        let obj = {
+            names: this.names(),
+            custom: customBody,
+            duplicates: duplicates
+        };
 
-        fetch('/names', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-
-            },
-            body: JSON.stringify({
-                names: this.names(),
-                custom: customBody,
-                duplicates: duplicates
-            })
-        }).then(response => {
-            return response.json();
-
-        }).then(data => {
-            if(data.hasOwnProperty("error")) {
-                // error, report to user
-                this.setState({error: data["error"]});
-            } else {
-                // no error
-                const redirect = <Redirect to={{ pathname: "/" + data["id"]}} />;
-                this.setState({redirect: redirect});
-            }
-        }).catch(error => {
-            console.log(error);
-        });
+        this.sendGamePost(obj);
     };
 
 

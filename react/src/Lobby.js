@@ -12,6 +12,7 @@ class Lobby extends Component {
 
     constructor(props) {
         super(props);
+        console.log(props);
         console.log(this.props.location.state);
         console.log("lobby");
         const roles =  [
@@ -42,7 +43,8 @@ class Lobby extends Component {
             names: this.props.location.state.names,
             showOptions: false,
             roles: roles,
-            redirect: ""
+            redirect: "",
+            error: ""
         }
     }
 
@@ -65,6 +67,15 @@ class Lobby extends Component {
                     // this player in question has been removed
                     console.log("self removed");
                     this.setState({redirect: <Redirect to="/"/>});
+                    break;
+                case "GAME_STARTED":
+                    // game is rolled, redirect to board
+                    console.log("game started");
+                    this.setState({redirect: <Redirect to={"/" + parsed.id + "/board"}/>});
+                    break;
+                case "ERROR":
+                    console.log("error");
+                    this.setState({error: parsed.error});
                     break;
                 default:
                     break;
@@ -109,6 +120,18 @@ class Lobby extends Component {
 
     };
 
+     /**
+     * Redirects to a new game (not custom)
+     */
+    postToGame = () => {
+        let startGameData = {
+            type: "START_GAME",
+            id: this.props.match.params.id,
+            names: this.state.names
+        };
+        socket.send(JSON.stringify(startGameData));
+    };
+
     render() {
         console.log("lobby");
         console.log(this.state);
@@ -131,7 +154,7 @@ class Lobby extends Component {
 
                         <button className={"large-button lobby-button"} onClick={this.deleteLobby}>Destroy Lobby</button>
 
-                        <button className={"large-button lobby-button"}>Start Game</button>
+                        <button className={"large-button lobby-button"} onClick={this.postToGame}>Start Game</button>
 
 
 
@@ -147,6 +170,7 @@ class Lobby extends Component {
                         <button className={"large-button lobby-button"}>Leave Lobby</button>
 
                     </div>}
+                 <div className={"error"}>{this.state.error}</div>
             </div>
 
         );

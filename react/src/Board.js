@@ -38,12 +38,41 @@ class Board extends Component {
             showMission: false,
             showProposal: false,
             showVoting: false,
-            showProposalVoting: false
-
-
+            showProposalVoting: false,
+            game: [],
+            redirect: ""
         }
 
     }
+
+    // retrieves the player info for this game
+    render_game = () => {
+        const id = this.props.match.params.id;
+        console.log("Get Game Info");
+        const url = "/game/info/" + id;
+        fetch(url, {
+            method: "GET"
+        }).then(response => {
+                return response.json();
+            }) .then (data => {
+            console.log("Response");
+            console.log(data);
+            if(data.length === 0) {
+                // invalid id, redirect to homepage
+                //  this.setState({redirect: <Redirect to={{ pathname: "/" }} />});
+                console.log("BAD!");
+            } else {
+                // found id, just do lookup for this specific player
+                this.setState({game: data});
+                return data;
+            }
+
+        }).catch(error => {
+            console.log(error);
+        });
+    };
+
+
 
     onClickHandler = (ele) => {
         ele.passed = ele.passed === 3 ? 1 : ele.passed + 1;
@@ -71,8 +100,14 @@ class Board extends Component {
 
         this.setState({showProposalVoting: !this.state.showProposalVoting});
 
+    };
+
+    componentWillMount() {
+        this.render_game();
     }
+
     render() {
+        {this.state.redirect}
         const mission = <Mission
             close={this.toggleMission}
             num={1}
