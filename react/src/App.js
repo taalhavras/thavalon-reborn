@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './css/App.scss';
 import Standard from "./Standard"
 import Switch from 'react-switch'
-import Live from "./Live.js";
+import Live from "./live/Live.js";
 import Rules from "./Rules";
 import {Redirect} from "react-router-dom";
 

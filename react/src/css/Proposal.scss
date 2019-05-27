@@ -45,6 +45,39 @@
   margin: auto;
 }
 
+.proposal-button {
+  color: #4f4f4f;
+  border: 1px solid #4f4f4f;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+
+.proposal-button:hover {
+  color: #3a3a3a;
+  border: 1px solid #3a3a3a;
+  cursor: pointer;
+}
+
+.mission-one-mission {
+  width: 140px;
+  padding: 20px 10px;
+  border: 1px solid #4f4f4f;
+  border-radius: 5px;
+
+  margin: auto;
+}
+
+.mission-one-mission:hover {
+  cursor: pointer;
+}
+
+
+.mission-wrapper {
+  display: flex;
+  width: 400px;
+  margin: 50px auto;
+}
 #proposal-confirm {
   color: #4f4f4f;
   border: 1px solid #4f4f4f;
