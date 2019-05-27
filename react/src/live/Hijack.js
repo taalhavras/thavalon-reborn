@@ -29,10 +29,16 @@ class Hijack extends Component {
         }
     };
 
-    toggleSelected = (ele) => {
-        this.state.players.forEach(el => el.selected = false);
+    select = (ele) => {
         ele.selected = true;
 
+        this.state.players.forEach(el => {
+            if (el !== ele) {
+                el.selected = false
+            }
+        });
+
+        this.forceUpdate();
     };
 
     hijack = () => {
@@ -58,22 +64,28 @@ class Hijack extends Component {
                 {this.state.next ?
                     <div>
                         <h2> Choose a player to remove from the mission</h2>
-                        {this.props.players.map(ele => {
+                        <div className={"players-wrapper"}>
+                            {this.state.players.map(ele => {
                             const selected = ele.selected ? "selected" : "";
                             return (
-                                <div className={"player-wrapper"}>
+                                <div className={" player-wrapper"}>
                                     <div className={"proposal-player " + selected}
-                                         onClick={() => this.toggleSelected(ele)}>
+                                         onClick={() => this.select(ele)}>
                                         <div className={"player-text"}> {ele.name} </div>
                                     </div>
                                 </div>)
                         })}
+
+                        </div>
                         <button className={"large-button proposal-button"} onClick={this.hijack}>Confirm</button>
+
                     </div> :
-                    <div>
-                        You have the Hijack ability. Would you like to remove a player from this mission?
-                        <button className={"proposal-button"} onClick={() => this.decide(true)}>Yes</button>
-                        <button className={"proposal-buttom"} onClick={() => this.decide(false)}>No</button>
+                    <div className={"proposal-wrapper"}>
+                        <h2> You have the Hijack ability. Would you like to remove a player from this mission? </h2>
+                        <div>
+                            <button className={"proposal-button"} onClick={() => this.decide(true)}>Yes</button>
+                            <button className={"proposal-button"} onClick={() => this.decide(false)}>No</button>
+                        </div>
                     </div>
                 }
 

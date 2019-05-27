@@ -46,6 +46,7 @@ class MissionOneProposalVoting extends Component {
 
         return (
             <div className={"MissionOneProposalVoting pop-up"}>
+                <h2>Mission One</h2>
                 <div className={"mission-wrapper"}>
                     <div className={firstClasses} onClick={this.selectFirstProposal}>
                         First Proposal: {csv(this.props.firstProposal)}

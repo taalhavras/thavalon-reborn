@@ -23,9 +23,10 @@ class Agravaine extends Component {
 
         return (
             <div className={"Agravaine pop-up"}>
-                Would you like to declare as Agravaine to cause this mission to fail?
+                <h2 className={"agravaine-h2"}> Would you like to declare as Agravaine to cause this mission to
+                    fail? </h2>
                 <button className={"proposal-button"} onClick={() => this.decide(true)}>Yes</button>
-                <button className={"proposal-buttom"} onClick={() => this.decide(false)}>No</button>
+                <button className={"proposal-button"} onClick={() => this.decide(false)}>No</button>
 
             </div>
 

@@ -31,14 +31,13 @@ ReactDOM.render(<BrowserRouter>
         <Route exact path='/proposalvoting' component={ProposalVoting} />
         <Route exact path='/playerlist' component={PlayerList} />
 
-
-
         <Route exact path='/submitresults' component={SubmitResults}/>
         <Route exact path='/:id' component={Game} />
         <Route exact path='/:id/game/donotopen' component={DoNotOpen} />
 
         <Route exact path='/:id/board' component={Board} />
         <Route exact path='/:id/:name' component={Player} />
+
 
     </Switch>
 </BrowserRouter>, document.getElementById('root'));

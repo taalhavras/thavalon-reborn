@@ -5,6 +5,10 @@ import Switch from 'react-switch'
 import Live from "./live/Live.js";
 import Rules from "./Rules";
 import {Redirect} from "react-router-dom";
+import Hijack from "./live/Hijack";
+import Agravaine from "./live/Agravaine";
+import MissionOneProposalVoting from "./live/MissionOneProposalVoting";
+import MissionProposalResult from "./live/MissionProposalResult";
 
 /**
  * The home screen for the game.
