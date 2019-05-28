@@ -10,6 +10,7 @@ import main.MessageType
 import main.THavalonUserSession
 import main.kotlin.thavalon.Game
 import java.lang.IllegalArgumentException
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 
 typealias PlayerInfo = Pair<JsonObject, THavalonUserSession>
@@ -17,12 +18,15 @@ typealias PlayerInfo = Pair<JsonObject, THavalonUserSession>
 // Missions are just Sets of player names
 typealias Mission = Set<String>
 
+
+fun missionFromResponse(res : JsonObject) = res.get("proposal").asJsonArray.map { it.asString }.toSet()
+
 abstract class LiveGameState(open val g : LiveGame, respondsTo : Set<MessageType>) {
     // message types we can respond to
     private val respondsTo : Set<String> = respondsTo.map { it.toString() }.toSet()
     // set of players who have already responded validly to our message. If
     // they have, they cannot respond again
-    private val alreadyResponded : MutableSet<String> = HashSet()
+    val alreadyResponded : MutableSet<String> = ConcurrentHashMap.newKeySet()
 
     // used to synchronize the onResponse function calls so they don't
     // clobber each other. We should also synchronize using this before
@@ -37,7 +41,8 @@ abstract class LiveGameState(open val g : LiveGame, respondsTo : Set<MessageType
 
     // checks to see if a response is valid, which would mean we have to take action
     // this will be called from onResponse
-    fun validResponse(res : JsonObject) : Boolean {
+    open fun validResponse(res : JsonObject) : Boolean {
+
         return res.get("type").asString !in respondsTo || res.get("player").asString !in alreadyResponded
     }
 
@@ -53,31 +58,6 @@ abstract class LiveGameState(open val g : LiveGame, respondsTo : Set<MessageType
     }
 }
 
-class MissionOneState(override val g : LiveGame) : LiveGameState(g, setOf(MessageType.MISSION_ONE_PROPOSAL_RESPONSE)) {
-    override suspend fun sendRequests() {
-        // get first and second proposing players
-        val players = g.players
-        val firstProposingPlayer = players[players.size - 2]
-        val secondProposingPlayer = players[players.size - 1]
-        // send mission 1 proposal message to the two selected players
-        val msg = JsonObject()
-        msg.addProperty("type", MessageType.MISSION_ONE_PROPOSAL.toString())
-        // init cdl
-        cdl = CountDownLatch(2)
-        firstProposingPlayer.second.socket!!.send(msg.toString())
-        secondProposingPlayer.second.socket!!.send(msg.toString())
-    }
-
-    override suspend fun onResponse(res : JsonObject) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override suspend fun nextState(): LiveGameState {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-}
-
 
 /**
  * This class represents a remote live game running on the server.
@@ -91,13 +71,30 @@ class LiveGame(val game : Game, jsonifiedGame : JsonArray, playerSessions : List
         7 -> 3
         8 -> 4
         10 -> 4
-        else -> throw IllegalArgumentException("Bad game size in LiveGame")
+        else -> throw IllegalArgumentException("Bad game size in LiveGame (proposals per round)")
     }
+
+    // represents the number of players on missions
+    val proposalSizes = when(playerSessions.size) {
+        5 -> listOf(2, 3, 2, 3, 3)
+        7 -> listOf(2, 3, 3, 4, 4)
+        8 -> listOf(3, 4, 3, 4, 5)
+        10 -> listOf(4, 5, 5, 5, 5)
+        else -> throw IllegalArgumentException("Bad game size in LiveGame (proposal sizes)")
+    }
+
+    // represents the current mission index (i.e. mission 1, 4, 5, etc.)
+    var missionCount : Int = 0
+
+    // represents the proposal number we are currently at in this mission. Starts at 1,
+    // and increments as proposals are rejected. Resets at the start of a new mission
+    var proposalCount = 1
+
 
     // represents the state in our state machine. We will only accept incoming messages of this type
     // game starts waiting for mission one proposal responses
     // var currentState : MessageType = MessageType.MISSION_ONE_PROPOSAL_RESPONSE
-    var currentState : LiveGameState = MissionOneState(this)
+    private var currentState : LiveGameState = MissionOneState(this)
 
     init {
         assert(jsonifiedGame.size() == playerSessions.size)
@@ -117,6 +114,18 @@ class LiveGame(val game : Game, jsonifiedGame : JsonArray, playerSessions : List
         }
     }
 
+    fun incrementMissionCount() {
+        missionCount ++
+    }
+
+    fun incrementProposalCount() {
+        proposalCount ++
+    }
+
+    fun resetProposalCount() {
+        proposalCount = 1
+    }
+
     suspend fun sendMessage(msg : JsonObject, name : String) {
         val info = players.find { it.second.name == name }!!
         info.second.socket!!.send(msg.toString())
@@ -129,6 +138,10 @@ class LiveGame(val game : Game, jsonifiedGame : JsonArray, playerSessions : List
     suspend fun setState(state : LiveGameState) {
         currentState = state
         state.advance()
+    }
+
+    suspend fun handleResponse(msg : JsonObject) {
+        currentState.onResponse(msg)
     }
 
 }
