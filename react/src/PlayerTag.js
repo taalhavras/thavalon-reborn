@@ -11,7 +11,8 @@ class PlayerTag extends Component {
 
 
     render() {
-        return ( <div className={"player-tag-wrapper"}>
+        return (
+            <div className={"player-tag-wrapper"}>
                 <button className={"close_button"} onClick={this.props.change}>X</button>
                 <p className={"player_name"}><span className={"name-tag"}> {this.props.name} </span></p>
             </div>

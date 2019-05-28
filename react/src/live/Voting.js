@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import "./css/Voting.scss"
-import "./css/Board.scss"
+import "../css/Voting.scss";
+import "../css/Board.scss";
+import {socket} from "../index.js";
 
 
 class Voting extends Component {
@@ -27,6 +28,23 @@ class Voting extends Component {
     toggleReverse = () => {
         this.setState({reverseSelected: !this.state.reverseSelected, passSelected: false, failSelected: false})
     };
+
+    vote = () => {
+        let card;
+        if (this.state.reverseSelected) {
+            card = "R";
+        } else if (this.state.failSelected) {
+            card = "F";
+        } else if (this.state.passSelected) {
+            card = "P";
+        } else {
+            return;
+        }
+        socket.send(JSON.stringify({type: "PLAY_CARD_RESPONSE", card: card}));
+        this.props.hide(this);
+    };
+
+
     render() {
 
         let passClasses = this.state.passSelected ? "selected": "";
@@ -58,7 +76,7 @@ class Voting extends Component {
                     </div> : null}
                 </div>
 
-                <button id={"confirm"} className={"large-button"}>Confirm</button>
+                <button id={"confirm"} className={"large-button"} onClick={this.vote}>Confirm</button>
             </div>
 
         );

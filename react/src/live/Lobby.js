@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './css/App.scss';
-import { socket } from "./index.js"
-import PlayerTag from "./PlayerTag";
-import Options from "./Options";
+import '../css/App.scss';
+import {socket} from "../index.js"
+import PlayerTag from "../PlayerTag";
+import Options from "../Options";
 import {Redirect} from "react-router-dom";
 
 /**

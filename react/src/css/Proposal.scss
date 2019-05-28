@@ -12,7 +12,6 @@
 .proposal-player {
   font-family: Quicksand-Bold;
   vertical-align: center;
-  background-color: Transparent;
   outline:none;
   border-radius:30px;
   width: 100px;
@@ -23,11 +22,15 @@
   font-weight: bold;
   text-shadow: 2px 3px 3px rgba(0,0,0, .25);
   box-shadow: 2px 3px 3px rgba(0,0,0, .25);
-  margin: 20px;
+  margin: 10px;
+}
+
+.agravaine-h2 {
+  margin: 50px 20px;
 }
 
 .player-wrapper {
-  margin: auto;
+  //margin: auto;
 }
 
 .proposal-player:hover {
@@ -45,6 +48,68 @@
   margin: auto;
 }
 
+.proposal-button {
+  color: #4f4f4f;
+  border: 1px solid #4f4f4f;
+  text-shadow: none;
+  box-shadow: none;
+  font-size: 20pt;
+  padding: 10px 20px;
+  margin: 20px;
+  max-width: 150px;
+}
+
+h2 {
+  margin: 50px 10px 10px 10px;
+}
+
+.players-wrapper {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Hijack {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.proposal-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.proposal-button:hover {
+  color: #3a3a3a;
+  border: 1px solid #3a3a3a;
+  cursor: pointer;
+}
+
+
+.vote-div {
+  margin: 30px;
+}
+.mission-one-mission {
+  width: 140px;
+  padding: 20px 10px;
+  color: white;
+  background-color: #4f4f4f;;
+  border-radius: 5px;
+  margin: auto;
+  line-height: 1.7em;
+}
+
+.mission-one-mission:hover {
+  cursor: pointer;
+}
+
+
+.mission-wrapper {
+  display: flex;
+  width: 400px;
+  margin: 50px auto;
+}
 #proposal-confirm {
   color: #4f4f4f;
   border: 1px solid #4f4f4f;

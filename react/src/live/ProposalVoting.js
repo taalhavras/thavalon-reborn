@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import "./css/Proposal.scss"
+import "../css/Proposal.scss";
+import {socket} from "../index.js";
 
 function csv(list) {
     let string = "";
@@ -15,12 +16,20 @@ class ProposalVoting extends Component {
         this.state = {
             upSelected: false,
             downSelected: true,
-            list: csv(["Grace", "Raghu", "Philip"])
+            list: csv(this.props.players)
 
         }
     }
 
-
+    vote = (vote) => {
+        socket.send(
+            JSON.stringify({
+                type: "MISSION_VOTING_RESPONSE",
+                vote: vote
+            })
+        );
+        this.props.hide(this);
+    };
 
     render() {
         return (
@@ -29,10 +38,10 @@ class ProposalVoting extends Component {
                 <div className={"proposal-list"}>
                     Voting on: {this.state.list}
                 </div>
-                <button className={"proposal-vote"}>
+                <button className={"proposal-vote"} onClick={() => this.vote("upvote")}>
                     <i className="far fa-thumbs-up"></i>
                 </button>
-                <button className={"proposal-vote"}>
+                <button className={"proposal-vote"} onClick={() => this.vote("downvote")}>
                     <i className="far fa-thumbs-down"></i>
                 </button>
 

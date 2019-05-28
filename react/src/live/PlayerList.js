@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./css/Board.scss"
+import "../css/Board.scss"
 
 class PlayerList extends Component {
 

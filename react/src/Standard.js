@@ -3,8 +3,10 @@ import { Redirect } from 'react-router-dom';
 import RecentGames from "./RecentGames";
 import Options from "./Options";
 import PlayerTag from "./PlayerTag";
-import "./css/Standard.scss"
-import "./css/PlayerTag.scss"
+import "./css/App.scss";
+
+import "./css/Standard.scss";
+import "./css/PlayerTag.scss";
 /**
  * Models a standard (not live) game.
  */
@@ -280,11 +282,11 @@ class Standard extends Component {
             || this.state.players.length === 10)) {
 
             return (
-                <div className={"start-button-        <Route exact path='/:id/board' component={Board} />\ndiv"}>
-                    <button onClick={this.postToGame} className={"large_button start_button"}>
+                <div className={"start-button-div"}>
+                    <button onClick={this.postToGame} className={"standard-button large-button start-button"}>
                         Start Game
                     </button>
-                    <button onClick={this.postToCustomGame} className={"large_button start_button"}>
+                    <button onClick={this.postToCustomGame} className={"large-button standard-button start-button"}>
                         Start Custom Game
                     </button>
                 </div>
@@ -368,7 +370,7 @@ class Standard extends Component {
 
                         </form>
 
-                        <div className={"player_tags"}>
+                        <div className={"player-tag-container"}>
                             {this.state.players.map(function(element) {
                                 return element.value;
                             })}

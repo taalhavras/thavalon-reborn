@@ -4,18 +4,18 @@ import App from './App';
 import "./css/index.scss";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Game from './Game.js';
-import Board from './Board.js';
+import Board from './live/Board.js';
 import DoNotOpen from './DoNotOpen.js';
-import Lobby from './Lobby.js';
+import Lobby from './live/Lobby.js';
 import Player from './Player.js';
-import Voting from './Voting.js';
+import Voting from './live/Voting.js';
 
 
 import * as serviceWorker from './serviceWorker';
 import SubmitResults from "./SubmitResults";
-import Proposal from "./Proposal";
-import ProposalVoting from "./ProposalVoting";
-import PlayerList from "./PlayerList";
+import Proposal from "./live/Proposal";
+import ProposalVoting from "./live/ProposalVoting";
+import PlayerList from "./live/PlayerList";
 
 let socket  = new WebSocket("ws://localhost:4444/socket");
 console.log(socket);
@@ -31,14 +31,13 @@ ReactDOM.render(<BrowserRouter>
         <Route exact path='/proposalvoting' component={ProposalVoting} />
         <Route exact path='/playerlist' component={PlayerList} />
 
-
-
         <Route exact path='/submitresults' component={SubmitResults}/>
         <Route exact path='/:id' component={Game} />
         <Route exact path='/:id/game/donotopen' component={DoNotOpen} />
 
         <Route exact path='/:id/board' component={Board} />
         <Route exact path='/:id/:name' component={Player} />
+
 
     </Switch>
 </BrowserRouter>, document.getElementById('root'));

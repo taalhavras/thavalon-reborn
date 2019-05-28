@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './css/Live.scss';
-import { socket } from "./index.js";
+import '../css/Live.scss';
+import {socket} from "../index.js";
 import { Redirect } from 'react-router-dom';
 
 /**
