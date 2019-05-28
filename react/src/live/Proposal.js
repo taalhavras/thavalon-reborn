@@ -52,7 +52,8 @@ class Proposal extends Component {
         }
         const type = this.props.missionOne ? "MISSION_ONE_PROPOSAL_RESPONSE" : "MISSION_PROPOSAL_RESPONSE";
 
-        socket.send(JSON.stringify({type: type, proposal: proposal}));
+        socket.send(JSON.stringify({type: type, proposal: proposal,  id: this.props.match.params.id
+        }));
         this.props.hide(this);
     };
 

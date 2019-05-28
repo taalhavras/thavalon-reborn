@@ -25,7 +25,9 @@ class ProposalVoting extends Component {
         socket.send(
             JSON.stringify({
                 type: "MISSION_VOTING_RESPONSE",
-                vote: vote
+                vote: vote,
+                id: this.props.match.params.id
+
             })
         );
         this.props.hide(this);

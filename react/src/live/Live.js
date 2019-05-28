@@ -54,7 +54,8 @@ class Live extends Component {
 
         const toSend = {
             type: "CREATE_LOBBY",
-            name: event.target[0].value
+            name: event.target[0].value,
+
         };
 
         socket.send(JSON.stringify(toSend));
