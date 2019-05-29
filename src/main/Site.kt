@@ -46,8 +46,8 @@ enum class MessageType {
     // server to client lobby
     NEW_PLAYER, PLAYER_REMOVED, SELF_REMOVED, LOBBY_DELETED, LOBBY_CREATED, LOBBY_JOINED, GAME_STARTED,
     // server to client livegame
-    MISSION_ONE_PROPOSAL, MISSION_ONE_VOTING, MISSION_ONE_VOTING_RESULT, MISSION_PROPOSAL, MISSION_VOTING, MISSION_PROPOSAL_RESULT, PLAY_CARD, HIJACK,
-    AGRAVAINE, ASSASINATE, GAME_RESULTS,
+    MISSION_ONE_PROPOSAL, MISSION_ONE_VOTING, MISSION_ONE_VOTING_RESULT, MISSION_PROPOSAL, MISSION_VOTING,
+    MISSION_VOTING_RESULT, MISSION_RESULT, PLAY_CARD, HIJACK, AGRAVAINE, ASSASINATE, GAME_RESULTS,
     // client to server livegame
     MISSION_ONE_PROPOSAL_RESPONSE, MISSION_ONE_VOTING_RESPONSE, MISSION_PROPOSAL_RESPONSE, MISSION_VOTING_RESPONSE,
     MISSION_PROPOSAL_RESULT_RESPONSE, PLAY_CARD_RESPONSE, HIJACK_RESPONSE, AGRAVAINE_RESPONSE, ASSASSINATE_RESPONSE
@@ -294,7 +294,7 @@ fun main() {
                                 // TODO consider changing this later but it's fine for now. There isn't a real
                                 // benefit to the ids being the same except for this part maybe being clearer?
                                 // but is it even?
-                                val lg = LiveGame(game, jsonifyGame(game), lobby.members)
+                                val lg = LiveGame(game, lobby.members)
                                 remoteGames.put(response.get("id").asString, lg)
 
                                 // now we can send redirects

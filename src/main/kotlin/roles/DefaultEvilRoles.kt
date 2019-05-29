@@ -20,7 +20,7 @@ class Maelegant : DefaultEvilRole() {
                 " a failing mission will succeed."
     }
 
-    // maelagant can play everything
+    // maelegant can play everything
     override fun cardOptions(): List<Card> {
         return listOf(Card.PASS, Card.FAIL, Card.REVERSE)
     }

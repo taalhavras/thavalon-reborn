@@ -32,7 +32,8 @@ class MissionEvaluationState(override val g : LiveGame, private val cardsPlayed 
     }
 
     override suspend fun nextState() : LiveGameState {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val result = missionPasses()
+        return AgravaineState(g, cardsPlayed, result)
     }
 
 }

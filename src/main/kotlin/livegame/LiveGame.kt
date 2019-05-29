@@ -1,7 +1,6 @@
 package main.kotlin.livegame
 
 import com.google.gson.JsonArray
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import io.ktor.http.cio.websocket.send
 import kotlinx.coroutines.GlobalScope
@@ -17,36 +16,55 @@ import java.util.concurrent.CountDownLatch
 typealias PlayerInfo = Pair<Role, THavalonUserSession>
 
 // Missions are just Sets of player names
-data class Mission(val players : Set<String>, val proposer : String)
+data class Mission(val players: Set<String>, val proposer: String)
 
-fun blankErrorMessage() : JsonObject {
+fun blankErrorMessage(): JsonObject {
     val err = JsonObject()
     err.addProperty("type", MessageType.ERROR.toString())
     return err
 }
 
-fun missionFromResponse(res : JsonObject) : Mission {
-    val players : Set<String>  =res.get("proposal").asJsonArray.map { it.asString }.toSet()
+fun missionFromResponse(res: JsonObject): Mission {
+    val players: Set<String> = res.get("proposal").asJsonArray.map { it.asString }.toSet()
     val name = res.get("name").asString
     return Mission(players, name)
 }
 
-fun setToJson(s : Set<String>) : JsonArray {
+fun setToJson(s: Set<String>): JsonArray {
     val arr = JsonArray()
     s.forEach { arr.add(it) }
     return arr
 }
 
-fun missionToJson(m : Mission) : JsonArray {
+fun missionToJson(m: Mission): JsonArray {
     return setToJson(m.players)
 }
 
-abstract class LiveGameState(open val g : LiveGame, respondsTo : Set<MessageType>) {
+/**
+ * This class represents the outcomes for a game after a mission is evaluated. Either the game continues,
+ * Evil wins by missions, or good has passed 3 missions and evil needs to move to assassination
+ */
+enum class MissionEvaluationResult {
+    CONTINUE_PLAY,
+    EVIL_FAILS_THREE_MISSIONS,
+    GOOD_PASSES_THREE_MISSIONS,
+}
+
+/**
+ * This class represents the possible results of a game
+ */
+enum class GameResult {
+    EVIL_WINS_ON_MISSIONS,
+    EVIL_WINS_BY_ASSASSINATION,
+    GOOD_WINS
+}
+
+abstract class LiveGameState(open val g: LiveGame, respondsTo: Set<MessageType>) {
     // message types we can respond to
-    private val respondsTo : Set<String> = respondsTo.map { it.toString() }.toSet()
+    private val respondsTo: Set<String> = respondsTo.map { it.toString() }.toSet()
     // set of players who have already responded validly to our message. If
     // they have, they cannot respond again
-    val alreadyResponded : MutableSet<String> = ConcurrentHashMap.newKeySet()
+    val alreadyResponded: MutableSet<String> = ConcurrentHashMap.newKeySet()
 
     // used to synchronize the onResponse function calls so they don't
     // clobber each other. We should also synchronize using this before
@@ -55,9 +73,13 @@ abstract class LiveGameState(open val g : LiveGame, respondsTo : Set<MessageType
 
     // will be initialized by sendRequests since that'll tell us
     // how many responses we will need
-    lateinit var cdl : CountDownLatch
+    lateinit var cdl: CountDownLatch
 
-    abstract suspend fun sendRequests() : Unit
+    abstract suspend fun sendRequests(): Unit
+
+    open fun isTerminal() : Boolean {
+        return false
+    }
 
     /**
      * checks to see if a response is valid, which would mean we have to take action
@@ -67,35 +89,40 @@ abstract class LiveGameState(open val g : LiveGame, respondsTo : Set<MessageType
      * This needs to be synchronized because if a message is deemed valid it affects the validity of other
      * valid messages (we are only accepting the first valid message per player per state)
      */
-    @Synchronized open fun validResponse(res : JsonObject) : Boolean {
+    @Synchronized
+    open fun validResponse(res: JsonObject): Boolean {
         val name = res.get("player").asString
         val ret = res.get("type").asString !in respondsTo || name !in alreadyResponded
-        if(ret) {
+        if (ret) {
             alreadyResponded.add(name)
         }
         return ret
     }
 
-    abstract suspend fun onResponse(res : JsonObject) : Unit
+    abstract suspend fun onResponse(res: JsonObject): Unit
 
-    abstract suspend fun nextState() : LiveGameState
+    abstract suspend fun nextState(): LiveGameState
 
-    suspend fun advance() : Unit {
+    suspend fun advance(): Unit {
         sendRequests()
-        val state = nextState()
-        g.setState(state)
-        state.advance()
+        if (!isTerminal()) {
+
+            val state = nextState()
+            g.setState(state)
+            state.advance()
+
+        }
     }
 }
 
 /**
  * This class represents a remote live game running on the server.
  */
-class LiveGame(val game : Game, playerSessions : List<THavalonUserSession>) {
+class LiveGame(val game: Game, playerSessions: List<THavalonUserSession>) {
 
-    val players : MutableList<PlayerInfo> = ArrayList()
+    val players: MutableList<PlayerInfo> = ArrayList()
     // the number of proposals per round, will be used in hijack logic
-    val proposalsPerRound = when(playerSessions.size) {
+    val proposalsPerRound = when (playerSessions.size) {
         5 -> 3
         7 -> 3
         8 -> 4
@@ -104,7 +131,7 @@ class LiveGame(val game : Game, playerSessions : List<THavalonUserSession>) {
     }
 
     // represents the number of players on missions
-    val proposalSizes = when(playerSessions.size) {
+    val proposalSizes = when (playerSessions.size) {
         5 -> listOf(2, 3, 2, 3, 3)
         7 -> listOf(2, 3, 3, 4, 4)
         8 -> listOf(3, 4, 3, 4, 5)
@@ -112,24 +139,26 @@ class LiveGame(val game : Game, playerSessions : List<THavalonUserSession>) {
         else -> throw IllegalArgumentException("Bad game size in LiveGame (proposal sizes)")
     }
 
-    // represents the current mission index (i.e. mission 1, 4, 5, etc.)
-    var missionCount : Int = 0
+    // represents the current mission (i.e. mission 1, 4, 5, etc.)
+    var missionCount: Int = 1
 
     // represents the proposal number we are currently at in this mission. Starts at 1,
     // and increments as proposals are rejected. Resets at the start of a new mission
     var proposalCount = 1
 
+    // represents the results of missions in our game so far
+    val missionResults : ArrayList<Boolean> = ArrayList()
 
     // represents the state in our state machine. We will only accept incoming messages of this type
     // game starts waiting for mission one proposal responses
     // var currentState : MessageType = MessageType.MISSION_ONE_PROPOSAL_RESPONSE
-    private var currentState : LiveGameState = MissionOneState(this)
+    private var currentState: LiveGameState = MissionOneState(this)
 
     init {
         assert(game.rolesInGame.size == playerSessions.size)
         for (r: Role in game.rolesInGame) {
-            for (session : THavalonUserSession in playerSessions) {
-                if(r.player.name == session.name) {
+            for (session: THavalonUserSession in playerSessions) {
+                if (r.player.name == session.name) {
                     players.add(Pair(r, session))
                 }
             }
@@ -144,32 +173,49 @@ class LiveGame(val game : Game, playerSessions : List<THavalonUserSession>) {
     }
 
     fun incrementMissionCount() {
-        missionCount ++
+        missionCount++
     }
 
     fun incrementProposalCount() {
-        proposalCount ++
+        proposalCount++
     }
 
     fun resetProposalCount() {
         proposalCount = 1
     }
 
-    suspend fun sendMessage(msg : JsonObject, name : String) {
+    /**
+     * Takes in true if a mission passed, false if it fails. Returns the state of
+     * the game after this result, which is used to determine which state to transition to
+     */
+    fun submitMissionResult(result : Boolean) : MissionEvaluationResult {
+        missionResults.add(result)
+        val numPassed = missionResults.count { it }
+        val numFailed = missionResults.count { !it }
+        return when (numFailed) {
+            3 -> MissionEvaluationResult.EVIL_FAILS_THREE_MISSIONS
+            else -> if(numPassed == 3) {
+                MissionEvaluationResult.GOOD_PASSES_THREE_MISSIONS
+            } else {
+                MissionEvaluationResult.CONTINUE_PLAY
+            }
+        }
+    }
+
+    suspend fun sendMessage(msg: JsonObject, name: String) {
         val info = players.find { it.second.name == name }!!
         info.second.socket!!.send(msg.toString())
     }
 
-    suspend fun sendToAll(msg : JsonObject) {
+    suspend fun sendToAll(msg: JsonObject) {
         players.map { it.second.socket!!.send(msg.toString()) }
     }
 
-    suspend fun setState(state : LiveGameState) {
+    fun setState(state: LiveGameState) {
         currentState = state
-        state.advance()
     }
 
-    suspend fun handleResponse(msg : JsonObject) {
+    suspend fun handleResponse(msg: JsonObject) {
         currentState.onResponse(msg)
     }
 
