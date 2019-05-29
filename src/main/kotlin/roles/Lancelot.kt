@@ -8,4 +8,9 @@ class Lancelot : Role() {
                 " on missions. A reverse inverts the result of a mission: A successful mission will fail and" +
                 " a failing mission will succeed."
     }
+
+    // lance can play reverses
+    override fun cardOptions(): List<Card> {
+        return listOf(Card.PASS, Card.REVERSE)
+    }
 }

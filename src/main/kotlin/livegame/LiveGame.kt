@@ -8,18 +8,38 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import main.MessageType
 import main.THavalonUserSession
+import main.kotlin.roles.Role
 import main.kotlin.thavalon.Game
 import java.lang.IllegalArgumentException
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 
-typealias PlayerInfo = Pair<JsonObject, THavalonUserSession>
+typealias PlayerInfo = Pair<Role, THavalonUserSession>
 
 // Missions are just Sets of player names
-typealias Mission = Set<String>
+data class Mission(val players : Set<String>, val proposer : String)
 
+fun blankErrorMessage() : JsonObject {
+    val err = JsonObject()
+    err.addProperty("type", MessageType.ERROR.toString())
+    return err
+}
 
-fun missionFromResponse(res : JsonObject) = res.get("proposal").asJsonArray.map { it.asString }.toSet()
+fun missionFromResponse(res : JsonObject) : Mission {
+    val players : Set<String>  =res.get("proposal").asJsonArray.map { it.asString }.toSet()
+    val name = res.get("name").asString
+    return Mission(players, name)
+}
+
+fun setToJson(s : Set<String>) : JsonArray {
+    val arr = JsonArray()
+    s.forEach { arr.add(it) }
+    return arr
+}
+
+fun missionToJson(m : Mission) : JsonArray {
+    return setToJson(m.players)
+}
 
 abstract class LiveGameState(open val g : LiveGame, respondsTo : Set<MessageType>) {
     // message types we can respond to
@@ -39,11 +59,21 @@ abstract class LiveGameState(open val g : LiveGame, respondsTo : Set<MessageType
 
     abstract suspend fun sendRequests() : Unit
 
-    // checks to see if a response is valid, which would mean we have to take action
-    // this will be called from onResponse
-    open fun validResponse(res : JsonObject) : Boolean {
-
-        return res.get("type").asString !in respondsTo || res.get("player").asString !in alreadyResponded
+    /**
+     * checks to see if a response is valid, which would mean we have to take action
+     * this will be called from onResponse in subclasses.
+     * NOTE: This function should be called last from any subclass because it adds the
+     * player name to alreadyResponded
+     * This needs to be synchronized because if a message is deemed valid it affects the validity of other
+     * valid messages (we are only accepting the first valid message per player per state)
+     */
+    @Synchronized open fun validResponse(res : JsonObject) : Boolean {
+        val name = res.get("player").asString
+        val ret = res.get("type").asString !in respondsTo || name !in alreadyResponded
+        if(ret) {
+            alreadyResponded.add(name)
+        }
+        return ret
     }
 
     abstract suspend fun onResponse(res : JsonObject) : Unit
@@ -58,11 +88,10 @@ abstract class LiveGameState(open val g : LiveGame, respondsTo : Set<MessageType
     }
 }
 
-
 /**
  * This class represents a remote live game running on the server.
  */
-class LiveGame(val game : Game, jsonifiedGame : JsonArray, playerSessions : List<THavalonUserSession>) {
+class LiveGame(val game : Game, playerSessions : List<THavalonUserSession>) {
 
     val players : MutableList<PlayerInfo> = ArrayList()
     // the number of proposals per round, will be used in hijack logic
@@ -97,11 +126,11 @@ class LiveGame(val game : Game, jsonifiedGame : JsonArray, playerSessions : List
     private var currentState : LiveGameState = MissionOneState(this)
 
     init {
-        assert(jsonifiedGame.size() == playerSessions.size)
-        for (player : JsonElement in jsonifiedGame) {
+        assert(game.rolesInGame.size == playerSessions.size)
+        for (r: Role in game.rolesInGame) {
             for (session : THavalonUserSession in playerSessions) {
-                if(player.asJsonObject.get("name").asString == session.name) {
-                    players.add(Pair(player.asJsonObject, session))
+                if(r.player.name == session.name) {
+                    players.add(Pair(r, session))
                 }
             }
             throw IllegalArgumentException("Live game player without session")

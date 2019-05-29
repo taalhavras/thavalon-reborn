@@ -67,6 +67,25 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
     }
 }
 
+/**
+ * Types of cards that can be played
+ */
+enum class Card {
+    PASS {
+        override fun toString(): String {
+            return "P"
+        }
+    }, FAIL {
+        override fun toString(): String {
+            return "F"
+        }
+    }, REVERSE {
+        override fun toString(): String {
+            return "R"
+        }
+    }
+}
+
 fun <T> tostring_elts(l : List<T>) : List<String> {
     return l.map { it.toString() }
 }
@@ -194,6 +213,11 @@ abstract class Role {
     // the information this role has about the gamestate
     val information : InformationAggregator = InformationAggregator()
 
+    // the types of card the role can play.
+    open fun cardOptions() : List<Card> {
+        return listOf(Card.PASS)
+    }
+
     // whether the given role is ok with the other roles in the game
     open fun gameOk(g : Game) : Boolean {
         return true
@@ -240,6 +264,12 @@ abstract class DefaultEvilRole : Role() {
             return@updater
         }, UpdaterPriority.Ten)
     }
+
+    // default evil can play passes and fails
+    override fun cardOptions(): List<Card> {
+        return listOf(Card.PASS, Card.FAIL)
+    }
+
 
     override fun getUpdaters(g: Game): List<Updater> {
         return listOf(getSeesEvilTeamUpdater())

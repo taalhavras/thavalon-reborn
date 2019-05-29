@@ -19,8 +19,18 @@ class Maelegant : DefaultEvilRole() {
                 " on missions. A reverse inverts the result of a mission: A successful mission will fail and" +
                 " a failing mission will succeed."
     }
+
+    // maelagant can play everything
+    override fun cardOptions(): List<Card> {
+        return listOf(Card.PASS, Card.FAIL, Card.REVERSE)
+    }
 }
 
 class Agravaine : DefaultEvilRole() {
     override val role : RoleType = RoleType.Agravaine
+
+    // agravaine can only play fails
+    override fun cardOptions(): List<Card> {
+        return listOf(Card.FAIL)
+    }
 }

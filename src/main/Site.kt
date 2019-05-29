@@ -53,6 +53,12 @@ enum class MessageType {
     MISSION_PROPOSAL_RESULT_RESPONSE, PLAY_CARD_RESPONSE, HIJACK_RESPONSE, AGRAVAINE_RESPONSE, ASSASSINATE_RESPONSE
 }
 
+val liveGameMessages : Set<MessageType> = setOf(
+    MessageType.MISSION_ONE_PROPOSAL_RESPONSE, MessageType.MISSION_ONE_VOTING_RESPONSE, MessageType.MISSION_PROPOSAL_RESPONSE,
+    MessageType.MISSION_VOTING_RESPONSE, MessageType.MISSION_PROPOSAL_RESULT_RESPONSE, MessageType.PLAY_CARD_RESPONSE,
+    MessageType.HIJACK_RESPONSE, MessageType.AGRAVAINE_RESPONSE, MessageType.ASSASSINATE_RESPONSE
+)
+
 
 data class THavalonUserSession(val id: String, var name: String, var socket: DefaultWebSocketSession?)
 
@@ -331,7 +337,11 @@ fun main() {
                             toRemoved.addProperty("type", MessageType.SELF_REMOVED.toString())
                             removedPlayer.socket!!.send(toRemoved.toString())
                         }
-                        else -> println("Invalid message type")
+                        in liveGameMessages -> {
+                            val lg : LiveGame = remoteGames.getValue(parsed.get("id").asString)
+                            lg.handleResponse(parsed)
+                        }
+                        else -> println("Invalid message type $type")
                     }
                 }
             }

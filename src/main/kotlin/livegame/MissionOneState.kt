@@ -1,19 +1,19 @@
 package main.kotlin.livegame
 
 import com.google.gson.JsonObject
-import io.ktor.http.cio.websocket.send
 import main.MessageType
+import java.lang.Exception
 import java.util.concurrent.CountDownLatch
 
-class MissionOneState(override val g : LiveGame) : LiveGameState(g, setOf(MessageType.MISSION_ONE_PROPOSAL_RESPONSE)) {
+class MissionOneState(override val g: LiveGame) : LiveGameState(g, setOf(MessageType.MISSION_ONE_PROPOSAL_RESPONSE)) {
 
-    private val firstProposingPlayer : PlayerInfo
-    private val secondProposingPlayer : PlayerInfo
-    lateinit var firstPlayerProposal : Mission
-    lateinit var secondPlayerProposal : Mission
+    private val firstProposingPlayer: PlayerInfo
+    private val secondProposingPlayer: PlayerInfo
+    lateinit var firstPlayerProposal: Mission
+    lateinit var secondPlayerProposal: Mission
 
     init {
-         // get first and second proposing players
+        // get first and second proposing players
         val players = g.players
         firstProposingPlayer = players[players.size - 2]
         secondProposingPlayer = players[players.size - 1]
@@ -33,7 +33,7 @@ class MissionOneState(override val g : LiveGame) : LiveGameState(g, setOf(Messag
      * This needs to be synchronized because if a message is deemed valid it affects the validity of other
      * valid messages (we are only accepting the first valid message per player per state)
      */
-    @Synchronized override fun validResponse(res: JsonObject): Boolean {
+    override fun validResponse(res: JsonObject): Boolean {
         // superclass validResponse ensures only 1 response per player and that
         // message is of correct type. Now, we just have to ensure that the message
         // came from a player with a proposal and that it's the correct size
@@ -41,32 +41,25 @@ class MissionOneState(override val g : LiveGame) : LiveGameState(g, setOf(Messag
 
         val proposal = missionFromResponse(res)
 
-        val ret = super.validResponse(res)
-                // message is from a valid player
-                && (name == firstProposingPlayer.second.name || name == secondProposingPlayer.second.name)
+        // message is from a valid player
+        return ((name == firstProposingPlayer.second.name || name == secondProposingPlayer.second.name)
                 // message contains the correct number of players
-                && proposal.size == g.proposalSizes[g.missionCount]
+                && proposal.players.size == g.proposalSizes[g.missionCount]
+                // check this is the first valid
+                && super.validResponse(res))
 
-
-        // we have a valid message, add the player to the seen set
-        if(ret) {
-            alreadyResponded.add(name)
-        }
-
-        return ret
     }
 
-    override suspend fun onResponse(res : JsonObject) {
-        val (info, session) = g.players.find { it.second.name == res.get("name").asString }!!
-        if(!validResponse(res)) {
-            val errorResponse = JsonObject()
+    override suspend fun onResponse(res: JsonObject) {
+        val name = res.get("name").asString
+        if (!validResponse(res)) {
+            val errorResponse = blankErrorMessage()
             errorResponse.addProperty("error", "Invalid mission one proposal")
-            session.socket!!.send(errorResponse.toString())
+            g.sendMessage(errorResponse, name)
         } else {
             // we have a valid response, store it
-            val m : Mission = missionFromResponse(res)
-            val name = res.get("name").asString
-            if(name == firstProposingPlayer.second.name) {
+            val m: Mission = missionFromResponse(res)
+            if (name == firstProposingPlayer.second.name) {
                 firstPlayerProposal = m
             } else {
                 secondPlayerProposal = m
