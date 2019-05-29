@@ -20,7 +20,9 @@ class Hijack extends Component {
         if (!choice) {
             socket.send(JSON.stringify({
                     type: "HIJACK_RESPONSE",
-                    choice: choice
+                    choice: choice,
+                    id: this.props.match.params.id
+
                 })
             );
             this.props.hide(this);

@@ -64,7 +64,9 @@ class Assassinate extends Component {
         socket.send(JSON.stringify({
             type: "ASSASSINATE_RESPONSE",
             assassination_type: type,
-            targets: targets
+            targets: targets,
+            id: this.props.match.params.id
+
         }));
         this.props.hide(this);
     };
