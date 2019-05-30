@@ -65,7 +65,9 @@ class Assassinate extends Component {
             type: "ASSASSINATE_RESPONSE",
             assassination_type: type,
             targets: targets,
-            id: this.props.match.params.id
+            id: this.props.match.params.id,
+            name: this.props.name
+
 
         }));
         this.props.hide(this);

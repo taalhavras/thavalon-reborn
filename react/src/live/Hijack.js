@@ -21,7 +21,9 @@ class Hijack extends Component {
             socket.send(JSON.stringify({
                     type: "HIJACK_RESPONSE",
                     choice: choice,
-                    id: this.props.match.params.id
+                    id: this.props.match.params.id,
+                    name: this.props.name
+
 
                 })
             );

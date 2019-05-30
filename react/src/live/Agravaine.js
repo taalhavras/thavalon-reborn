@@ -13,7 +13,8 @@ class Agravaine extends Component {
         socket.send(JSON.stringify({
                 type: "AGRAVAINE_RESPONSE",
                 choice: choice,
-                id: this.props.match.params.id
+                id: this.props.match.params.id,
+                name: this.props.name
             })
         );
         this.props.hide(this);

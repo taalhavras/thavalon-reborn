@@ -49,6 +49,7 @@ class Board extends Component {
                 case "MISSION_ONE_PROPOSAL":
                     this.setState({
                         proposal: <Proposal
+                            name={this.props.name}
                             players={this.state.players}
                             missionOne={true}
                             num={this.state.missions[0].num}
@@ -58,6 +59,7 @@ class Board extends Component {
                 case "MISSION_ONE_VOTING":
                     this.setState({
                         popup: <MissionOneProposalVoting
+                            name={this.props.name}
                             firstProposal={parsed.first_proposal}
                             secondProposal={parsed.second_proposal}
                             hide={this.togglePopup}
@@ -69,6 +71,7 @@ class Board extends Component {
                         proposal:
                             <Proposal
                                 players={this.state.players}
+                                name={this.props.name}
                                 missionOne={false}
                                 num={this.state.missions[this.state.currMission].num}
                                 hide={this.togglePopup}/>
@@ -86,6 +89,7 @@ class Board extends Component {
                     this.setState({
                         popup:
                             <MissionProposalResult
+                                name={this.props.name}
                                 sent={parsed.sent}
                                 votedFor={parsed.voted_for}
                                 votedAgainst={this.state.players.filter(ele => !parsed.voted_for.contains(ele))}
@@ -98,11 +102,13 @@ class Board extends Component {
                     });
                     break;
                 case "MISSION_VOTING":
-                    this.setState({popup: <ProposalVoting players={parsed.proposal} hide={this.togglePopup}/>});
+                    this.setState({popup: <ProposalVoting name={this.props.name}
+                                                                                     players={parsed.proposal} hide={this.togglePopup}/>});
                     break;
                 case "PLAY_CARD":
                     this.setState({
                         popup: <Voting
+                            name={this.props.name}
                             canReverse={parsed.cards.contains("R")}
                             canFail={parsed.cards.contains("F")}
                             hide={this.togglePopup}/>
@@ -139,13 +145,16 @@ class Board extends Component {
                         });
                     break;
                 case "HIJACK":
-                    this.setState({popup: <Hijack hide={this.togglePopup}/>});
+                    this.setState({popup: <Hijack name={this.props.name}
+                                                                              hide={this.togglePopup}/>});
                     break;
                 case "AGRAVAINE":
-                    this.setState({popup: <Agravaine hide={this.togglePopup}/>});
+                    this.setState({popup: <Agravaine name={this.props.name}
+                                                                                 hide={this.togglePopup}/>});
                     break;
                 case "ASSASSINATE":
-                    this.setState({assassinate: <Assassinate targets={parsed.targets} hide={this.togglePopup}/>});
+                    this.setState({assassinate: <Assassinate  name={this.props.name}
+                                                                                         targets={parsed.targets} hide={this.togglePopup}/>});
                     break;
                 case "GAME RESULTS":
                     const popup = <div className={"GameResults pop-up"}>
