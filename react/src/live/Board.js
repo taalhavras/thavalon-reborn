@@ -13,6 +13,7 @@ import Agravaine from "./Agravaine";
 import Hijack from "./Hijack";
 import {Link} from "react-router-dom";
 import Assassinate from "./Assassinate";
+import {send} from "q";
 
 /**
  * Models a boards
@@ -157,7 +158,14 @@ class Board extends Component {
                 default:
                     break;
             }
-        })
+        });
+
+        // once the handler is set up we send ready message
+        const msg = {};
+        msg["type"] = "READY";
+        msg["id"] = this.props.match.params.id;
+        msg["name"] = this.props.name;
+        socket.send(JSON.stringify(msg))
 
     }
 

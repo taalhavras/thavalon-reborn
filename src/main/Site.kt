@@ -50,13 +50,14 @@ enum class MessageType {
     MISSION_VOTING_RESULT, MISSION_RESULT, PLAY_CARD, HIJACK, AGRAVAINE, ASSASINATE, GAME_RESULTS,
     // client to server livegame
     MISSION_ONE_PROPOSAL_RESPONSE, MISSION_ONE_VOTING_RESPONSE, MISSION_PROPOSAL_RESPONSE, MISSION_VOTING_RESPONSE,
-    MISSION_PROPOSAL_RESULT_RESPONSE, PLAY_CARD_RESPONSE, HIJACK_RESPONSE, AGRAVAINE_RESPONSE, ASSASSINATE_RESPONSE
+    MISSION_PROPOSAL_RESULT_RESPONSE, PLAY_CARD_RESPONSE, HIJACK_RESPONSE, AGRAVAINE_RESPONSE, ASSASSINATE_RESPONSE,
+    READY
 }
 
 val liveGameMessages : Set<MessageType> = setOf(
     MessageType.MISSION_ONE_PROPOSAL_RESPONSE, MessageType.MISSION_ONE_VOTING_RESPONSE, MessageType.MISSION_PROPOSAL_RESPONSE,
     MessageType.MISSION_VOTING_RESPONSE, MessageType.MISSION_PROPOSAL_RESULT_RESPONSE, MessageType.PLAY_CARD_RESPONSE,
-    MessageType.HIJACK_RESPONSE, MessageType.AGRAVAINE_RESPONSE, MessageType.ASSASSINATE_RESPONSE
+    MessageType.HIJACK_RESPONSE, MessageType.AGRAVAINE_RESPONSE, MessageType.ASSASSINATE_RESPONSE, MessageType.READY
 )
 
 
@@ -368,14 +369,13 @@ fun main() {
 
             get("/game/info/{id}") {
                 val id: String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
-
-                val response = when (id) {
-                    in staticGames -> staticGames.get(id)?.first
-                    in remoteGames -> remoteGames.get(id)
+                val response: JsonArray = when (id) {
+                    in staticGames -> staticGames.getValue(id).first
+                    in remoteGames -> jsonifyGame(remoteGames.getValue(id).game)
                     else -> JsonArray()
                 }
 
-                call.respond(response!!)
+                call.respond(response.toString())
             }
 
             get("/{id}") {

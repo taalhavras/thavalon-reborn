@@ -91,7 +91,7 @@ abstract class LiveGameState(open val g: LiveGame, respondsTo: Set<MessageType>)
      */
     @Synchronized
     open fun validResponse(res: JsonObject): Boolean {
-        val name = res.get("player").asString
+        val name = res.get("name").asString
         val ret = res.get("type").asString !in respondsTo || name !in alreadyResponded
         if (ret) {
             alreadyResponded.add(name)
@@ -139,6 +139,10 @@ class LiveGame(val game: Game, playerSessions: List<THavalonUserSession>) {
         else -> throw IllegalArgumentException("Bad game size in LiveGame (proposal sizes)")
     }
 
+    // represents index of player with next proposal
+    // starts off as the first player
+    var playerProposalIndex = 0
+
     // represents the current mission (i.e. mission 1, 4, 5, etc.)
     var missionCount: Int = 1
 
@@ -152,24 +156,30 @@ class LiveGame(val game: Game, playerSessions: List<THavalonUserSession>) {
     // represents the state in our state machine. We will only accept incoming messages of this type
     // game starts waiting for mission one proposal responses
     // var currentState : MessageType = MessageType.MISSION_ONE_PROPOSAL_RESPONSE
-    private var currentState: LiveGameState = MissionOneState(this)
+    var currentState: LiveGameState
 
     init {
         assert(game.rolesInGame.size == playerSessions.size)
+        println(game.rolesInGame)
+        println(playerSessions)
         for (r: Role in game.rolesInGame) {
             for (session: THavalonUserSession in playerSessions) {
                 if (r.player.name == session.name) {
                     players.add(Pair(r, session))
                 }
             }
-            throw IllegalArgumentException("Live game player without session")
         }
-
-
+        assert(playerSessions.size == players.size)
+        // once players is set up, we can initialize this state
+        currentState = ReadyState(this)
         // start the first state
         GlobalScope.launch {
             currentState.advance()
         }
+    }
+
+    fun incrementPlayerProposalIndex() {
+        playerProposalIndex ++
     }
 
     fun incrementMissionCount() {

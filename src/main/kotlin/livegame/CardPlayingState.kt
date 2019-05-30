@@ -20,7 +20,8 @@ class CardPlayingState(override val g: LiveGame, val m : Mission) : LiveGameStat
     }
 
     override suspend fun sendRequests() {
-        g.players.forEach {
+        val onMission = g.players.filter { it.second.name in m.players }
+        onMission.forEach {
             val msg = JsonObject()
             // get all cards the role can play
             val cards = JsonArray()
