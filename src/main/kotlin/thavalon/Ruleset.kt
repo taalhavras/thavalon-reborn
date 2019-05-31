@@ -41,7 +41,7 @@ open class Ruleset(val goodRoles : List<RoleCreator>, val evilRoles : List<RoleC
         val numBad : Int = ratio.second
 
         // randomly draw the appropriate number of roles
-        val roles : List<Role> = drawRoles(goodRoles, numGood).plus(drawRoles(evilRoles, numBad))
+        val roles : List<Role> = drawRoles(goodRoles, numGood).plus(drawRoles(evilRoles, numBad)).shuffled()
 
         val game : Game = Game(roles, players)
 

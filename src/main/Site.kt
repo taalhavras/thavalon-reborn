@@ -79,7 +79,7 @@ fun jsonifyGame(g: Game): JsonArray {
     // construct json for player info
     // Iterate through roles in game in a random order. This is because the starting player is defined to
     // be the first player in the players array, so we want a random one.
-    for (r: Role in g.rolesInGame.shuffled()) {
+    for (r: Role in g.rolesInGame) {
         // construct json for individual player
         val player = JsonObject()
         player.addProperty("name", r.player.name)
