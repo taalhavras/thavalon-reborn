@@ -44,15 +44,16 @@ class Proposal extends Component {
 
 
     sendProposal = () => {
-
+        console.log(this.props.id);
         const proposal = this.state.players.filter(ele => ele.selected).map(ele => ele.name);
         if (proposal.length !== this.props.num) {
             this.setState({error: "Not enough players selected"});
             return;
         }
+        console.log(proposal);
         const type = this.props.missionOne ? "MISSION_ONE_PROPOSAL_RESPONSE" : "MISSION_PROPOSAL_RESPONSE";
 
-        socket.send(JSON.stringify({type: type, proposal: proposal,  id: this.props.match.params.id, name:this.props.name
+        socket.send(JSON.stringify({type: type, proposal: proposal,  id: this.props.id, name: this.props.name
         }));
         this.props.hide(this);
     };

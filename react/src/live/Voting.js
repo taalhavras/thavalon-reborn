@@ -42,7 +42,7 @@ class Voting extends Component {
         }
         socket.send(JSON.stringify({type: "PLAY_CARD_RESPONSE",
             card: card,
-            id: this.props.match.params.id,
+            id: this.props.id,
             name:this.props.name
         }));
         this.props.hide(this);

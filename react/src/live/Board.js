@@ -21,7 +21,7 @@ import {send} from "q";
 class Board extends Component {
     constructor(props) {
         super(props);
-
+        console.log(this.props.location.state.name)
         this.state = {
             missions: [],
             options: ["unsent", "passed", "failed"],
@@ -43,40 +43,65 @@ class Board extends Component {
 
     //sets up socket listeners
     setupSocket = () => {
+
         socket.addEventListener("message", (message) => {
             console.log("in board event handler");
-            console.log(message);
+            console.log(message.data);
             const parsed = JSON.parse(message.data);
             switch (parsed.type) {
                 case "MISSION_ONE_PROPOSAL":
                     this.setState({
                         proposal: <Proposal
+                            id={this.props.match.params.id}
                             name={this.props.location.state.name}
                             players={this.state.players}
                             missionOne={true}
                             num={this.state.missions[0].num}
-                            hide={this.togglePopup}/>
+                            hide={this.hide}/>
                     });
                     break;
                 case "MISSION_ONE_VOTING":
                     this.setState({
                         popup: <MissionOneProposalVoting
+                            id={this.props.match.params.id}
                             name={this.props.location.state.name}
                             firstProposal={parsed.first_proposal}
                             secondProposal={parsed.second_proposal}
-                            hide={this.togglePopup}
+                            hide={this.hide}
                         />
                     });
+                    break;
+                case "MISSION_ONE_VOTING_RESULT":
+                    this.state.missions[0].votedFor = parsed.voted_sent;
+                    this.state.missions[0].proposedBy = parsed.proposed_by;
+                    this.setState({
+
+                        popup:
+                            <MissionProposalResult
+                                name={this.props.location.state.name}
+                                sent={parsed.sent}
+                                votedFor={parsed.voted_sent}
+                                votedAgainst={parsed.voted_not_sent}
+                                notSent={parsed.not_sent}
+                                hide={this.hide}
+
+                            />
+                    });
+                    this.setState(
+                        {
+                            currMission: 1,
+                        });
                     break;
                 case "MISSION_PROPOSAL":
                     this.setState({
                         proposal:
                             <Proposal
+                                id={this.props.match.params.id}
                                 players={this.state.players}
                                 name={this.props.location.state.name}
                                 missionOne={false}
                                 num={this.state.missions[this.state.currMission].num}
-                                hide={this.togglePopup}/>
+                                hide={this.hide}/>
                     });
                     break;
                 case "MISSION_PROPOSAL_RESULT":
@@ -95,36 +120,39 @@ class Board extends Component {
 
                         popup:
                             <MissionProposalResult
+
                                 name={this.props.location.state.name}
                                 sent={parsed.sent}
                                 votedFor={parsed.voted_for}
                                 votedAgainst={this.state.players.filter(ele => !parsed.voted_for.contains(ele))}
-                                hide={this.togglePopup}
+                                hide={this.hide}
                                 hijacked={hijacked}
                                 hijackedBy={hijackedBy}
                                 hijackRemoved={hijackRemoved}
 
                             />
+
                     });
                     break;
                 case "MISSION_VOTING":
-                    this.setState({popup: <ProposalVoting name={this.props.location.state.name}
-                                                                                     players={parsed.proposal} hide={this.togglePopup}/>});
+                    this.setState({popup: <ProposalVoting id={this.props.match.params.id} name={this.props.location.state.name}
+                                                                                     players={parsed.proposal} hide={this.hide}/>});
                     break;
                 case "PLAY_CARD":
                     this.setState({
                         popup: <Voting
+                            id={this.props.match.params.id}
                             name={this.props.location.state.name}
                             canReverse={parsed.cards.contains("R")}
                             canFail={parsed.cards.contains("F")}
-                            hide={this.togglePopup}/>
+                            hide={this.hide}/>
                     });
                     break;
                 case "MISSION_RESULT":
                     const missions = this.state.missions;
                     missions[parsed.num].passed = (parsed.result === "P") ? 1 : 2;
                     missions[parsed.num].mission = <Mission
-                        hide={this.togglePopup}
+                        hide={this.hide}
                         num={parsed.num}
                         onMission={[parsed.players]}
                         result={(parsed.result === "P") ? "Passed" : "Failed"}
@@ -151,16 +179,16 @@ class Board extends Component {
                         });
                     break;
                 case "HIJACK":
-                    this.setState({popup: <Hijack name={this.props.location.state.name}
-                                                                              hide={this.togglePopup}/>});
+                    this.setState({popup: <Hijack id={this.props.match.params.id} name={this.props.location.state.name}
+                                                                              hide={this.hide}/>});
                     break;
                 case "AGRAVAINE":
-                    this.setState({popup: <Agravaine name={this.props.location.state.name}
-                                                                                 hide={this.togglePopup}/>});
+                    this.setState({popup: <Agravaine id={this.props.match.params.id} name={this.props.location.state.name}
+                                                                                 hide={this.hide}/>});
                     break;
                 case "ASSASSINATE":
-                    this.setState({assassinate: <Assassinate  name={this.props.location.state.name}
-                                                                                         targets={parsed.targets} hide={this.togglePopup}/>});
+                    this.setState({assassinate: <Assassinate id={this.props.match.params.id}  name={this.props.location.state.name}
+                                                                                         targets={parsed.targets} hide={this.hide}/>});
                     break;
                 case "GAME RESULTS":
                     const popup = <div className={"GameResults pop-up"}>
@@ -221,14 +249,17 @@ class Board extends Component {
                     }),
                     info: data.filter(ele => ele.name === this.props.location.state.name)[0]
                 });
+                this.forceUpdate();
 
                 this.setupSocket();
                  // once the handler is set up and we've gotten all our info we send ready message
-                const msg = {};
-                msg["type"] = "READY";
-                msg["id"] = this.props.match.params.id;
-                msg["name"] = this.props.location.state.name;
-                socket.send(JSON.stringify(msg))
+                const msg = {
+                    type: "READY",
+                    id: this.props.match.params.id,
+                    name: this.props.location.state.name
+                };
+                socket.send(JSON.stringify(msg));
+
 
                 return data;
             }
@@ -250,6 +281,10 @@ class Board extends Component {
 
     //only ever one popup at a time, stored as a JSX element in state
     togglePopup = (ele) => {
+        console.log("Toggle Popup");
+        console.log(ele);
+        console.log(this.state.popup);
+
         if (this.state.popup !== null && this.state.popup.type === ele.type) {
             this.setState({popup: null});
         } else {
@@ -257,20 +292,26 @@ class Board extends Component {
         }
     };
 
+    hide = () => {
+        this.setState({popup: null});
+
+    };
 
     render() {
+        console.log(this.state);
+
         return (
 
             <div className={"Board"}>
                 {this.state.popup}
                 {this.state.info ?
-                    <div className={"name"} onClick={() => this.togglePopup(<LivePlayerInfo hide={this.togglePopup}
+                    <div className={"name"} onClick={() => this.togglePopup(<LivePlayerInfo hide={this.hide}
                                                                                             info={this.state.info}/>)}>
                         {this.props.location.state.name}
                     </div> : null}
-                }
+
                 <div className={"proposal-order"}>
-                    <PlayerList/>
+                    <PlayerList players={this.state.players}/>
                     {this.state.proposal ?
                         <button className={"propose-button large-button"}
                                 onClick={() => this.togglePopup(this.state.proposal)}>

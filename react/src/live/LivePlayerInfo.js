@@ -14,19 +14,6 @@ class LivePlayerInfo extends Component {
         };
     }
 
-    parseInfo = () => {
-        const info = JSON.parse(this.props.info);
-        console.log(info);
-        let res = [];
-        // collect all information arrays into one 2d array
-        Object.keys(info).forEach((key) => {
-            res.push(info[key]);
-        });
-        console.log(res);
-
-        return res.flat();
-    };
-
     render() {
         return ( <div className={"LivePlayerInfo pop-up"}>
                 <button className={"close-button"} onClick={() => this.props.hide(this)}>
@@ -34,7 +21,7 @@ class LivePlayerInfo extends Component {
                 <h2 className={"player-title"}>You are {this.state.role}</h2>
                 <div className={"description"}>
                     {this.state.description}
-                    {this.parseInfo(this.state.role_info)}
+                    {this.state.role_info}
                 </div>
                 <ul>
                 </ul>

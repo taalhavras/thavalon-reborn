@@ -66,7 +66,10 @@ class Live extends Component {
     componentDidMount() {
 
         socket.addEventListener("message", (message) => {
+            console.log("in live event handler");
+            console.log(message.data);
             const parsed = JSON.parse(message.data);
+
             switch (parsed.type) {
                 case "NEW_PLAYER":
                     console.log("new player");

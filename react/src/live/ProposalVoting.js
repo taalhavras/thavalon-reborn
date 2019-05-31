@@ -26,7 +26,7 @@ class ProposalVoting extends Component {
             JSON.stringify({
                 type: "MISSION_VOTING_RESPONSE",
                 vote: vote,
-                id: this.props.match.params.id,
+                id: this.props.id,
                 name:this.props.name
 
             })

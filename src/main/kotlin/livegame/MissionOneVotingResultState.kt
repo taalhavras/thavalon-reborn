@@ -28,6 +28,7 @@ class MissionOneVotingResultState(override val g: LiveGame, val firstProposal : 
         val msg = JsonObject()
         val sent = chosenProposal
         val notSent = if(chosenProposal == firstProposal) secondProposal else firstProposal
+        msg.addProperty("type", MessageType.MISSION_ONE_VOTING_RESULT.toString())
         msg.addProperty("sent", missionToJson(sent).toString())
         msg.addProperty("not_sent", missionToJson(notSent).toString())
         msg.addProperty("voted_sent", setToJson(votes.getValue(sent)).toString())

@@ -14,7 +14,7 @@ class MissionProposalResult extends Component {
     }
 
     confirm = () => {
-        socket.send(JSON.stringify({type: "MISSION_PROPOSAL_RESULT_RESPONSE", id: this.props.match.params.id, name:this.props.name
+        socket.send(JSON.stringify({type: "MISSION_PROPOSAL_RESULT_RESPONSE", id: this.props.id, name: this.props.name
         }));
         this.props.hide(this);
     };

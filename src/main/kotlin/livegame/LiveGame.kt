@@ -26,6 +26,8 @@ fun blankErrorMessage(): JsonObject {
 
 fun missionFromResponse(res: JsonObject): Mission {
     val players: Set<String> = res.get("proposal").asJsonArray.map { it.asString }.toSet()
+    println("misisonfromresponse")
+    println(players)
     val name = res.get("name").asString
     return Mission(players, name)
 }
@@ -97,6 +99,7 @@ abstract class LiveGameState(open val g: LiveGame, respondsTo: Set<MessageType>)
         if (ret) {
             alreadyResponded.add(name)
         }
+        println(ret)
         return ret
     }
 

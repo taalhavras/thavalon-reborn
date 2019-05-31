@@ -40,11 +40,15 @@ class MissionOneState(override val g: LiveGame) : LiveGameState(g, setOf(Message
         val name = res.get("name").asString
 
         val proposal = missionFromResponse(res)
+        println(proposal.players.size)
+        println(g.missionCount)
+        println(g.proposalSizes[g.missionCount])
+        println(name)
 
         // message is from a valid player
         return ((name == firstProposingPlayer.second.name || name == secondProposingPlayer.second.name)
                 // message contains the correct number of players
-                && proposal.players.size == g.proposalSizes[g.missionCount]
+                && proposal.players.size == g.proposalSizes[g.missionCount-1]
                 // check this is the first valid
                 && super.validResponse(res))
 

@@ -5,10 +5,9 @@ class PlayerList extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
-            players: [
-                {name: "Grace", selected: true}, {name: "Kevin", selected: false}, {name: "Raghu", selected: false},
-                {name: "May", selected: false}, {name: "Philip", selected: false}]
+            players: this.props.players.map(ele => {return {name: ele, selected: false}})
             , curr: 0
         }
     }

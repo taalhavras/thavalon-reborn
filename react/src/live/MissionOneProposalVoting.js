@@ -35,7 +35,7 @@ class MissionOneProposalVoting extends Component {
         } else {
             return;
         }
-        socket.send(JSON.stringify({type: "MISSION_ONE_VOTING_RESPONSE", vote: vote, id: this.props.match.params.id, name:this.props.name
+        socket.send(JSON.stringify({type: "MISSION_ONE_VOTING_RESPONSE", vote: vote, id: this.props.id, name:this.props.name
         }));
         this.props.hide(this);
     };
