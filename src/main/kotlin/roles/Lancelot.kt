@@ -11,6 +11,6 @@ class Lancelot : Role() {
 
     // lance can play reverses
     override fun cardOptions(): List<Card> {
-        return listOf(Card.PASS, Card.REVERSE)
+        return listOf(Card.P, Card.R)
     }
 }

@@ -17,7 +17,7 @@ class MissionResultsState(override val g : LiveGame, val cards : List<PlayedCard
             cardsOnMission.add(c.card.toString())
         }
         msg.addProperty("players", players.toString())
-        msg.addProperty("cards", cards.toString())
+        msg.addProperty("cards", cardsOnMission.toString())
         msg.addProperty("result", result)
         // store missionCount
         msg.addProperty("num", g.missionCount)

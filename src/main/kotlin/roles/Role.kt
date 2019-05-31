@@ -71,15 +71,15 @@ sealed class RoleType(val role : RoleEnum, val alignment : Alignment) {
  * Types of cards that can be played
  */
 enum class Card {
-    PASS {
+    P {
         override fun toString(): String {
             return "P"
         }
-    }, FAIL {
+    }, F {
         override fun toString(): String {
             return "F"
         }
-    }, REVERSE {
+    }, R {
         override fun toString(): String {
             return "R"
         }
@@ -215,7 +215,7 @@ abstract class Role {
 
     // the types of card the role can play.
     open fun cardOptions() : List<Card> {
-        return listOf(Card.PASS)
+        return listOf(Card.P)
     }
 
     // whether the given role is ok with the other roles in the game
@@ -267,7 +267,7 @@ abstract class DefaultEvilRole : Role() {
 
     // default evil can play passes and fails
     override fun cardOptions(): List<Card> {
-        return listOf(Card.PASS, Card.FAIL)
+        return listOf(Card.P, Card.F)
     }
 
 

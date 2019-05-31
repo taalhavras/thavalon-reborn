@@ -15,8 +15,8 @@ class MissionEvaluationState(override val g : LiveGame, private val cardsPlayed 
      */
     private fun missionPasses() : Boolean {
         val cards = cardsPlayed.map{ it.card }
-        val numFails = cards.count { it == Card.FAIL }
-        val numReverses = cards.count { it == Card.REVERSE }
+        val numFails = cards.count { it == Card.F }
+        val numReverses = cards.count { it == Card.R }
         // the mission reverses if there are an odd number of reverses
         val missionReverses = numReverses % 2 == 1
 

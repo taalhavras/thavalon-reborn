@@ -22,7 +22,7 @@ class Maelegant : DefaultEvilRole() {
 
     // maelegant can play everything
     override fun cardOptions(): List<Card> {
-        return listOf(Card.PASS, Card.FAIL, Card.REVERSE)
+        return listOf(Card.P, Card.F, Card.R)
     }
 }
 
@@ -31,6 +31,6 @@ class Agravaine : DefaultEvilRole() {
 
     // agravaine can only play fails
     override fun cardOptions(): List<Card> {
-        return listOf(Card.FAIL)
+        return listOf(Card.F)
     }
 }

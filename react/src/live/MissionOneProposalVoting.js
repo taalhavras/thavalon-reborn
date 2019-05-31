@@ -50,10 +50,10 @@ class MissionOneProposalVoting extends Component {
                 <h2>Mission One</h2>
                 <div className={"mission-wrapper"}>
                     <div className={firstClasses} onClick={this.selectFirstProposal}>
-                        First Proposal: {csv(this.props.firstProposal)}
+                        First Proposal: {csv(JSON.parse(this.props.firstProposal))}
                     </div>
                     <div className={secondClasses} onClick={this.selectSecondProposal}>
-                        Second Proposal: {csv(this.props.secondProposal)}
+                        Second Proposal: {csv(JSON.parse(this.props.secondProposal))}
                     </div>
                 </div>
                 <button className={"large-button proposal-button"} onClick={this.vote}>Vote</button>

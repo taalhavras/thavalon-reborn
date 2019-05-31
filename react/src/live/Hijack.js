@@ -24,7 +24,6 @@ class Hijack extends Component {
                     id: this.props.match.params.id,
                     name: this.props.name
 
-
                 })
             );
             this.props.hide(this);

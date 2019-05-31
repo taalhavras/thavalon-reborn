@@ -24,8 +24,8 @@ class MissionProposalResult extends Component {
         return (
             <div className={"MissionProposalResult pop-up"}>
                 <h2>{this.props.proposedBy}'s mission is {this.props.sent ? "going" : "not going"}</h2>
-                <div className={"vote-div"}>Upvotes: {csv(this.props.votedFor)}</div>
-                <div className={"vote-div"}>Downvotes: {csv(this.props.votedAgainst)}</div>
+                <div className={"vote-div"}>Upvotes: {csv(JSON.parse(this.props.votedFor))}</div>
+                <div className={"vote-div"}>Downvotes: {csv(JSON.parse(this.props.votedAgainst))}</div>
                 {this.props.hijacked ? <div>Hijacked by {this.props.hijackedBy}. {this.props.hijackRemoved} was
                     removed from the mission</div> : null}
 

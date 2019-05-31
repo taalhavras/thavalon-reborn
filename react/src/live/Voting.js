@@ -42,7 +42,7 @@ class Voting extends Component {
         }
         socket.send(JSON.stringify({type: "PLAY_CARD_RESPONSE",
             card: card,
-            id: this.props.id,
+            id: this.props .id,
             name:this.props.name
         }));
         this.props.hide(this);
@@ -67,13 +67,13 @@ class Voting extends Component {
                 <div className={passClasses} onClick={this.togglePass} >
                     <div className={"card-content"}> Pass </div>
                 </div>
-                {this.state.canFail ?
+                {this.props.canFail ?
                     <div className={failClasses} onClick={this.toggleFail}>
 
                         <div className={"card-content"}> Fail </div>
 
                     </div> : null}
-                {this.state.canReverse ?
+                {this.props.canReverse ?
                     <div className={reverseClasses} onClick={this.toggleReverse}>
                         <div className={"card-content"}> Reverse </div>
 

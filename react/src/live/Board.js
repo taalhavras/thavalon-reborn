@@ -21,7 +21,7 @@ import {send} from "q";
 class Board extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props.location.state.name)
+        console.log(this.props.location.state.name);
         this.state = {
             missions: [],
             options: ["unsent", "passed", "failed"],
@@ -33,7 +33,9 @@ class Board extends Component {
             proposal: null,
             currProposal: 0,
             assassinate: null,
-            info: null
+            info: null,
+            mission1: null,
+            mission2: null,
         };
 
         this.playerList = React.createRef();
@@ -65,6 +67,7 @@ class Board extends Component {
                     });
                     break;
                 case "MISSION_ONE_VOTING":
+                    console.log(parsed);
                     this.setState({
                         popup: <MissionOneProposalVoting
                             id={this.props.match.params.id}
@@ -78,6 +81,7 @@ class Board extends Component {
                 case "MISSION_ONE_VOTING_RESULT":
                     this.state.missions[0].votedFor = parsed.voted_sent;
                     this.state.missions[0].proposedBy = parsed.proposed_by;
+                    console.log(parsed.proposed_by);
                     this.setState({
 
                         popup:
@@ -156,20 +160,22 @@ class Board extends Component {
                         popup: <Voting
                             id={this.props.match.params.id}
                             name={this.props.location.state.name}
-                            canReverse={("R") in cards}
-                            canFail={("F") in cards}
+                            canReverse={cards.includes("R")}
+                            canFail={cards.includes("F")}
                             hide={this.hide}/>
                     });
                     break;
                 case "MISSION_RESULT":
                     const missions = this.state.missions;
-                    missions[parsed.num].passed = (parsed.result === "P") ? 1 : 2;
-                    missions[parsed.num].mission = <Mission
+                    missions[parsed.num-1].passed = (parsed.result) ? 1 : 2;
+                    const cardsPlayed = JSON.parse(parsed.cards);
+                    missions[parsed.num-1].mission = <Mission
+
                         hide={this.hide}
                         num={parsed.num}
-                        onMission={[parsed.players]}
+                        onMission={[parsed.players-1]}
                         result={(parsed.result === "P") ? "Passed" : "Failed"}
-                        cardsPlayed={parsed.cards_played.map(ele => {
+                        cardsPlayed={cardsPlayed.map(ele => {
                             switch (ele) {
                                 case "P":
                                     return "Pass";
@@ -181,14 +187,16 @@ class Board extends Component {
                                     return "";
                             }
                         })}
-                        proposedBy={missions[parsed.num].proposedBy}
-                        votedFor={missions[parsed.num].votedFor}
-                        votedAgainst={this.state.players.filter(ele => !missions[parsed.num].votedFor.contains(ele))}
+                        proposedBy={missions[parsed.num-1].proposedBy}
+                        votedFor={missions[parsed.num-1].votedFor}
+                        votedAgainst={this.state.players.filter(ele => !missions[parsed.num-1].votedFor.includes(ele))}
                     />;
+                    console.log(missions);
                     this.setState(
                         {
-                            currMission: parsed.num + 1,
-                            missions: missions
+                            currMission: parsed.num,
+                            missions: missions,
+                            popup: missions[parsed.num - 1].mission
                         });
                     break;
                 case "HIJACK":
@@ -209,7 +217,8 @@ class Board extends Component {
                         {parsed.result};
                         <Link to={{path: "/"}}/>
                     </div>;
-                    this.setState({popup: popup});
+                    this.togglePopup(popup);
+                    this.forceUpdate();
                     break;
                 default:
                     break;

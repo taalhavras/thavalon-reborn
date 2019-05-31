@@ -19,7 +19,7 @@ class Mission extends Component {
                 <div className={"mission-info"}>Cards played: {csv(this.props.cardsPlayed)}</div>
 
                 <div className={"mission-info"}>Proposed by: {this.props.proposedBy} </div>
-                <div className={"mission-info"}>Voted For: {csv(this.props.votedFor)} </div>
+                <div className={"mission-info"}>Voted For: {csv(JSON.parse(this.props.votedFor))} </div>
                 <div className={"mission-info"}>Voted Against: {csv(this.props.votedAgainst)} </div>
 
 
