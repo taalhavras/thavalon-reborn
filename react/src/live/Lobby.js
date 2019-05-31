@@ -71,7 +71,7 @@ class Lobby extends Component {
                 case "GAME_STARTED":
                     // game is rolled, redirect to board
                     console.log("game started");
-                    this.setState({redirect: <Redirect to={"/" + parsed.id + "/board"}/>});
+                    this.setState({redirect: <Redirect to={{pathname: "/" + parsed.id + "/board", state: {name: this.props.location.state.name}}}/>});
                     break;
                 case "ERROR":
                     console.log("error");

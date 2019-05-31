@@ -49,7 +49,7 @@ class Board extends Component {
                 case "MISSION_ONE_PROPOSAL":
                     this.setState({
                         proposal: <Proposal
-                            name={this.props.name}
+                            name={this.props.location.state.name}
                             players={this.state.players}
                             missionOne={true}
                             num={this.state.missions[0].num}
@@ -59,7 +59,7 @@ class Board extends Component {
                 case "MISSION_ONE_VOTING":
                     this.setState({
                         popup: <MissionOneProposalVoting
-                            name={this.props.name}
+                            name={this.props.location.state.name}
                             firstProposal={parsed.first_proposal}
                             secondProposal={parsed.second_proposal}
                             hide={this.togglePopup}
@@ -71,7 +71,7 @@ class Board extends Component {
                         proposal:
                             <Proposal
                                 players={this.state.players}
-                                name={this.props.name}
+                                name={this.props.location.state.name}
                                 missionOne={false}
                                 num={this.state.missions[this.state.currMission].num}
                                 hide={this.togglePopup}/>
@@ -86,10 +86,14 @@ class Board extends Component {
                         hijackRemoved = parsed.hijack_removed;
                     }
 
+                    this.state.missions[parsed.num].votedFor = parsed.voted_for;
+                    this.state.missions[parsed.num].proposedBy = parsed.proposed_by;
+
                     this.setState({
+
                         popup:
                             <MissionProposalResult
-                                name={this.props.name}
+                                name={this.props.location.state.name}
                                 sent={parsed.sent}
                                 votedFor={parsed.voted_for}
                                 votedAgainst={this.state.players.filter(ele => !parsed.voted_for.contains(ele))}
@@ -102,13 +106,13 @@ class Board extends Component {
                     });
                     break;
                 case "MISSION_VOTING":
-                    this.setState({popup: <ProposalVoting name={this.props.name}
+                    this.setState({popup: <ProposalVoting name={this.props.location.state.name}
                                                                                      players={parsed.proposal} hide={this.togglePopup}/>});
                     break;
                 case "PLAY_CARD":
                     this.setState({
                         popup: <Voting
-                            name={this.props.name}
+                            name={this.props.location.state.name}
                             canReverse={parsed.cards.contains("R")}
                             canFail={parsed.cards.contains("F")}
                             hide={this.togglePopup}/>
@@ -134,9 +138,9 @@ class Board extends Component {
                                     return "";
                             }
                         })}
-                        proposedBy={parsed.proposed_by}
-                        votedFor={parsed.voted_for}
-                        votedAgainst={this.state.players.filter(ele => !parsed.voted_for.contains(ele))}
+                        proposedBy={missions[parsed.num].proposedBy}
+                        votedFor={missions[parsed.num].votedFor}
+                        votedAgainst={this.state.players.filter(ele => !missions[parsed.num].votedFor.contains(ele))}
                     />;
                     this.setState(
                         {
@@ -145,15 +149,15 @@ class Board extends Component {
                         });
                     break;
                 case "HIJACK":
-                    this.setState({popup: <Hijack name={this.props.name}
+                    this.setState({popup: <Hijack name={this.props.location.state.name}
                                                                               hide={this.togglePopup}/>});
                     break;
                 case "AGRAVAINE":
-                    this.setState({popup: <Agravaine name={this.props.name}
+                    this.setState({popup: <Agravaine name={this.props.location.state.name}
                                                                                  hide={this.togglePopup}/>});
                     break;
                 case "ASSASSINATE":
-                    this.setState({assassinate: <Assassinate  name={this.props.name}
+                    this.setState({assassinate: <Assassinate  name={this.props.location.state.name}
                                                                                          targets={parsed.targets} hide={this.togglePopup}/>});
                     break;
                 case "GAME RESULTS":
@@ -173,7 +177,7 @@ class Board extends Component {
         const msg = {};
         msg["type"] = "READY";
         msg["id"] = this.props.match.params.id;
-        msg["name"] = this.props.name;
+        msg["name"] = this.props.location.state.name;
         socket.send(JSON.stringify(msg))
 
     }
@@ -220,7 +224,7 @@ class Board extends Component {
                             mission: null
                         }
                     }),
-                    info: data.filter(ele => ele.name === this.props.name)[0]
+                    info: data.filter(ele => ele.name === this.props.location.state.name)[0]
                 });
 
                 return data;
@@ -259,7 +263,7 @@ class Board extends Component {
                 {this.state.info ?
                     <div className={"name"} onClick={() => this.togglePopup(<LivePlayerInfo hide={this.togglePopup}
                                                                                             info={this.state.info}/>)}>
-                        {this.props.name}
+                        {this.props.location.state.name}
                     </div> : null}
                 }
                 <div className={"proposal-order"}>
