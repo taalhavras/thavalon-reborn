@@ -37,13 +37,15 @@ class Board extends Component {
 
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.renderGame();
     }
 
     //sets up socket listeners
-    componentDidMount() {
+    setupSocket = () => {
         socket.addEventListener("message", (message) => {
+            console.log("in board event handler");
+            console.log(message);
             const parsed = JSON.parse(message.data);
             switch (parsed.type) {
                 case "MISSION_ONE_PROPOSAL":
@@ -173,14 +175,7 @@ class Board extends Component {
             }
         });
 
-        // once the handler is set up we send ready message
-        const msg = {};
-        msg["type"] = "READY";
-        msg["id"] = this.props.match.params.id;
-        msg["name"] = this.props.location.state.name;
-        socket.send(JSON.stringify(msg))
-
-    }
+    };
 
     // retrieves the player info for this game
     renderGame = () => {
@@ -226,6 +221,14 @@ class Board extends Component {
                     }),
                     info: data.filter(ele => ele.name === this.props.location.state.name)[0]
                 });
+
+                this.setupSocket();
+                 // once the handler is set up and we've gotten all our info we send ready message
+                const msg = {};
+                msg["type"] = "READY";
+                msg["id"] = this.props.match.params.id;
+                msg["name"] = this.props.location.state.name;
+                socket.send(JSON.stringify(msg))
 
                 return data;
             }

@@ -58,7 +58,7 @@ class Live extends Component {
 
         };
 
-        this.setState({name: event.target[1].value});
+        this.setState({name: event.target[0].value});
 
         socket.send(JSON.stringify(toSend));
     };
@@ -92,9 +92,6 @@ class Live extends Component {
                     console.log(parsed.names);
                     this.setState({redirect: <Redirect to={{pathname: path, state: {name: this.state.name, names: JSON.parse(parsed.names)}}}/>});
                     break;
-                default:
-                    console.log("message type not recognized");
-                    console.log(parsed);
             }
 
             // socket.send(JSON.stringify("message recieved"));
