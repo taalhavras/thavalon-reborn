@@ -16,7 +16,8 @@ class Live extends Component {
             lobbyCreateError: "",
             lobbyJoinError: "",
             redirect: "",
-            id: ""
+            id: "",
+            name: ""
         }
     }
 
@@ -32,14 +33,13 @@ class Live extends Component {
             return;
         }
 
-
         const toSend = {
             type: "JOIN_LOBBY",
             id: event.target[0].value,
             name: event.target[1].value
         };
 
-        this.setState({id: event.target[0].value})
+        this.setState({id: event.target[0].value, name: event.target[1].value});
 
         socket.send(JSON.stringify(toSend));
 
@@ -57,6 +57,8 @@ class Live extends Component {
             name: event.target[0].value,
 
         };
+
+        this.setState({name: event.target[1].value});
 
         socket.send(JSON.stringify(toSend));
     };
@@ -80,7 +82,7 @@ class Live extends Component {
                     console.log("lobby created");
 
                     let path = "/live/" +parsed.id;
-                    this.setState({redirect: <Redirect to={{pathname: path, state: {creator: parsed.name,
+                    this.setState({redirect: <Redirect to={{pathname: path, state: {name: this.state.name, creator: parsed.name,
                                 id: parsed.id, isCreator: true, names: [parsed.name]}}}/>});
                     break;
                 case "LOBBY_JOINED":
@@ -88,7 +90,7 @@ class Live extends Component {
                     console.log(parsed);
                     path = "/live/" + this.state.id;
                     console.log(parsed.names);
-                    this.setState({redirect: <Redirect to={{pathname: path, state: {names: JSON.parse(parsed.names)}}}/>});
+                    this.setState({redirect: <Redirect to={{pathname: path, state: {name: this.state.name, names: JSON.parse(parsed.names)}}}/>});
                     break;
                 default:
                     console.log("message type not recognized");
