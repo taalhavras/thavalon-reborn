@@ -91,6 +91,7 @@ abstract class LiveGameState(open val g: LiveGame, respondsTo: Set<MessageType>)
      */
     @Synchronized
     open fun validResponse(res: JsonObject): Boolean {
+        println("valid response:\n $res")
         val name = res.get("name").asString
         val ret = res.get("type").asString !in respondsTo || name !in alreadyResponded
         if (ret) {

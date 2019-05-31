@@ -265,7 +265,7 @@ fun main() {
                                 val names = JsonArray()
                                 lobbyMap[id]!!.members.forEach { names.add(it.name) }
                                 toSend.addProperty("names", gson.toJson(names))
-
+                                toSend.addProperty("name", name)
                             }
                             println(toSend)
                             outgoing.send(Frame.Text(toSend.toString()))
