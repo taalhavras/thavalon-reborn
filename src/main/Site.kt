@@ -157,7 +157,7 @@ fun main() {
     val staticGames: MutableMap<String, Pair<JsonArray, Boolean>> = Collections.synchronizedMap(LinkedHashMap())
 
     // stores games being played via the app instead of in person
-    val remoteGames: MutableMap<String, LiveGame> = java.util.concurrent.ConcurrentHashMap()
+    val remoteGames: MutableMap<String, Pair<JsonArray, LiveGame>> = java.util.concurrent.ConcurrentHashMap()
 
     val statsMutex = Mutex()
 
@@ -296,7 +296,7 @@ fun main() {
                                 // benefit to the ids being the same except for this part maybe being clearer?
                                 // but is it even?
                                 val lg = LiveGame(game, lobby.members)
-                                remoteGames.put(response.get("id").asString, lg)
+                                remoteGames.put(response.get("id").asString, Pair(jsonifyGame(lg.game), lg))
 
                                 // now we can send redirects
                                 response.addProperty("type", MessageType.GAME_STARTED.toString())
@@ -339,7 +339,7 @@ fun main() {
                             removedPlayer.socket!!.send(toRemoved.toString())
                         }
                         in liveGameMessages -> {
-                            val lg : LiveGame = remoteGames.getValue(parsed.get("id").asString)
+                            val lg : LiveGame = remoteGames.getValue(parsed.get("id").asString).second
                             lg.handleResponse(parsed)
                         }
                         else -> println("Invalid message type $type")
@@ -371,7 +371,7 @@ fun main() {
                 val id: String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
                 val response: JsonArray = when (id) {
                     in staticGames -> staticGames.getValue(id).first
-                    in remoteGames -> jsonifyGame(remoteGames.getValue(id).game)
+                    in remoteGames -> remoteGames.getValue(id).first
                     else -> JsonArray()
                 }
 
