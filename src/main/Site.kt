@@ -4,6 +4,7 @@ import com.google.gson.*
 import io.ktor.application.ApplicationCallPipeline
 import io.ktor.application.call;
 import io.ktor.application.install
+import io.ktor.features.CORS
 import io.ktor.http.content.files
 import io.ktor.http.content.static
 import io.ktor.http.content.staticRootFolder
@@ -12,6 +13,7 @@ import io.ktor.response.respond
 import io.ktor.response.respondFile
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
+import io.ktor.http.HttpMethod
 import io.ktor.http.cio.websocket.*
 import io.ktor.routing.get
 import io.ktor.routing.post
@@ -171,7 +173,18 @@ fun main() {
 
             }
         }
-
+//        install(CORS)
+//        {
+//            method(HttpMethod.Options)
+//            header(HttpHeaders.XForwardedProto)
+//            anyHost()
+//            // host("my-host:80")
+//            // host("my-host", subDomains = listOf("www"))
+//            // host("my-host", schemes = listOf("http", "https"))
+//            allowCredentials = true
+//            maxAge = Duration.ofDays(1)
+//
+//        }
         install(WebSockets)
 
         install(Sessions) {

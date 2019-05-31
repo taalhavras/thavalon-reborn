@@ -9,7 +9,21 @@ class PlayerList extends Component {
         this.state = {
             players: this.props.players.map(ele => {return {name: ele, selected: false}})
             , curr: 0
+        };
+        console.log(this.state);
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({
+            players: nextProps.players.map(ele => {
+                return {name: ele, selected: false}
+            })
+        });
+        if (this.state.players.length > 0) {
+            this.state.players[0].selected = true;
         }
+        this.forceUpdate();
+
     }
 
     next = () => {

@@ -28,6 +28,7 @@ class CardPlayingState(override val g: LiveGame, val m : Mission) : LiveGameStat
             it.first.cardOptions().forEach { c: Card ->
                 cards.add(c.toString())
             }
+            msg.addProperty("type", MessageType.PLAY_CARD.toString())
             msg.addProperty("cards", cards.toString())
             it.second.socket!!.send(msg.toString())
         }

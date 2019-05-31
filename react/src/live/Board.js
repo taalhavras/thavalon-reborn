@@ -31,9 +31,12 @@ class Board extends Component {
             redirect: "",
             players: [],
             proposal: null,
+            currProposal: 0,
             assassinate: null,
             info: null
-        }
+        };
+
+        this.playerList = React.createRef();
 
     }
 
@@ -57,7 +60,8 @@ class Board extends Component {
                             players={this.state.players}
                             missionOne={true}
                             num={this.state.missions[0].num}
-                            hide={this.hide}/>
+                            hide={this.hide}
+                            close={this.closeProposal}/>
                     });
                     break;
                 case "MISSION_ONE_VOTING":
@@ -84,6 +88,7 @@ class Board extends Component {
                                 votedAgainst={parsed.voted_not_sent}
                                 notSent={parsed.not_sent}
                                 hide={this.hide}
+                                id={this.props.match.params.id}
 
                             />
                     });
@@ -101,7 +106,9 @@ class Board extends Component {
                                 name={this.props.location.state.name}
                                 missionOne={false}
                                 num={this.state.missions[this.state.currMission].num}
-                                hide={this.hide}/>
+                                hide={this.hide}
+                                close={this.closeProposal}
+                            />
                     });
                     break;
                 case "MISSION_PROPOSAL_RESULT":
@@ -112,7 +119,9 @@ class Board extends Component {
                         hijackedBy = parsed.hijacked_by;
                         hijackRemoved = parsed.hijack_removed;
                     }
-
+                    if (this.playerList.current) {
+                        this.playerList.current.next();
+                    }
                     this.state.missions[parsed.num].votedFor = parsed.voted_for;
                     this.state.missions[parsed.num].proposedBy = parsed.proposed_by;
 
@@ -139,12 +148,16 @@ class Board extends Component {
                                                                                      players={parsed.proposal} hide={this.hide}/>});
                     break;
                 case "PLAY_CARD":
+                    console.log("play card");
+                    const cards = JSON.parse(parsed.cards);
+                    console.log(cards);
+                    console.log(typeof cards);
                     this.setState({
                         popup: <Voting
                             id={this.props.match.params.id}
                             name={this.props.location.state.name}
-                            canReverse={parsed.cards.contains("R")}
-                            canFail={parsed.cards.contains("F")}
+                            canReverse={("R") in cards}
+                            canFail={("F") in cards}
                             hide={this.hide}/>
                     });
                     break;
@@ -220,6 +233,7 @@ class Board extends Component {
                 console.error("Error retrieving game data from server");
             } else {
                 //determines state variables from data
+
                 const players = data.map(ele => ele.name);
                 let missions = [];
                 switch (players.length) {
@@ -236,7 +250,7 @@ class Board extends Component {
                     default:
                         break;
                 }
-
+                console.log(players);
                 this.setState({
                     game: data,
                     players: players,
@@ -249,6 +263,8 @@ class Board extends Component {
                     }),
                     info: data.filter(ele => ele.name === this.props.location.state.name)[0]
                 });
+
+                console.log(this.state);
                 this.forceUpdate();
 
                 this.setupSocket();
@@ -297,6 +313,11 @@ class Board extends Component {
 
     };
 
+    closeProposal = () => {
+        this.setState({popup: null, proposal: null});
+
+    };
+
     render() {
         console.log(this.state);
 
@@ -311,7 +332,7 @@ class Board extends Component {
                     </div> : null}
 
                 <div className={"proposal-order"}>
-                    <PlayerList players={this.state.players}/>
+                    <PlayerList players={this.state.players} ref={this.playerList}/>
                     {this.state.proposal ?
                         <button className={"propose-button large-button"}
                                 onClick={() => this.togglePopup(this.state.proposal)}>

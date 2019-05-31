@@ -55,12 +55,15 @@ class Proposal extends Component {
 
         socket.send(JSON.stringify({type: type, proposal: proposal,  id: this.props.id, name: this.props.name
         }));
-        this.props.hide(this);
+        this.props.close(this);
     };
 
     render() {
         return (
             <div className={"Proposal pop-up"}>
+                <button className={"close-button"} onClick={() => this.props.hide()}>
+                    <i className="fas fa-times"></i>
+                </button>
                 <div className={"player-list"}>
                     {this.state.players.map(ele => {
                         const selected = ele.selected ? "selected" : "";
