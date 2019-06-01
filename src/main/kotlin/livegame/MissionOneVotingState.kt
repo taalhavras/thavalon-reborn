@@ -3,8 +3,8 @@ package main.kotlin.livegame
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import main.MessageType
-import java.lang.Exception
 import java.lang.IllegalArgumentException
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 
@@ -18,8 +18,8 @@ class MissionOneVotingState(
 
     init {
         // set up empty sets to record votes
-        votingRecord[firstProposal] = HashSet()
-        votingRecord[secondProposal] = HashSet()
+        votingRecord[firstProposal] = Collections.synchronizedSet(HashSet())
+        votingRecord[secondProposal] = Collections.synchronizedSet(HashSet())
 
         // we need responses from every player in the game
         cdl = CountDownLatch(g.players.size)

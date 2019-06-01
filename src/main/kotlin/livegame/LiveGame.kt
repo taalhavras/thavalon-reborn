@@ -183,7 +183,7 @@ class LiveGame(val game: Game, playerSessions: List<THavalonUserSession>) {
     }
 
     fun incrementPlayerProposalIndex() {
-        playerProposalIndex ++
+        playerProposalIndex = (playerProposalIndex ++) % players.size
     }
 
     fun incrementMissionCount() {

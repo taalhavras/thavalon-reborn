@@ -34,7 +34,7 @@ class LivePlayerInfo extends Component {
                 <h2 className={"player-title"}>You are {this.state.role}</h2>
                 <div className={"description"}>
                     {this.state.description}
-                    <div>
+                </div>
 
                 <div className={"info"}>
                     {this.parseInfo(JSON.parse(this.state.role_info))}
