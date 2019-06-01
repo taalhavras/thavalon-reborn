@@ -47,24 +47,24 @@ class MissionVotingState(override val g : LiveGame, val proposal : Mission) :
             MissionVotingResultState(g, proposal, votingRecord, force)
         }
 
-        // go to hijack state if we reached force
-        return if(force) {
-            // TODO make a hijack state
-            MissionVotingResultState(g, proposal, HashMap(), true)
-        } else {
-            // now we should calculate if we've gotten enough votes
-            val upvotes = votingRecord[true]!!.size
-            val downvotes = votingRecord[false]!!.size
-            if(upvotes > downvotes) {
-                // mission went, needs clear majority
-                MissionVotingResultState(g, proposal, votingRecord, false)
-            } else {
-                // mission doesn't go
-                // increment the number of proposals
-                g.incrementProposalCount()
-                MissionState(g)
-            }
-        }
+//        // go to hijack state if we reached force
+//        return if(force) {
+//            // TODO make a hijack state
+//            MissionVotingResultState(g, proposal, HashMap(), true)
+//        } else {
+//            // now we should calculate if we've gotten enough votes
+//            val upvotes = votingRecord[true]!!.size
+//            val downvotes = votingRecord[false]!!.size
+//            if(upvotes > downvotes) {
+//                // mission went, needs clear majority
+//                MissionVotingResultState(g, proposal, votingRecord, false)
+//            } else {
+//                // mission doesn't go
+//                // increment the number of proposals
+//                g.incrementProposalCount()
+//                MissionState(g)
+//            }
+//        }
     }
 
 }

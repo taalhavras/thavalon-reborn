@@ -42,7 +42,7 @@ class MissionResultsState(override val g : LiveGame, val cards : List<PlayedCard
         return when(missionEvalRes) {
             MissionEvaluationResult.CONTINUE_PLAY -> {
                 // go to next player's proposal
-                GameResultsState(g, GameResult.GOOD_WINS)
+                MissionState(g)
             }
             MissionEvaluationResult.EVIL_FAILS_THREE_MISSIONS -> {
                 // go to game results

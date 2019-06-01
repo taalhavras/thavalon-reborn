@@ -151,7 +151,7 @@ class LiveGame(val game: Game, playerSessions: List<THavalonUserSession>) {
     var missionCount: Int = 1
 
     // represents the proposal number we are currently at in this mission. Starts at 1,
-    // and increments as proposals are rejected. Resets at the start of a new mission
+    // and increments as proposals are rejected. Resets once a mission goes
     var proposalCount = 1
 
     // represents the results of missions in our game so far
