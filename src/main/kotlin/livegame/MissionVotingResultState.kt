@@ -27,6 +27,8 @@ class MissionVotingResultState(override val g : LiveGame, val mission : Mission,
             val upvotes = votingRecord.getValue(true).size
             val downvotes = votingRecord.getValue(false).size
             msg.addProperty("sent", upvotes > downvotes)
+            msg.addProperty("voted_for", setToJson(votingRecord.getValue(true)).toString())
+            msg.addProperty("voted_against", setToJson(votingRecord.getValue(false)).toString())
         }
 
         g.sendToAll(msg)

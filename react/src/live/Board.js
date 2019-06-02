@@ -137,7 +137,7 @@ class Board extends Component {
                                 name={this.props.location.state.name}
                                 sent={parsed.sent}
                                 votedFor={parsed.voted_for}
-                                votedAgainst={this.state.players.filter(ele => !parsed.voted_for.contains(ele))}
+                                votedAgainst={this.state.players.filter(ele => !parsed.voted_for.includes(ele))}
                                 hide={this.hide}
                                 hijacked={hijacked}
                                 hijackedBy={hijackedBy}
