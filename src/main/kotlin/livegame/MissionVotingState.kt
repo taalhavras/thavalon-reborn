@@ -31,6 +31,7 @@ class MissionVotingState(override val g : LiveGame, val proposal : Mission) :
         if(!force) {
             val msg = JsonObject()
             val proposal = setToJson(proposal.players)
+            msg.addProperty("type", MessageType.MISSION_VOTING.toString())
             msg.addProperty("proposal", proposal.toString())
             g.sendToAll(msg)
         }
