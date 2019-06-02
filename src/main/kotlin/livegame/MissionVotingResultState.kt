@@ -5,7 +5,7 @@ import main.MessageType
 import java.util.concurrent.CountDownLatch
 
 class MissionVotingResultState(override val g : LiveGame, val mission : Mission,
-                               val votingRecord : Map<Boolean, Set<String>>, val force : Boolean)
+                               val votingRecord : Map<Boolean, Set<String>>, val force : Boolean, val hijackInfo : HijackInfo?)
     : LiveGameState(g, setOf(MessageType.MISSION_VOTING_RESPONSE)) {
 
 

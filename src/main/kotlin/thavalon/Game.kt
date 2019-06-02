@@ -2,6 +2,9 @@ package main.kotlin.thavalon
 
 import main.kotlin.roles.*
 
+// constant value for hijack information. This is used by the livegame to identify which player (if any) has hijack
+val HijackInfo = ThavalonInformation.AlertInformation("You have Hijack!")
+
 class Player(var name : String) {
     fun setPlayerName(newName : String) : Unit {
         this.name = newName
@@ -86,7 +89,7 @@ class Game(val rolesInGame : List<Role>, val players : MutableList<String>) {
             val potentialHijackers = g.getEvilRoles().filter { it.role !in cantHijack }
             if(potentialHijackers.isNotEmpty()) {
                 potentialHijackers.random().information.
-                    add(ThavalonInformation.AlertInformation("You have Hijack!"))
+                    add(HijackInfo)
             }
         }, UpdaterPriority.One)
     }
