@@ -75,12 +75,16 @@ class Board extends Component {
                             firstProposal={parsed.first_proposal}
                             secondProposal={parsed.second_proposal}
                             hide={this.hide}
-                        />
+                        />,
+                        mission1: parsed.first_proposal,
+                        mission2: parsed.second_proposal
                     });
                     break;
                 case "MISSION_ONE_VOTING_RESULT":
                     this.state.missions[0].votedFor = parsed.voted_sent;
-                    this.state.missions[0].proposedBy = parsed.proposed_by;
+                    this.state.missions[0].proposedBy = (parsed.sent === this.state.mission1) ?
+                        this.state.players[this.state.players.length - 2] :
+                        this.state.players[this.state.players.length - 1] ;
                     console.log(parsed.proposed_by);
                     this.setState({
 
@@ -89,7 +93,8 @@ class Board extends Component {
                                 name={this.props.location.state.name}
                                 sent={parsed.sent}
                                 votedFor={parsed.voted_sent}
-                                votedAgainst={parsed.voted_not_sent}
+                                votedAgainst={JSON.parse(parsed.voted_not_sent)}
+                                proposedBy={this.state.missions[0].proposedBy}
                                 notSent={parsed.not_sent}
                                 hide={this.hide}
                                 id={this.props.match.params.id}
@@ -115,7 +120,7 @@ class Board extends Component {
                             />
                     });
                     break;
-                case "MISSION_PROPOSAL_RESULT":
+                case "MISSION_PROPOSAL_RESULT": case "MISSION_VOTING_RESULT":
                     const hijacked = parsed.hasOwnProperty("hijack");
                     let hijackedBy = "";
                     let hijackRemoved = "";
@@ -143,9 +148,11 @@ class Board extends Component {
                                 hijackedBy={hijackedBy}
                                 hijackRemoved={hijackRemoved}
 
-                            />
+                            />, currProposal: this.state.currProposal + 1
 
                     });
+
+                    this.playerList.current.next();
                     break;
                 case "MISSION_VOTING":
                     this.setState({popup: <ProposalVoting id={this.props.match.params.id} name={this.props.location.state.name}
@@ -174,7 +181,7 @@ class Board extends Component {
                         hide={this.hide}
                         num={parsed.num}
                         onMission={[parsed.players-1]}
-                        result={(parsed.result === "P") ? "Passed" : "Failed"}
+                        result={(parsed.result) ? "Passed" : "Failed"}
                         cardsPlayed={cardsPlayed.map(ele => {
                             switch (ele) {
                                 case "P":

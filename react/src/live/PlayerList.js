@@ -14,19 +14,34 @@ class PlayerList extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
+        console.log("player list will recieve props");
+        console.log(nextProps);
+        console.log(nextContext);
         this.setState({
             players: nextProps.players.map(ele => {
                 return {name: ele, selected: false}
             })
         });
         if (this.state.players.length > 0) {
-            this.state.players[0].selected = true;
+            let players = this.state.players;
+            let newPlayer = {name: players[0].name, selected: true};
+            players.splice(0, 1, newPlayer);
+            this.setState({curr: 0, players: players});
+
+
+
+            // this.next();
         }
+
+
         this.forceUpdate();
 
     }
 
     next = () => {
+        console.log("here");
+        console.log(this.state);
+
         let players = this.state.players;
         let currPlayer = players[this.state.curr];
 

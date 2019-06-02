@@ -16,7 +16,7 @@ class ProposalVoting extends Component {
         this.state = {
             upSelected: false,
             downSelected: true,
-            list: csv(this.props.players)
+            list: csv(JSON.parse(this.props.players))
 
         }
     }
