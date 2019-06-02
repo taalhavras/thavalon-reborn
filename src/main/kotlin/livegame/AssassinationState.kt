@@ -30,7 +30,7 @@ class AssassinationState(override val g : LiveGame) : LiveGameState(g, setOf(Mes
 
     override suspend fun sendRequests() {
         val msg = JsonObject()
-        msg.addProperty("type", MessageType.ASSASINATE.toString())
+        msg.addProperty("type", MessageType.ASSASSINATE.toString())
         val goodPlayers = JsonArray()
         g.game.getGoodRoles().forEach { goodPlayers.add(it.player.name) }
         msg.addProperty("targets", goodPlayers.toString())

@@ -20,8 +20,8 @@ class ReadyState(override val g: LiveGame) : LiveGameState(g, setOf(MessageType.
 
     override suspend fun nextState(): LiveGameState {
         cdl.await()
-
-        return MissionOneState(g)
+        return AssassinationState(g)
+//        return MissionOneState(g)
     }
 
 }

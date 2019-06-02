@@ -6,6 +6,7 @@ class Assassinate extends Component {
 
     constructor(props) {
         super(props);
+        console.log("here2");
         this.state = {
             type: null,
             next: false,
@@ -36,9 +37,12 @@ class Assassinate extends Component {
             } else {
                 ele.selected = true;
             }
+
         }
+        this.forceUpdate();
 
     };
+
 
     assasinate = () => {
         let type;
@@ -64,8 +68,8 @@ class Assassinate extends Component {
         socket.send(JSON.stringify({
             type: "ASSASSINATE_RESPONSE",
             assassination_type: type,
-            targets: targets,
-            id: this.props.match.params.id,
+            targets: targets.map(ele => {return ele.name}),
+            id: this.props.id,
             name: this.props.name
 
 
@@ -74,40 +78,44 @@ class Assassinate extends Component {
     };
 
     render() {
+        console.log("here3");
+
 
         return (
             <div className={"Assassinate pop-up"}>
                 {this.state.next ?
                     <div>
-                        Good has passed three missions. You now have the chance to assassinate.
-                        Which role would you like to assassinate?
-
-                        <button className={"proposal-button assasinate-button"}
-                                onClick={() => this.next(1)}>Merlin</button>
-                        <button className={"proposal-button assasinate-button"} onClick={() => this.next(2)}>Lovers
-                        </button>
-                        <button className={"proposal-button assasinate-button"} onClick={() => this.next(0)}>No
-                            Assassinable Targets
-                        </button>
-
-                    </div> :
-                    <div>
                         {this.state.type === 1 ? <h2>You are assassinating a player as Merlin. Select your target</h2>
-                            : <h2>You are assassinating Loves. Select your targets</h2>}
+                            : <h2> You are assassinating Lovers. Select your targets</h2>}
                         <div className={"player-list"}>
                             {this.state.players.map(ele => {
-                                const selected = ele.selected ? "selected" : "";
+                                const selected = ele.selected ? "proposal-player  selected" : "proposal-player";
                                 return (
                                     <div className={"player-wrapper"}>
-                                        <div className={"proposal-player " + selected} onClick={() => this.select(ele)}>
+                                        <div className={selected} onClick={() => this.select(ele)}>
                                             <div className={"player-text"}> {ele.name} </div>
                                         </div>
                                     </div>)
                             })}
 
                         </div>
-                        <button onClick={this.assasinate}>Confirm</button>
-                    </div>}
+                        <button className={ "proposal-button assassinate-button"} onClick={this.assasinate}>Confirm</button>
+                    </div> :
+                    <div>
+                        Good has passed three missions. You now have the chance to assassinate.
+
+                        Which role would you like to assassinate?
+
+                        <button className={" proposal-button assassinate-button"}
+                                onClick={() => this.next(1)}>Merlin</button>
+                        <button className={"proposal-button assassinate-button"} onClick={() => this.next(2)}>Lovers
+                        </button>
+                        <button className={"proposal-button assassinate-button"} onClick={() => this.next(0)}>No
+                            Assassinable Targets
+                        </button>
+
+                    </div>
+                   }
 
             </div>
 

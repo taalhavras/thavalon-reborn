@@ -76,7 +76,7 @@ class Proposal extends Component {
                     })}
                 </div>
                 <div className={"error"}>{this.state.error}</div>
-                <button className={"large-button"} id={"proposal-confirm"} onClick={this.sendProposal}>Confirm</button>
+                <button className={"large-button "} id={"proposal-confirm"} onClick={this.sendProposal}>Confirm</button>
             </div>
 
         );
