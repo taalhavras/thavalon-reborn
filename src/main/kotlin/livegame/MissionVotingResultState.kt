@@ -15,7 +15,7 @@ class MissionVotingResultState(override val g : LiveGame, val mission : Mission,
 
     override suspend fun sendRequests() {
         val msg = JsonObject()
-        msg.addProperty("type", MessageType.MISSION_VOTING_RESULT.toString())
+        msg.addProperty("type", MessageType.MISSION_PROPOSAL_RESPONSE.toString())
         msg.addProperty("force", force)
         msg.addProperty("num", g.missionCount)
         msg.addProperty("players", setToJson(mission.players).toString())

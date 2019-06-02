@@ -4,7 +4,6 @@ import com.google.gson.*
 import io.ktor.application.ApplicationCallPipeline
 import io.ktor.application.call;
 import io.ktor.application.install
-import io.ktor.features.CORS
 import io.ktor.http.content.files
 import io.ktor.http.content.static
 import io.ktor.http.content.staticRootFolder
@@ -13,7 +12,6 @@ import io.ktor.response.respond
 import io.ktor.response.respondFile
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
-import io.ktor.http.HttpMethod
 import io.ktor.http.cio.websocket.*
 import io.ktor.routing.get
 import io.ktor.routing.post
@@ -48,7 +46,7 @@ enum class MessageType {
     // server to client lobby
     NEW_PLAYER, PLAYER_REMOVED, SELF_REMOVED, LOBBY_DELETED, LOBBY_CREATED, LOBBY_JOINED, GAME_STARTED,
     // server to client livegame
-    MISSION_ONE_PROPOSAL, MISSION_ONE_VOTING, MISSION_ONE_VOTING_RESULT, MISSION_PROPOSAL, MISSION_VOTING,
+    MISSION_ONE_PROPOSAL, MISSION_ONE_VOTING, MISSION_ONE_VOTING_RESULT, MISSION_PROPOSAL, MISSION_PROPOSAL_RESULT, MISSION_VOTING,
     MISSION_VOTING_RESULT, MISSION_RESULT, PLAY_CARD, HIJACK, AGRAVAINE, ASSASINATE, GAME_RESULTS,
     // client to server livegame
     MISSION_ONE_PROPOSAL_RESPONSE, MISSION_ONE_VOTING_RESPONSE, MISSION_PROPOSAL_RESPONSE, MISSION_VOTING_RESPONSE,
