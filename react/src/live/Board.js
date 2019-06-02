@@ -147,6 +147,9 @@ class Board extends Component {
                                 hijacked={hijacked}
                                 hijackedBy={hijackedBy}
                                 hijackRemoved={hijackRemoved}
+                                id={this.props.match.params.id}
+
+
 
                             />, currProposal: this.state.currProposal + 1
 
