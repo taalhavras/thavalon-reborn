@@ -15,26 +15,42 @@ class MissionVotingState(override val g : LiveGame, val proposal : Mission) :
     private val votingRecord = ConcurrentHashMap<Boolean, MutableSet<String>>()
 
     init {
-        if(force) {
+        votingRecord[true] = Collections.synchronizedSet(HashSet())
+        votingRecord[false] = Collections.synchronizedSet(HashSet())
+        cdl = if(force) {
             // force, just set cdl to 0 because we don't have to send any requests
-            cdl = CountDownLatch(0)
+            CountDownLatch(0)
         } else {
-            cdl = CountDownLatch(g.players.size)
-            votingRecord[true] = Collections.synchronizedSet(HashSet())
-            votingRecord[false] = Collections.synchronizedSet(HashSet())
+            CountDownLatch(g.players.size)
+
         }
     }
 
     override suspend fun sendRequests() {
         // don't send vote requests if force
         if(!force) {
-
+            val msg = JsonObject()
+            val proposal = setToJson(proposal.players)
+            msg.addProperty("proposal", proposal.toString())
+            g.sendToAll(msg)
         }
     }
 
     override suspend fun onResponse(res: JsonObject) {
-        if(validResponse(res)) {
 
+        // only take responses if there isn't force
+        if(!force && validResponse(res)) {
+            // record vote
+            val name = res.get("name").asString
+            val vote = res.get("vote").asString
+            assert(vote == "upvote" || vote == "downvote")
+            if(vote == "upvote") {
+                votingRecord[true]!!.add(name)
+            } else {
+                votingRecord[false]!!.add(name)
+            }
+            // count down
+            cdl.countDown()
         }
     }
 
