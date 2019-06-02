@@ -318,6 +318,7 @@ class Board extends Component {
     };
 
     hide = () => {
+        console.log("hide");
         this.setState({popup: null});
 
     };

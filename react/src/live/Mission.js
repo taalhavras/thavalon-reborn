@@ -12,7 +12,7 @@ class Mission extends Component {
     render() {
         return (
             <div className={"Mission pop-up"}>
-                <button className={"close-button"} onClick={this.props.close}><i className="fas fa-times"></i> </button>
+                <button className={"close-button"} onClick={this.props.hide}><i className="fas fa-times"></i> </button>
                 <h2>Mission {this.props.num}</h2>
                 <div className={"mission-info"}>On mission: {csv(this.props.onMission)}</div>
                 <div className={"mission-info"}>Result: {this.props.result} </div>
