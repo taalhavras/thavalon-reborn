@@ -131,8 +131,8 @@ class Board extends Component {
                     if (this.playerList.current) {
                         this.playerList.current.next();
                     }
-                    this.state.missions[parsed.num].votedFor = parsed.voted_for;
-                    this.state.missions[parsed.num].proposedBy = parsed.proposed_by;
+                    this.state.missions[parsed.num-1].votedFor = parsed.voted_for;
+                    this.state.missions[parsed.num-1].proposedBy = parsed.proposed_by;
 
                     this.setState({
 
@@ -218,8 +218,9 @@ class Board extends Component {
                                                                                  hide={this.hide}/>});
                     break;
                 case "ASSASSINATE":
+                    console.log("assassinate");
                     this.setState({assassinate: <Assassinate id={this.props.match.params.id}  name={this.props.location.state.name}
-                                                                                         targets={parsed.targets} hide={this.hide}/>});
+                                                                                         targets={JSON.parse(parsed.targets)} hide={this.hide}/>});
                     break;
                 case "GAME RESULTS":
                     const popup = <div className={"GameResults pop-up"}>

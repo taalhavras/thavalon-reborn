@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "036e08a853c9e4c00888",
+    "revision": "7dc846a50956e46e3ce3",
     "url": "/static/css/main.b53f77bd.chunk.css"
   },
   {
-    "revision": "036e08a853c9e4c00888",
-    "url": "/static/js/main.036e08a8.chunk.js"
+    "revision": "7dc846a50956e46e3ce3",
+    "url": "/static/js/main.7dc846a5.chunk.js"
   },
   {
     "revision": "fdfcfda2d9b1bf31db52",
@@ -16,10 +16,6 @@ self.__precacheManifest = [
     "url": "/static/js/2.8625990d.chunk.js"
   },
   {
-    "revision": "dd2da1d8f9d3944efe2797e1fa02e096",
-    "url": "/static/media/Quicksand_Book.dd2da1d8.otf"
-  },
-  {
     "revision": "38c516075c4966be487ed354a1a8f1f0",
     "url": "/static/media/Cardinal.38c51607.ttf"
   },
@@ -28,11 +24,15 @@ self.__precacheManifest = [
     "url": "/static/media/Quicksand_Bold.c3bf00e5.otf"
   },
   {
+    "revision": "dd2da1d8f9d3944efe2797e1fa02e096",
+    "url": "/static/media/Quicksand_Book.dd2da1d8.otf"
+  },
+  {
     "revision": "1950d3c1074310f40363fb019c9aa138",
     "url": "/static/media/excalibur_by_psdeluxe_d8a6nxy-pre.1950d3c1.jpg"
   },
   {
-    "revision": "cece907fac8468677d3a9cce9415c268",
+    "revision": "6ebdc6d2b103c0839b6322238e0274d6",
     "url": "/index.html"
   }
 ];
