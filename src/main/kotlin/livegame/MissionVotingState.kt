@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 
 class MissionVotingState(override val g : LiveGame, val proposal : Mission) :
-    LiveGameState(g, setOf(MessageType.MISSION_VOTING_RESPONSE)) {
+    LiveGameState(g, setOf(MessageType.MISSION_PROPOSAL_RESPONSE)) {
 
     val force = g.proposalCount == g.proposalsPerRound
 
