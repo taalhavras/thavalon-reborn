@@ -17,7 +17,7 @@ import Proposal from "./live/Proposal";
 import ProposalVoting from "./live/ProposalVoting";
 import PlayerList from "./live/PlayerList";
 
-let socket  = new WebSocket("ws://thavalon.com/socket");
+let socket  = new WebSocket("wss://thavalon.com/socket");
 console.log(socket);
 
 ReactDOM.render(<BrowserRouter>
