@@ -2,7 +2,6 @@ package main.kotlin.livegame
 
 import com.google.gson.JsonObject
 import main.MessageType
-import java.lang.Exception
 import java.util.concurrent.CountDownLatch
 
 class MissionOneState(override val g: LiveGame) : LiveGameState(g, setOf(MessageType.MISSION_ONE_PROPOSAL_RESPONSE)) {
