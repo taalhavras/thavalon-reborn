@@ -1,6 +1,0 @@
-{
-  "name": "thavalon",
-  "image": "heroku/gradle",
-  "description": "test",
-  "addons": ["heroku-postgresql"]
-}
