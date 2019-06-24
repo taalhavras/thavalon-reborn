@@ -35,6 +35,10 @@ repositories {
     }
 }
 
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
+
+
 task buildReact(type:Exec) {
     workingDir = '.'
     commandLine "./build_react.sh"
