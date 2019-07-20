@@ -53,4 +53,3 @@ if args.section == 'frontend' or both:
             subprocess.call('git push frontend-qa frontend-subtree:master', shell=True)
 
 # if args.section == 'api' or both:
-git push api-qa 'refs/remotes/api-subtree/*:refs/heads/*'
