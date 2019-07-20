@@ -26,7 +26,7 @@ os.chdir(git_root)
 
 head = git_repo.head
 branch = head.name
-gi
+
 if args.section == 'api' or both:
     subprocess.call('git subtree pull --prefix thavalon-api api-subtree master', shell=True)
     subprocess.call('git subtree push --prefix thavalon-api api-subtree master', shell=True)
