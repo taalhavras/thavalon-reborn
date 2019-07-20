@@ -24,6 +24,12 @@ git_repo = git.Repo(curr_dir, search_parent_directories=True)
 git_root = git_repo.git.rev_parse("--show-toplevel")
 os.chdir(git_root)
 
+
+git_status = git_repo.git.diff_index('HEAD')
+if git_status != '':
+    print('Please clean working tree before attempting a subtree push')
+    exit()
+
 head = git_repo.head
 branch = head.name
 
@@ -46,10 +52,4 @@ if args.section == 'frontend' or both:
         else:
             subprocess.call('git push frontend-qa frontend-subtree:master', shell=True)
 
-
-
-
-
-print(curr_dir)
-print(git_root)
 # if args.section == 'api' or both:
