@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap');
+
+$button-color: #398B39;
+body {
+  background-color: #192B38;
+  font-family: Quicksand, sans-serif;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  font-size: 48pt;
+  text-align: center;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 32pt;
+  text-align: center;
+  font-weight: bold;
+}
+
+button {
+  font-family: Quicksand, sans-serif;
+  font-weight: bold;
+  font-size: 16pt;
+  text-align: center;
+  color: white;
+  background-color: $button-color;
+  outline: none;
+  border: none;
+  width: 225px;
+  height: 55px;
+  padding: 0;
+  border-radius: 30px;
+  margin: 20px auto;
+  box-shadow: 3px 6px 6px 0 rgba(0,0,0,0.25);
+
+}
+
+#left-trees {
+  position: fixed;
+  top: 100vh;
+  margin-top: -278px;
+  left: -10px;
+}
+
+#right-trees {
+  position: fixed;
+  top: 100vh;
+  margin-top: -270px;
+  right: -10px;
+}
+
+.Home {
+  margin-top: 100px;
+  text-align: center;
+}
+
+
+.home-buttons {
+  margin-top: 30px;
+}

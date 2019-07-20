@@ -1,0 +1,27 @@
+.Standard {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.standard-button {
+  margin: 20px auto 10px auto;
+}
+
+.start-button-div {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.invalid-start {
+  color: lightgrey;
+  border: 1px solid lightgrey;
+
+}
+
+.invalid-start:hover {
+  cursor: default;
+  color: lightgrey;
+  border: 1px solid lightgrey;
+}

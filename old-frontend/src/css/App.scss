@@ -1,0 +1,120 @@
+.info_button {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background: none;
+}
+
+
+#exit_button {
+  outline: none;
+  border: none;
+  position: absolute;
+  box-shadow: none;
+  text-shadow: none;
+  top: 5px;
+  font-size: 24pt;
+  left: 95%;
+  color: grey;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.live {
+  margin: 10px;
+}
+
+ #lobby-view, #lobby-owner-view{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.lobby-button {
+  margin: 10px auto;
+}
+
+.lobby-small-button {
+  margin: 10px auto;
+  height: 50px;
+  width: 100px;
+  font-weight: normal;
+  font-size: 10pt;
+
+}
+
+
+.player-tag-container {
+
+}
+
+.live-player-tag {
+  font-weight:bold;
+  height: 30px;
+  border: 2px solid white;
+  color: white;
+  display: inline-block;
+  padding: 10px 10px 0 10px ;
+  vertical-align: center;
+  border-radius: 20px;
+  margin: 30px auto;
+}
+
+
+.rules_wrapper {
+  position: absolute;
+  top: 5vh;
+  left: 50%;
+  margin-bottom: 30px;
+  transform: translateX(-50%);
+  border: 10px solid #4f4f4f;
+}
+
+.rules {
+  line-height: 1.4;
+  margin: 0;
+  padding: 20px;
+  text-align: left;
+  background-color: white;
+  color: #4f4f4f;
+  overflow-y: scroll;
+  overflow-x: auto;
+  height: 80vh;
+  width: 80vw;
+  max-width: 600px;
+
+}
+
+.exit_button:hover {
+  color: grey;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+.exit_button {
+  outline: none;
+  border: none;
+  position: absolute;
+  top: 5px;
+  font-size: 24pt;
+  left: 95%;
+  color: grey;
+  margin: 0;
+  padding: 0;
+}
+
+.rules h1 {
+  margin: 0 auto;
+  color: #4f4f4f;
+}

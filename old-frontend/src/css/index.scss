@@ -1,0 +1,101 @@
+@font-face { font-family: Cardinal; src: url('../fonts/Cardinal.ttf'); }
+@font-face { font-family: Quicksand; src: url('../fonts/Quicksand_Book.otf'); }
+@font-face { font-family: Quicksand-Bold; src: url('../fonts/Quicksand_Bold.otf'); }
+
+//Selectors for the entire program
+textarea, select, input, button { outline: none; }
+
+body {
+  margin: 0;
+  text-align: center;
+  padding: 0;
+  font-family: Quicksand;
+}
+
+body:before {
+  content: "";
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  background: url("../public/excalibur_by_psdeluxe_d8a6nxy-pre.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+}
+
+button, input[type="submit"]{
+  font-family: Quicksand-Bold;
+  vertical-align: center;
+  background-color: Transparent;
+  border: 1px solid white;
+  outline:none;
+  border-radius:30px;
+  color: white;
+  font-weight: bold;
+  text-shadow: 2px 3px 3px rgba(0,0,0, .25);
+  box-shadow: 2px 3px 3px rgba(0,0,0, .25);
+  margin:  auto;
+}
+
+button:hover, input[type="submit"]:hover {
+  background-color: Transparent;
+  border: 1px solid lightgray;
+  color: lightgray;
+  cursor: pointer;
+}
+
+
+input[type="text"] {
+  font-size: 16px;
+  display: block;
+  font-family: Quicksand;
+  width: 190px;
+  border-radius: 30px;
+  border: 1px solid white;
+  padding: 5px;
+  background-color: rgba(256, 256, 256, .75);
+  color: #424242;
+  height: 30px;
+  margin: 10px auto;
+
+}
+
+h1 {
+  color: white;
+  padding: 10px;
+  text-align: center;
+  margin: 50px auto;
+  font-size: 45pt;
+  font-family: Cardinal;
+}
+
+
+.large-button {
+  font-size: 14pt;
+  height: 50px;
+  margin: 10px auto;
+  width: 200px;
+}
+
+
+.small-button {
+  font-size: 11pt;
+  padding: 10px;
+  max-width: 100px;
+  margin: 10px;
+
+}
+
+.name {
+  white-space: pre;
+}
+
+.recentgames {
+  margin-bottom: 50px;
+}
