@@ -146,12 +146,12 @@ class Lobby(val owner: THavalonUserSession, val members: MutableList<THavalonUse
 
 fun main() {
     //connects to mysql database
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    val conn = DriverManager.getConnection(
-        "jdbc:mysql://thavalon.crzfhuz2u0ow.us-east-2.rds.amazonaws.com:3306/thavalon_reborn",
-        "thavalon_reborn",
-        "thavalon"
-    )
+//    Class.forName("com.mysql.cj.jdbc.Driver");
+//    val conn = DriverManager.getConnection(
+//        "jdbc:mysql://thavalon.crzfhuz2u0ow.us-east-2.rds.amazonaws.com:3306/thavalon_reborn",
+//        "thavalon_reborn",
+//        "thavalon"
+//    )
 
     val gson = Gson()
     // use concurrent map for safety when multiple games are being rolled at the same time
@@ -422,37 +422,37 @@ fun main() {
                 // for it so we can just unlock and finish
                 val notDeleted = id in staticGames
                 if (notDeleted) {
-                    val custom = staticGames[id]!!.second
-
-                    // get game result json
-                    val post = call.receiveText()
-                    val resultsJson = JsonParser().parse(post).asJsonObject
-                    // check if we want to record stats for the game
-                    val record = resultsJson["record"].asBoolean
-                    if (record) {
-                        val result = resultsJson["result"].toString()
-                        //prepares mysql statement
-                        val prep = conn.prepareStatement("INSERT INTO games VALUES (?, ?, ?)")
-                        //sets the mysql para
-                        prep.setString(1, id)
-                        prep.setString(2, result)
-                        prep.setBoolean(3, custom)
-                        prep.executeUpdate()
-                        prep.close()
-                        println(resultsJson)
-                        val playerStat = conn.prepareStatement("INSERT INTO players VALUES (?, ?, ?, ?)")
-
-                        for (e in staticGames[id]!!.first) {
-                            playerStat.setString(1, id)
-                            playerStat.setString(2, e.asJsonObject["name"].asString)
-                            playerStat.setString(3, e.asJsonObject["role"].asString)
-                            playerStat.setString(4, e.asJsonObject["allegiance"].asString)
-                            playerStat.executeUpdate()
-                        }
-
-                        playerStat.close()
-
-                    }
+//                    val custom = staticGames[id]!!.second
+//
+//                    // get game result json
+//                    val post = call.receiveText()
+//                    val resultsJson = JsonParser().parse(post).asJsonObject
+//                    // check if we want to record stats for the game
+//                    val record = resultsJson["record"].asBoolean
+//                    if (record) {
+//                        val result = resultsJson["result"].toString()
+//                        //prepares mysql statement
+//                        val prep = conn.prepareStatement("INSERT INTO games VALUES (?, ?, ?)")
+//                        //sets the mysql para
+//                        prep.setString(1, id)
+//                        prep.setString(2, result)
+//                        prep.setBoolean(3, custom)
+//                        prep.executeUpdate()
+//                        prep.close()
+//                        println(resultsJson)
+//                        val playerStat = conn.prepareStatement("INSERT INTO players VALUES (?, ?, ?, ?)")
+//
+//                        for (e in staticGames[id]!!.first) {
+//                            playerStat.setString(1, id)
+//                            playerStat.setString(2, e.asJsonObject["name"].asString)
+//                            playerStat.setString(3, e.asJsonObject["role"].asString)
+//                            playerStat.setString(4, e.asJsonObject["allegiance"].asString)
+//                            playerStat.executeUpdate()
+//                        }
+//
+//                        playerStat.close()
+//
+//                    }
 
                     // delete id from games
                     staticGames.remove(id)
