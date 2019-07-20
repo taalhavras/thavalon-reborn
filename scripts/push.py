@@ -1,0 +1,55 @@
+#!/usr/bin/python
+import argparse
+import subprocess
+import git
+import os
+
+
+parser = argparse.ArgumentParser(description='Push using git subtrees')
+parser.add_argument('--deploy', '-d',  dest='deploy', action='store_true',
+                    help='deploy the project to heroku')
+parser.add_argument('--prod', '-p',  dest='prod', action='store_true',
+                    help='deploy to production')
+parser.add_argument('--section', '-s',  dest='section',
+                    help='which parts of the project to deploy (default: both)')
+
+args = parser.parse_args()
+
+both = False
+if not args.section:
+    both = True
+
+curr_dir = os.getcwd()
+git_repo = git.Repo(curr_dir, search_parent_directories=True)
+git_root = git_repo.git.rev_parse("--show-toplevel")
+os.chdir(git_root)
+
+head = git_repo.head
+branch = head.name
+gi
+if args.section == 'api' or both:
+    subprocess.call('git subtree pull --prefix thavalon-api api-subtree master', shell=True)
+    subprocess.call('git subtree push --prefix thavalon-api api-subtree master', shell=True)
+    if args.deploy:
+        if args.prod:
+            subprocess.call('git push api api-subtree:master', shell=True)
+        else:
+            subprocess.call('git push api-qa api-subtree:master', shell=True)
+
+if args.section == 'frontend' or both:
+    subprocess.call('git subtree pull --prefix thavalon-frontend thavalon-subtree master', shell=True)
+    subprocess.call('git subtree push --prefix thavalon-frontend thavalon-subtree master', shell=True)
+
+    if args.deploy:
+        if args.prod:
+            subprocess.call('git push frontend frontend-subtree:master', shell=True)
+        else:
+            subprocess.call('git push frontend-qa frontend-subtree:master', shell=True)
+
+
+
+
+
+print(curr_dir)
+print(git_root)
+# if args.section == 'api' or both:
