@@ -38,7 +38,7 @@ if args.section == 'api' or both:
     subprocess.call('git subtree push --prefix thavalon-api api-subtree master', shell=True)
     if args.deploy:
         if args.prod:
-            subprocess.call('git push api api-subtree:master', shell=True)
+            subprocess.call('git push api \'refs/remotes/api-subtree/master:refs/heads/master\'', shell=True)
         else:
             subprocess.call('git push api-qa api-subtree:master', shell=True)
 
