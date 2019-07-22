@@ -48,8 +48,8 @@ if args.section == 'frontend' or both:
 
     if args.deploy:
         if args.prod:
-            subprocess.call('git push frontend frontend-subtree:master', shell=True)
+            subprocess.call('git push frontend \'refs/remotes/frontend-subtree/*:refs/heads/*/', shell=True)
         else:
-            subprocess.call('git push frontend-qa frontend-subtree:master', shell=True)
+            subprocess.call('git push frontend-qa \'refs/remotes/frontend-subtree/*:refs/heads/*/', shell=True)
 
 # if args.section == 'api' or both:
