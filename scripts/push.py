@@ -43,8 +43,8 @@ if args.section == 'api' or both:
             subprocess.call('git push api-qa \'refs/remotes/api-subtree/*:refs/heads/*\'', shell=True)
 
 if args.section == 'frontend' or both:
-    subprocess.call('git subtree pull --prefix thavalon-frontend thavalon-subtree master', shell=True)
-    subprocess.call('git subtree push --prefix thavalon-frontend thavalon-subtree master', shell=True)
+    subprocess.call('git subtree pull --prefix thavalon-frontend frontend-subtree master', shell=True)
+    subprocess.call('git subtree push --prefix thavalon-frontend frontend-subtree master', shell=True)
 
     if args.deploy:
         if args.prod:
