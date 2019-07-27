@@ -1,0 +1,99 @@
+@import 'index.scss';
+$icon-size: 2.5rem;
+
+.Home {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  h1 {
+    margin: 10vh auto 5vh auto;
+  }
+
+}
+
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  .button-large {
+    margin-top: 30px;
+  }
+}
+
+.back-button {
+  outline: none;
+  background: transparent;
+  font-size: 50px;
+  position: fixed;
+  top: 0;
+  left: 15px;
+  font-weight: bold;
+
+
+}
+
+.input-wrapper {
+  position: relative;
+  margin: 30px auto 0 auto;
+  width: $large-button-width;
+  height: $large-button-border-radius;
+  max-width: $large-button-max-width;
+  max-height: $large-button-max-height;
+
+}
+.validate-icon {
+  position: absolute;
+  left: 80%;
+  font-size: $icon-size;
+  top: 50%;
+  margin: -$icon-size/2 -10px auto auto;
+}
+
+.invalid-icon {
+  color: $red;
+}
+
+.valid-icon {
+  color: $button-color;
+
+}
+
+.recent-games-list {
+  width: 100%;
+  max-width: 600px;
+  height: 30vh;
+  overflow: scroll;
+  padding: 0;
+  margin: 20px 0 0 0 ;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  border: 1px solid magenta;
+
+  li {
+    border-radius: 5px;
+    background: white;
+    width: 85vw;
+    margin:5px auto;
+    z-index: 5;
+    height: 1em;
+    vertical-align: center;
+    text-align: left;
+    display: block;
+    padding: 10px 10px 15px 10px;
+
+    a {
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      width: 100%;
+      text-align: left;
+
+
+    }
+  }
+}
+
+
+

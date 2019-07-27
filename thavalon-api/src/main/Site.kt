@@ -5,6 +5,7 @@ import io.ktor.application.ApplicationCallPipeline
 import io.ktor.application.call;
 import io.ktor.application.install
 import io.ktor.features.CORS
+import io.ktor.http.*
 import io.ktor.http.content.files
 import io.ktor.http.content.static
 import io.ktor.http.content.staticRootFolder
@@ -176,19 +177,15 @@ fun main() {
 
             }
         }
-        install(CORS)
-
-//        {
-//            method(HttpMethod.Options)
-//            header(HttpHeaders.XForwardedProto)
-//            anyHost()
-//            // host("my-host:80")
-//            // host("my-host", subDomains = listOf("www"))
-//            // host("my-host", schemes = listOf("http", "https"))
-//            allowCredentials = true
-//            maxAge = Duration.ofDays(1)
-//
-//        }
+        install(CORS) {
+            method(HttpMethod.Options)
+            header(HttpHeaders.XForwardedProto)
+            anyHost()
+            // host("my-host:80")
+            // host("my-host", subDomains = listOf("www"))
+            // host("my-host", schemes = listOf("http", "https"))
+            allowCredentials = true
+        }
         install(WebSockets)
 
         install(Sessions) {
@@ -365,7 +362,7 @@ fun main() {
             }
 
             get("/") {
-                call.respondFile(File("react/build/index.html"))
+                call.respond("Thavalon API")
             }
 
             post("/names") {

@@ -3,7 +3,11 @@ import lefttrees from './assets/left-trees.svg';
 import righttrees from './assets/right-trees.svg';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from "./Home.js";
+import './styles/App.scss';
+import Game from './Game.js';
+import Player from './Player'
 
+export const url = 'http://localhost:4444';
 
 /**
  * Main component for the program, which holds the routing information.
@@ -17,17 +21,21 @@ class App extends React.Component {
     super(props);
   }
 
-
+    /**
+     * Routes the user to the correct component, storing information in the URL parameter
+     * @returns {*}
+     */
   render() {
     return (
-
         <Router className={"App"}>
             <Switch>
                 <Route exact path={"/"} component={Home}/>
-            </Switch>
-          <img src={lefttrees} id={"left-trees"} alt={"Some trees"} />
-          <img src={righttrees} id={"right-trees"} alt={"Some trees"} />
+                <Route exact path={"/:id"} component={Game} />
+                <Route exact path={"/:id/:player"} component={Player} />
 
+            </Switch>
+          <img src={lefttrees} className={'background-img'} id={"background-left"} alt={"Some trees"} />
+          <img src={righttrees} className={'background-img'} id={"background-right"} alt={"Some trees"} />
         </Router>
     );
   }
