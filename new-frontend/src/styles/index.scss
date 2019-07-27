@@ -1,63 +1,114 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap');
 
-$button-color: #398B39;
+/* Generic Styles */
+$background-color:  #192B38;
+$button-color:  #398B39;
+
+$title-font-size: 4rem;
+
+$large-button-width: 80vw;
+$large-button-max-width: 400px;
+$large-button-height: 18vw;
+$large-button-max-height: 70px;
+$large-button-border-radius: 20vw;
+$large-button-font-size: 1.75rem;
+
+$input-font-size: 1rem;
+$red: #C42D2D;
 body {
-  background-color: #192B38;
-  font-family: Quicksand, sans-serif;
+  background-color: $background-color;
   color: white;
-  text-align: center;
+  font-family: Quicksand, sans-serif;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+
+}
+
+#root {
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  height: 100vh;
+
 }
 
 h1 {
-  font-size: 48pt;
-  text-align: center;
-  font-weight: bold;
-}
+  font-size: $title-font-size;
 
-h2 {
-  font-size: 32pt;
-  text-align: center;
-  font-weight: bold;
 }
 
 button {
-  font-family: Quicksand, sans-serif;
-  font-weight: bold;
-  font-size: 16pt;
-  text-align: center;
-  color: white;
-  background-color: $button-color;
   outline: none;
   border: none;
-  width: 225px;
-  height: 55px;
-  padding: 0;
-  border-radius: 30px;
-  margin: 20px auto;
-  box-shadow: 3px 6px 6px 0 rgba(0,0,0,0.25);
+  color: white;
+  font-family: Quicksand, sans-serif;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.button-large {
+  background-color: $button-color;
+  width: $large-button-width;
+  max-width: $large-button-max-width;
+  height: $large-button-height;
+  max-height: $large-button-max-height;
+  margin: auto;
+  border-radius: $large-button-border-radius;
+  font-size: $large-button-font-size;
+  font-weight: bold;
+  vertical-align: center;
+}
+
+input {
+  box-sizing: border-box;
+  width: $large-button-width;
+  max-width: $large-button-max-width;
+  height: $large-button-height;
+  max-height: $large-button-max-height;
+  border-radius: $large-button-border-radius;
+  font-size: $input-font-size;
+  border: none;
+  outline: none;
+  margin: auto;
+  padding: 0 65px 0 10px;
+  font-family: Quicksand, sans-serif;
 
 }
 
-#left-trees {
-  position: fixed;
-  top: 100vh;
-  margin-top: -278px;
-  left: -10px;
+.invalid-button {
+  background-color: #97c7a4;
 }
 
-#right-trees {
-  position: fixed;
-  top: 100vh;
-  margin-top: -270px;
-  right: -10px;
+.invalid-button:hover {
+  cursor: initial;
+}
+.valid {
+  border: 2px solid $button-color;
 }
 
-.Home {
-  margin-top: 100px;
-  text-align: center;
+.invalid {
+  border: 2px solid $red;
+
+}
+
+.bold {
+  font-weight: bold;
 }
 
 
-.home-buttons {
-  margin-top: 30px;
+/* Game Screen Styles */
+
+.player-name {
+  display: inline-block;
+  vertical-align: center;
+  margin: auto 50px;
+  font-weight: bold;
+}
+
+#do-not-open {
+  color: #C42D2D;
 }

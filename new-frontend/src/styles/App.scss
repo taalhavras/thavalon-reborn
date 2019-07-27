@@ -1,0 +1,34 @@
+/* Background Styles*/
+.background-img {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  z-index: 1;
+  top: 100vh;
+
+}
+
+#background-left {
+  height: 40vh;
+  margin-top: -38vh;
+  margin-left: -20px;
+  left: 0;
+
+}
+
+#background-right {
+  height: 40vh;
+  margin-top: -36vh;
+  left: 100vw;
+  margin-left: -22vh;
+
+
+}
+
+/* App styles */
+.App {
+  text-align: center;
+  z-index: 100;
+
+}
+
