@@ -6,8 +6,10 @@ import Home from "./Home.js";
 import './styles/App.scss';
 import Game from './Game.js';
 import Player from './Player'
+import DoNotOpen from './DoNotOpen.js';
 
-export const url = 'http://localhost:4444';
+
+export const url = 'www.api.thavalon.com';
 
 /**
  * Main component for the program, which holds the routing information.
@@ -31,6 +33,7 @@ class App extends React.Component {
             <Switch>
                 <Route exact path={"/"} component={Home}/>
                 <Route exact path={"/:id"} component={Game} />
+                <Route exact path={"/:id/donotopen"} component={DoNotOpen} />
                 <Route exact path={"/:id/:player"} component={Player} />
 
             </Switch>
