@@ -1,6 +1,8 @@
 import React from "react";
 import './styles/Game.scss'
 import { url } from './App'
+import { Link } from 'react-router-dom'
+
 /**
  * Models the Game info.
  */
@@ -31,7 +33,12 @@ class Game extends React.Component {
             } else {
                 console.log(data);
                 // found id, just do lookup
-                this.setState({game: data, start: data[0].name});
+                const players = data.map(ele => ele.name);
+                this.setState({
+                    game: data,
+                    start: data[0].name,
+                    players: players
+                });
             }
 
         }).catch(error => {
@@ -45,13 +52,24 @@ class Game extends React.Component {
             <div className={"Game"}>
                 <h1> Game {this.props.match.params.id} </h1>
                 <div className={'start block'}>
-                    Starting Player: <span className={'bold'}> {this.state.start} </span> </div>
+                    <span className={'game-indent'}> Starting Player: <span className={'bold'}> {this.state.start} </span>
+                    </span> </div>
                 <div className={'players'}>
                     <ul className={'player-list'}>
                         {this.state.game.map(player => {
-                            return <li className={'block'}><Link to={{window  .+ player.name}</li>
+                            return (<li className={'block'}>
+                                <Link to={{ pathname : this.props.location.pathname + "/" + player.name,
+                            state: { info: player, players: this.state.players }}}>
+                                    { player.name }
+                                </Link>
+                                    </li>);
                         })}
-                        <li className={'do-not-open block red'}>Do Not Open</li>
+                        <li className={'do-not-open block red'}>
+                            <Link to={{ pathname : this.props.location.pathname + "/" + "donotopen",
+                                state: { info: this.state.game }}}>
+                                <span className={'red'}> Do Not Open </span>
+                            </Link>
+                        </li>
                     </ul>
                 </div>
 

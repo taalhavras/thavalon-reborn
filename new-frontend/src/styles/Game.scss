@@ -2,7 +2,8 @@
 $player-font-size: 1.5rem;
 
 
-.Game {
+.Game,
+.Player {
   display: flex;
   flex-direction: column;
   font-family: Quicksand, sans-serif;
@@ -10,16 +11,29 @@ $player-font-size: 1.5rem;
   h1 {
     margin: 30px auto 0 auto;
   }
+
+  p {
+    margin-top: 10px;
+  }
+
+  ul {
+    list-style: none;
+    margin : 10px 0;
+    padding: 0;
+  }
 }
+
+
 
 .block {
   background-color: white;
   color: black;
   border-radius: 5px;
   width: 90vw;
+  max-width: 600px;
   margin: auto;
   box-sizing: border-box;
-  padding: 10px 30px;
+  padding: 10px;
   z-index: 18;
   display: block;
 }
@@ -40,15 +54,80 @@ $player-font-size: 1.5rem;
     margin: 5px auto;
     font-size: $player-font-size;
 
+    a {
+      color: black;
+      text-decoration: none;
+      width: 90vw;
+      padding-left: 20px;
+      display: block;
+      text-align: left;
+    }
+
+    li:hover {
+      cursor: pointer;
+    }
   }
 }
 
 .red {
   color: $red;
+  a {
+    color: $red;
+
+  }
+}
+.green {
+  color: $button-color;
 }
 
 .start {
   margin: 20px auto 5px auto;
   font-size: $player-font-size;
 
+}
+
+.role-text {
+  margin: 0;
+  font-weight: bold;
+  padding: 0;
+}
+
+.game-indent {
+  padding-left: 20px;
+
+
+}
+.role {
+  margin: 30px auto 10px auto;
+}
+
+.description {
+  margin: 10px auto;
+  display: block;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.DoNotOpen {
+  h1 {
+    font-size: 3.5rem;
+    text-align: center;
+    margin: 20px auto;
+
+
+  }
+  h2 {
+    margin: 10px auto;
+    text-align: center;
+  }
+
+  display: flex;
+  flex-direction: column;
+}
+.do-not-open-block {
+  display: block;
+  margin: 5px auto;
+  z-index:5;
 }

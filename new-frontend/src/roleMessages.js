@@ -1,0 +1,1 @@
+export const goodRoles = ['Arthur', 'Galahad', 'Guinivere']
