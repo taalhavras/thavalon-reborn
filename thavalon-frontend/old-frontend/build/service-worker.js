@@ -14,7 +14,11 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
+<<<<<<< HEAD:thavalon-frontend/old-frontend/build/service-worker.js
   "/precache-manifest.c74f8472c08fd590e95b55c704499ab2.js"
+=======
+  "/precache-manifest.e4d90506a8847c8e11d9aad178d7f350.js"
+>>>>>>> a9a22fdeb6148d70e5950ce3a8503ee0c8ce9dc6:react/build/service-worker.js
 );
 
 workbox.clientsClaim();
