@@ -47,7 +47,7 @@ class NewGame extends React.Component {
      * @param obj
      */
     sendGamePost = () => {
-        fetch(url + '/names', {
+        fetch( url + '/names', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
