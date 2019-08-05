@@ -199,20 +199,20 @@ fun main() {
         }
 
         routing {
-            static("static") {
-                staticRootFolder = File("react/build/static")
-                static("js") {
-                    files("js")
-                }
-
-                static("css") {
-                    files("css")
-                }
-
-                static("media") {
-                    files("media")
-                }
-            }
+//            static("static") {
+//                staticRootFolder = File("react/build/static")
+//                static("js") {
+//                    files("js")
+//                }
+//
+//                static("css") {
+//                    files("css")
+//                }
+//
+//                static("media") {
+//                    files("media")
+//                }
+//            }
 
             webSocket("/socket") {
                 val session = call.sessions.get<THavalonUserSession>()!!
@@ -392,17 +392,17 @@ fun main() {
                 call.respond(response.toString())
             }
 
-            get("/{id}") {
-                call.respondFile(File("react/build/index.html"))
-            }
-
-            get("/{id}/{player}") {
-                call.respondFile(File("react/build/index.html"))
-            }
-
-            get("/submitresults") {
-                call.respondFile(File("react/build/index.html"))
-            }
+//            get("/{id}") {
+//                call.respondFile(File("react/build/index.html"))
+//            }
+//
+//            get("/{id}/{player}") {
+//                call.respondFile(File("react/build/index.html"))
+//            }
+//
+//            get("/submitresults") {
+//                call.respondFile(File("react/build/index.html"))
+//            }
 
             get("isGame/{id}") {
                 val id: String = call.parameters["id"] ?: throw IllegalArgumentException("Couldn't find param")
