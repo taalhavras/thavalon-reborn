@@ -8,7 +8,7 @@ import Player from './Player'
 import DoNotOpen from './DoNotOpen.js';
 
 
-export const url = 'http://thavalon-api-qa.herokuapp.com';
+export const url = 'https://thavalon-api-qa.herokuapp.com';
 
 /**
  * Main component for the program, which holds the routing information.
