@@ -4,7 +4,6 @@ import righttrees from './assets/right-trees.svg';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from "./Home.js";
 import './styles/App.scss';
-import Game from './Game.js';
 import Player from './Player'
 import DoNotOpen from './DoNotOpen.js';
 
