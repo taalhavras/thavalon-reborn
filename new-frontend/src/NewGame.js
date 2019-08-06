@@ -15,7 +15,8 @@ class NewGame extends React.Component {
             redirect: null,
             error: '',
             customView: false
-        }
+        };
+        console.log(url + 'url');
     }
 
     /**
