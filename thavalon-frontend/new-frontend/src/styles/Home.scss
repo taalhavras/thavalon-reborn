@@ -60,28 +60,20 @@ $icon-size: 2.5rem;
 }
 
 .recent-games-list {
-  width: 100%;
+  width: 90vw;
   max-width: 600px;
   height: 30vh;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   padding: 0;
-  margin: 20px 0 0 0 ;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
   list-style: none;
-  border: 1px solid magenta;
 
   li {
-    border-radius: 5px;
-    background: white;
-    width: 85vw;
-    margin:5px auto;
-    z-index: 5;
-    height: 1em;
-    vertical-align: center;
     text-align: left;
-    display: block;
-    padding: 10px 10px 15px 10px;
+    margin: 5px auto;
 
     a {
       color: black;

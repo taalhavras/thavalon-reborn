@@ -49,7 +49,7 @@ class RecentGames extends Component {
                     count ++;
                     const link = "/" + ele;
                     return (
-                        <li>
+                        <li className={'block'}>
                         <Link key={count} className='game-link' to={{pathname: link}}>
                             Game {ele}
                         </Link>

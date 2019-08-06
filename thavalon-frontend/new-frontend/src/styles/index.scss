@@ -79,6 +79,20 @@ input {
 
 }
 
+.block {
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  width: 90vw;
+  max-width: 500px;
+  margin: auto;
+  box-sizing: border-box;
+  padding: 10px;
+  z-index: 18;
+  display: block;
+}
+
+
 .invalid-button {
   background-color: #97c7a4;
 }
