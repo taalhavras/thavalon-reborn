@@ -41,8 +41,6 @@ class JoinGame extends React.Component {
         };
 
 
-
-
     render() {
         const inputClass = this.state.valid ? 'valid' : 'invalid';
         const buttonClass = this.state.valid ? 'button-large' : 'button-large invalid-button';
