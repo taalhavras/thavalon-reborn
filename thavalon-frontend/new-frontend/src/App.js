@@ -6,6 +6,8 @@ import Home from "./Home.js";
 import './styles/App.scss';
 import Player from './Player'
 import DoNotOpen from './DoNotOpen.js';
+import Game from './Game'
+
 
 
 export const url = 'https://thavalon-api-qa.herokuapp.com';
