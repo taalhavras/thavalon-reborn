@@ -34,7 +34,8 @@ $player-font-size: 1.5rem;
   height: 70vh;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   li {
     font-family: Quicksand, sans-serif;
