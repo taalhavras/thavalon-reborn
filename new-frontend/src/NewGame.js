@@ -90,12 +90,13 @@ class NewGame extends React.Component {
                         placeholder={'Enter player names'}
                         type={'text'}
                         onChange={this.validateInputField}/>
-                    {this.state.valid ?
-                        <i className="material-icons validate-icon valid-icon">done_alt</i> :
-                        <i className="material-icons validate-icon invalid-icon">clear_alt</i>}
-                    </div>
-                    <button className={buttonClass} onClick={this.sendGamePost}>
-                        Start Game
+                        <div className="help-text">Enter 5, 7, 8 or 10 player names seperated by spaces </div>
+                        {this.state.valid ?
+                            <i className="material-icons validate-icon valid-icon">done_alt</i> :
+                            <i className="material-icons validate-icon invalid-icon">clear_alt</i>}
+                </div>
+                <button className={buttonClass} onClick={this.sendGamePost}>
+                    Start Game
                     </button>
                 </div>
             </div>
