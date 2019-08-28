@@ -7,6 +7,7 @@ import './styles/App.scss';
 import Player from './Player'
 import DoNotOpen from './DoNotOpen.js';
 import Game from './Game'
+import Rules from "./Rules";
 
 
 
@@ -22,25 +23,41 @@ export const url = 'https://thavalon-api-qa.herokuapp.com';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { rules: false }
   }
 
     /**
      * Routes the user to the correct component, storing information in the URL parameter
      * @returns {*}
      */
-  render() {
-    return (
-        <Router className={"App"}>
-            <Switch>
-                <Route exact path={"/"} component={Home}/>
-                <Route exact path={"/:id"} component={Game} />
-                <Route exact path={"/:id/donotopen"} component={DoNotOpen} />
-                <Route exact path={"/:id/:player"} component={Player} />
 
-            </Switch>
-          <img src={lefttrees} className={'background-img'} id={"background-left"} alt={"Some trees"} />
-          <img src={righttrees} className={'background-img'} id={"background-right"} alt={"Some trees"} />
-        </Router>
+    toggleRules = () => {
+        this.setState({ rules: !this.state.rules });
+    };
+
+    componentDidMount() {
+        /* wakes uo the api */
+        fetch(url, {
+            method: "GET"
+        }).catch(error => console.error(error));
+    }
+
+    render() {
+        return (
+            <Router className={"App"}>
+                { this.state.rules? <Rules close={this.toggleRules} /> : null }
+
+                    <Switch>
+                    <Route exact path={"/"} component={Home}/>
+                    <Route exact path={"/:id"} component={Game} />
+                    <Route exact path={"/:id/donotopen"} component={DoNotOpen} />
+                    <Route exact path={"/:id/:player"} component={Player} />
+
+                </Switch>
+                <button className={'rules-button'} onClick={this.toggleRules}> ? </button>
+              <img src={lefttrees} className={'background-img'} id={"background-left"} alt={"Some trees"} />
+              <img src={righttrees} className={'background-img'} id={"background-right"} alt={"Some trees"} />
+            </Router>
     );
   }
 }
