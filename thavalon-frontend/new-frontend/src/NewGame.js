@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect } from 'react-router-dom';
 import { url } from './App'
+import CustomRules from "./CustomRules";
 
 /**
  * Models the NewGame fields.

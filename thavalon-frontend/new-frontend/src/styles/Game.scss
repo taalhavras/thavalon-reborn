@@ -21,6 +21,10 @@ $player-font-size: 1.5rem;
     margin : 10px 0;
     padding: 0;
   }
+
+  height: 95vh;
+  overflow: scroll;
+
 }
 
 
@@ -122,3 +126,7 @@ $player-font-size: 1.5rem;
 }
 
 
+.DoNotOpen {
+  overflow: scroll;
+  height: 95vh;
+}
