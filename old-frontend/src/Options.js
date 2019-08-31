@@ -12,14 +12,13 @@ class Options extends Component {
     render() {
         let count = 0;
         return (
-            <div className={"options_wrapper"}>
+            <div className={"Options"}>
                 {this.props.display ?
-                    <div className={"options"}>
-                        <form className={"option_form"} onSubmit={(event) => this.props.submit(event)}>
+                        <form className={"options-form"} onSubmit={(event) => this.props.submit(event)}>
                         <div className={"checks"}>
                             {this.props.options.map(function (element) {
                                 count++;
-                                return (<div key={count} className={"option_ele"}>
+                                return (<div key={count} className={"option-ele"}>
                                     <label className="label">
                                         <input className={"check slider"} type={"checkbox"} name={element.key} defaultChecked={element.value}/>
                                         {element.key}
@@ -27,8 +26,8 @@ class Options extends Component {
                                 </div>);
                             })}
                         </div>
-                        <input className={"options_submit"} type={"submit"} value={"Done"}/>
-                    </form>  </div>
+                        <input className={"options-submit"} type={"submit"} value={"Done"}/>
+                    </form>
                     : null
                 }
 

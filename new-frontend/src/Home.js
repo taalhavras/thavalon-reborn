@@ -8,8 +8,11 @@ class Home extends React.Component {
         super(props);
         this.base =
             <div className={"home-buttons"}>
-                <button className={"button-large"} onClick={this.newGame}> New Game</button>
-                <button className={"button-large"}  onClick={this.joinGame} >Join Game</button>
+                <button className={"button-large"} onClick={() => this.setComponent(<NewGame back={this.goHome}
+                                                                                             setComponent={this.setComponent}
+
+                />)}> New Game</button>
+                <button className={"button-large"}  onClick={() => this.setComponent(<JoinGame back={this.goHome}/>)} >Join Game</button>
              </div>;
         this.state = {
             currComponent: this.base
@@ -17,8 +20,8 @@ class Home extends React.Component {
 
     }
     goHome = () => this.setState({currComponent: this.base});
-    newGame = () => this.setState({currComponent: <NewGame back={this.goHome}/>});
-    joinGame = () => this.setState({currComponent: <JoinGame back={this.goHome}/>});
+    setComponent = (component) => this.setState({currComponent: component});
+
 
     render() {
         return (
