@@ -1,9 +1,24 @@
 # thavalon-reborn
 A rewrite of the THAvalon backend in Kotlin!
 
-## How to build/run
-Requires jdk 1.8 or higher to build. Run `./build_react.sh` to build the frontend code, `./compile.sh` to build an executable jar
-in `build/libs`, and `./run.sh` to start a local webserver on port 4444.
+Includes a frontend written in React. 
+
+## Project Structure
+This project is designed to be run as a public api, and a disjoint frontend, which communicate through REST endpoints.
+The api is located in the thavalon-api directory, and the default frontend is located in thavalon-frontend.
+
+Heroku is used for project deployment, which means that to deploy the two projects to different urls, different git repositories must exist for each service. To accomplish this while maintaining the usability of a single repo, a git subtree structure is used. 
+
+Two different complete environments are availiable: a staging environment located at qa.thavalon.com and qa.api.thavalon.com,
+and a production environment located at thavalon.com and api.thavalon.com. 
+
+To push to the subtrees for deployment, use ``push.py``, located in the scripts directory.
+
+First push all changes to this repo.
+Then,run:
+
+``source venv/bin/activate`` to activate the python3 virtual environment.
+then run ``python push.py [--deploy] [--production] [--section]>``
 
 ## How the backend works
 All roles inherit from the base class Role (defined in Role.kt). Each role has a collection of information about the gamestate
