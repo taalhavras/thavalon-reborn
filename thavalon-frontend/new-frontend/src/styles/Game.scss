@@ -1,10 +1,9 @@
 @import 'index.scss';
 $player-font-size: 1.5rem;
 
-
 .Game,
 .Player {
-  display: flgix;
+  display: flex;
   flex-direction: column;
   font-family: Quicksand, sans-serif;
 
