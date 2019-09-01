@@ -4,11 +4,12 @@ $player-font-size: 1.5rem;
 
 .Game,
 .Player {
-  display: flex;
+  display: flgix;
   flex-direction: column;
   font-family: Quicksand, sans-serif;
 
   h1 {
+    font-size: 3rem;
     margin: 30px auto 0 auto;
   }
 
@@ -24,6 +25,10 @@ $player-font-size: 1.5rem;
 
   height: 95vh;
   overflow: scroll;
+
+  a {
+    width: 100%;
+  }
 
 }
 
@@ -89,6 +94,10 @@ $player-font-size: 1.5rem;
   padding-left: 20px;
 
 
+}
+
+.info {
+  margin: 0 auto;
 }
 .role {
   margin: 30px auto 10px auto;
