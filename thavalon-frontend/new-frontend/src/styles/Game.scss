@@ -31,6 +31,19 @@ $player-font-size: 1.5rem;
 
 }
 
+.EndGame {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+}
+
+
+.EndGame button {
+  margin: 20px auto;
+
+}
 
 
 
