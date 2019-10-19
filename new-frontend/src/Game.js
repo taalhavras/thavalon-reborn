@@ -2,6 +2,7 @@ import React from "react";
 import './styles/Game.scss'
 import { url } from './App'
 import { Link } from 'react-router-dom'
+import EndGame from "./EndGame";
 
 /**
  * Models the Game info.
@@ -12,7 +13,9 @@ class Game extends React.Component {
         super(props);
         this.state = {
             game: [],
-            start: ''
+            start: '',
+            end: false
+
         }
 
     }
@@ -49,7 +52,7 @@ class Game extends React.Component {
 
     render() {
         return (
-            <div className={"Game"}>
+             this.state.end ? <EndGame names={this.state.players}/> : <div className={"Game"}>
                 <h1> Game {this.props.match.params.id} </h1>
                 <div className={'start block'}>
                     <span className={'game-indent'}> Starting Player: <span className={'bold'}> {this.state.start} </span>
@@ -70,10 +73,18 @@ class Game extends React.Component {
                                 <span className={'red'}> Do Not Open </span>
                             </Link>
                         </li>
+
+                        <button className={"button-large"} onClick={() => this.setState({end: true})}>
+                            End Game
+                        </button>
+
                     </ul>
+
+
                 </div>
 
-            </div>
+
+             </div>
         )
     }
 
