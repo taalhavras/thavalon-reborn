@@ -27,7 +27,7 @@ class NewGame extends React.Component {
     validateInputField = (event) => {
         console.log(event.target.value);
         const val = event.target.value;
-        const regex = /^([\w\d]+)\s+([\w\d]+)\s+([\w\d]+)\s+([\w\d]+)\s+([\w\d]+)\s*([\w\d]+)?\s*([\w\d]+)?\s*([\w\d]+)?\s*([\w\d]+)?\s*$/;
+        const regex = /^([\w\d]+)\s+([\w\d]+)\s+([\w\d]+)\s+([\w\d]+)\s+([\w\d]+)\s*([\w\d]+)?\s*([\w\d]+)?\s*([\w\d]+)?\s*([\w\d]+)?\s*([\w\d]+)?\s*([\w\d]+)?\s*$/;
         const match = regex.exec(val);
         console.log(val);
         if (match) {
